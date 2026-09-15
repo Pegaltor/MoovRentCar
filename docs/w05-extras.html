@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F7F9;font-family:Figtree,"Helvetica Neue",Helvetica,sans-serif;color:#10161C;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+*{box-sizing:border-box}
+a{color:#0079B0;text-decoration:none}
+a:hover{color:#005D87;text-decoration:underline}
+summary{cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+details[open] .chev{transform:rotate(45deg)}
+input,select,button{font-family:inherit}
+</style>
+</helmet>
+
+<div style="width:100%;max-width:100%;overflow-x:hidden;min-height:100vh">
+
+<header style="background:#fff;border-bottom:1px solid #E4E8EC">
+<div style="max-width:1200px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+<a href="w01-inicio.html" style="flex:none;display:flex;align-items:center"><img src="moov-logo.png" alt="Moov rent a car" style="height:30px;width:auto;display:block"></a>
+<span style="flex:1"></span>
+<div style="display:flex;align-items:center;gap:14px;flex:none">
+<div role="group" aria-label="Idioma" style="display:flex;gap:2px;padding:2px;background:#F0F3F5;border-radius:8px">
+<button type="button" onClick="{{ setEs }}" style="{{ langEs }}">ES</button>
+<button type="button" onClick="{{ setEn }}" style="{{ langEn }}">EN</button>
+<button type="button" onClick="{{ setDe }}" style="{{ langDe }}">DE</button>
+<button type="button" onClick="{{ setFr }}" style="{{ langFr }}">FR</button>
+</div>
+<span style="font-size:13.5px;font-weight:600;color:#4A5560">{{ t.helpPhone }}</span>
+</div>
+</div>
+</header>
+
+<div style="background:#fff;border-bottom:1px solid #E4E8EC">
+<div style="max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;gap:10px 22px;flex-wrap:wrap;align-items:center">
+<a href="w02-resultados.html" style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:#0079B0">{{ t.step1 }}</a>
+<span aria-hidden="true" style="flex:none;width:18px;height:1px;background:#CDD5DB"></span>
+<a href="w04-seleccion-de-pack.html" style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#0079B0"><span style="font-size:15px">←</span>{{ t.step2 }}</a>
+<span aria-hidden="true" style="flex:none;width:18px;height:1px;background:#CDD5DB"></span>
+<span style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:800;color:#10161C"><span style="flex:none;width:22px;height:22px;border-radius:50%;background:#009FE3;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">3</span>{{ t.step3 }}</span>
+<span aria-hidden="true" style="flex:none;width:18px;height:1px;background:#CDD5DB"></span>
+<span style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:#8D98A3"><span style="flex:none;width:22px;height:22px;border-radius:50%;border:1px solid #CDD5DB;font-size:12px;display:flex;align-items:center;justify-content:center">4</span>{{ t.step4 }}</span>
+<span aria-hidden="true" style="flex:none;width:18px;height:1px;background:#CDD5DB"></span>
+<span style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:#8D98A3"><span style="flex:none;width:22px;height:22px;border-radius:50%;border:1px solid #CDD5DB;font-size:12px;display:flex;align-items:center;justify-content:center">5</span>{{ t.step5 }}</span>
+</div>
+</div>
+
+<main style="max-width:1200px;margin:0 auto;padding:24px 20px 140px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+
+<div style="flex:3 1 520px;min-width:0;display:flex;flex-direction:column;gap:18px">
+
+<div>
+<h1 style="margin:0;font-size:clamp(23px,3vw,31px);font-weight:800;letter-spacing:-.018em">{{ t.title }}</h1>
+<p style="margin:10px 0 0;font-size:15.5px;line-height:1.55;color:#4A5560;max-width:62ch">{{ t.intro }}</p>
+</div>
+
+<sc-for list="{{ extras }}" as="x" hint-placeholder-count="5">
+<article style="{{ x.cardStyle }}">
+<div style="flex:none;width:96px;height:72px;border-radius:9px;background:repeating-linear-gradient(135deg,#DFE6EA 0 8px,#E9EEF1 8px 16px);display:flex;align-items:flex-end;padding:6px">
+<span style="font:500 9.5px/1 ui-monospace,Menlo,monospace;color:#4A5560;background:rgba(255,255,255,.86);padding:3px 5px;border-radius:3px">{{ x.photo }}</span>
+</div>
+<div style="flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:7px">
+<div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap">
+<h2 style="margin:0;font-size:17.5px;font-weight:700">{{ x.name }}</h2>
+<sc-if value="{{ x.qty }}" hint-placeholder-val="{{ false }}">
+<span style="font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#0B983A;background:#E8F6EC;padding:4px 8px;border-radius:5px">{{ t.added }}</span>
+</sc-if>
+</div>
+<p style="margin:0;font-size:14.5px;line-height:1.5;color:#4A5560;max-width:60ch">{{ x.desc }}</p>
+<p style="margin:0;font-size:13px;color:#6B7580;font-weight:600">{{ x.limitLabel }}</p>
+</div>
+<div style="flex:1 1 200px;min-width:0;display:flex;flex-direction:column;gap:10px;align-items:flex-end">
+<div style="text-align:right">
+<p style="margin:0;font-size:19px;font-weight:800;letter-spacing:-.02em">{{ x.priceLabel }}</p>
+<p style="margin:2px 0 0;font-size:13px;color:#6B7580;font-weight:600">{{ x.unitLabel }}</p>
+</div>
+<div style="display:flex;align-items:center;gap:10px">
+<button type="button" onClick="{{ x.dec }}" aria-label="{{ t.remove }}" style="{{ x.decStyle }}">−</button>
+<span aria-live="polite" style="min-width:26px;text-align:center;font-size:17px;font-weight:800">{{ x.qty }}</span>
+<button type="button" onClick="{{ x.inc }}" aria-label="{{ t.add }}" style="{{ x.incStyle }}">+</button>
+</div>
+<sc-if value="{{ x.maxReached }}" hint-placeholder-val="{{ false }}">
+<p style="margin:0;font-size:12.5px;font-weight:700;color:#A8450F;background:#FDF0E7;border:1px solid #F5D9C4;padding:5px 9px;border-radius:6px;text-align:right">{{ x.maxNote }}</p>
+</sc-if>
+<sc-if value="{{ x.lineLabel }}" hint-placeholder-val="{{ false }}">
+<p style="margin:0;font-size:13.5px;font-weight:700;color:#4A5560;text-align:right">{{ x.lineLabel }}</p>
+</sc-if>
+</div>
+</article>
+</sc-for>
+
+<details style="background:#fff;border:1px solid #E4E8EC;border-radius:14px">
+<summary style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 20px;font-size:15.5px;font-weight:700"><span>{{ t.calcTitle }}</span><span class="chev" style="flex:none;font-size:20px;color:#009FE3;font-weight:400;transition:transform .18s ease">+</span></summary>
+<div style="padding:0 20px 20px;font-size:14.5px;line-height:1.6;color:#4A5560;max-width:72ch;display:flex;flex-direction:column;gap:10px">
+<p style="margin:0">{{ t.calc1 }}</p>
+<p style="margin:0">{{ t.calc2 }}</p>
+<p style="margin:0">{{ t.calc3 }}</p>
+</div>
+</details>
+
+</div>
+
+<aside style="flex:1 1 300px;min-width:0;position:sticky;top:18px;background:#fff;border:1px solid #E4E8EC;border-radius:16px;overflow:hidden">
+<div style="padding:16px 18px;border-bottom:1px solid #EEF1F3;display:flex;gap:14px;align-items:center">
+<div style="flex:none;width:76px;height:54px;border-radius:8px;background:repeating-linear-gradient(135deg,#DFE6EA 0 8px,#E9EEF1 8px 16px)"></div>
+<div style="min-width:0"><p style="margin:0;font-size:11.5px;font-weight:800;letter-spacing:.06em;color:#6B7580;text-transform:uppercase">GRUPO C</p><h2 style="margin:3px 0 0;font-size:17px;font-weight:800">Económico</h2><p style="margin:2px 0 0;font-size:13px;color:#6B7580">Seat Ibiza <em style="font-style:normal;font-weight:700;color:#10161C">{{ t.orSimilar }}</em></p></div>
+</div>
+<dl style="margin:0;padding:15px 18px;border-bottom:1px solid #EEF1F3;display:grid;grid-template-columns:auto 1fr;gap:9px 12px;font-size:13.5px">
+<dt style="color:#6B7580;font-weight:600">{{ t.sPickup }}</dt><dd style="margin:0;font-weight:700;text-align:right">11 jul · 10:00</dd>
+<dt style="color:#6B7580;font-weight:600">{{ t.sDropoff }}</dt><dd style="margin:0;font-weight:700;text-align:right">18 jul · 10:00</dd>
+<dt style="color:#6B7580;font-weight:600">{{ t.sPlace }}</dt><dd style="margin:0;font-weight:700;text-align:right">Aeropuerto PMI</dd>
+</dl>
+<div style="padding:15px 18px;display:flex;flex-direction:column;gap:10px;font-size:14px">
+<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A5560;font-weight:600">{{ t.sBase }}</span><strong style="font-weight:700">217 €</strong></div>
+<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A5560;font-weight:600">Pack Green</span><strong style="font-weight:700">{{ t.included }}</strong></div>
+<sc-if value="{{ hasExtras }}" hint-placeholder-val="{{ true }}">
+<div style="border-top:1px solid #EEF1F3;padding-top:10px;display:flex;flex-direction:column;gap:9px">
+<p style="margin:0;font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#6B7580">{{ t.sExtras }}</p>
+<sc-for list="{{ lines }}" as="l" hint-placeholder-count="2">
+<div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start">
+<span style="color:#4A5560;font-weight:600;min-width:0">{{ l.label }}</span>
+<strong style="font-weight:700;white-space:nowrap">{{ l.amount }}</strong>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ noExtras }}" hint-placeholder-val="{{ false }}">
+<p style="margin:0;font-size:13.5px;color:#6B7580;border-top:1px solid #EEF1F3;padding-top:10px">{{ t.noExtrasNote }}</p>
+</sc-if>
+</div>
+<div style="padding:0 18px 16px">
+<div style="border-top:1px solid #EEF1F3;padding-top:14px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+<div><p style="margin:0;font-size:12.5px;font-weight:700;color:#6B7580;text-transform:uppercase;letter-spacing:.04em">{{ t.sTotal }}</p><p style="margin:2px 0 0;font-size:13px;color:#6B7580">{{ t.taxesIncl }}</p></div>
+<p style="margin:0;font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1">{{ total }}</p>
+</div>
+<button type="button" onClick="{{ goData }}" style="margin-top:14px;width:100%;border:0;border-radius:11px;background:#009FE3;color:#fff;font-size:16.5px;font-weight:700;padding:15px 18px;cursor:pointer;min-height:50px;box-shadow:0 2px 0 #0079B0" style-hover="background:#0093D2" style-active="box-shadow:none;transform:translateY(1px)">{{ continueLabel }}</button>
+<p style="margin:12px 0 0;font-size:12.5px;line-height:1.5;color:#6B7580">{{ t.summaryNote }}</p>
+</div>
+</aside>
+
+</main>
+
+<sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;left:0;right:0;bottom:0;z-index:70;background:#fff;border-top:1px solid #E4E8EC;box-shadow:0 -6px 22px rgba(16,22,28,.12);padding:11px 16px 13px;display:flex;align-items:center;gap:14px">
+<div style="min-width:0;flex:1">
+<p style="margin:0;font-size:12px;font-weight:700;color:#6B7580;text-transform:uppercase;letter-spacing:.04em">{{ extrasCountLabel }} · {{ t.sTotal }}</p>
+<p style="margin:2px 0 0;font-size:24px;font-weight:800;letter-spacing:-.025em;line-height:1.05">{{ total }}</p>
+</div>
+<button type="button" onClick="{{ goData }}" style="flex:none;border:0;border-radius:11px;background:#009FE3;color:#fff;font-size:15.5px;font-weight:700;padding:14px 18px;cursor:pointer;min-height:48px;box-shadow:0 2px 0 #0079B0">{{ t.continueShort }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:80;max-width:min(560px,calc(100vw - 32px));background:#10161C;color:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 14px 40px rgba(16,22,28,.3);display:flex;gap:14px;align-items:flex-start">
+<span style="flex:none;width:8px;height:8px;border-radius:50%;background:#0B983A;margin-top:7px"></span>
+<p style="margin:0;font-size:14.5px;line-height:1.45">{{ toast }}</p>
+<button type="button" onClick="{{ closeToast }}" style="flex:none;border:0;background:transparent;color:#fff;font-size:18px;line-height:1;cursor:pointer;padding:2px 4px" aria-label="Cerrar">×</button>
+</div>
+</sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:960}}">
+const DICT = {
+  es:{helpPhone:"Ayuda +34 971 000 000",
+    step1:"Vehículo",step2:"Cobertura",step3:"Extras",step4:"Datos",step5:"Pago",
+    title:"¿Quieres añadir algún extra?",
+    intro:"Todo es opcional: puedes continuar sin extras y añadirlos más tarde desde Mi reserva, sujeto a disponibilidad.",
+    added:"Añadido",add:"Añadir una unidad",remove:"Quitar una unidad",
+    perDay:"por día",perUnit:"por unidad",maxDays:"máx. 10 días facturables",
+    maxOf:"Máximo",units:"unidades",maxNote:"Máximo alcanzado",
+    calcTitle:"Cómo calculamos el precio de los extras",
+    calc1:"Los extras por día se facturan por cada día de alquiler, con un tope de 10 días: en un alquiler de 15 días pagas como máximo 10.",
+    calc2:"Los extras por unidad se cobran una sola vez, independientemente de la duración.",
+    calc3:"El número máximo de sillas y elevadores depende de las plazas del grupo reservado. Si necesitas más, escríbenos y lo confirmamos.",
+    orSimilar:"o similar",
+    sPickup:"Recogida",sDropoff:"Devolución",sPlace:"Oficina",
+    sBase:"Alquiler 7 días",included:"Incluido",sExtras:"Extras seleccionados",
+    noExtrasNote:"Sin extras seleccionados. Puedes continuar así.",
+    sTotal:"Total",taxesIncl:"Impuestos incluidos",
+    continueWith:"Continuar con datos",continueWithout:"Continuar sin extras",continueShort:"Continuar",
+    summaryNote:"Todavía no se cobra nada. El pago se realiza en el último paso.",
+    extrasNone:"Sin extras",extrasOne:"1 extra",extrasMany:"extras"},
+  en:{helpPhone:"Help +34 971 000 000",
+    step1:"Car",step2:"Cover",step3:"Extras",step4:"Details",step5:"Payment",
+    title:"Would you like to add any extras?",
+    intro:"Everything is optional: you can continue without extras and add them later from My booking, subject to availability.",
+    added:"Added",add:"Add one",remove:"Remove one",
+    perDay:"per day",perUnit:"per unit",maxDays:"max. 10 chargeable days",
+    maxOf:"Maximum",units:"units",maxNote:"Maximum reached",
+    calcTitle:"How we calculate extras",
+    calc1:"Per-day extras are charged for each rental day, capped at 10 days: on a 15-day rental you pay for 10 at most.",
+    calc2:"Per-unit extras are charged once, regardless of the rental length.",
+    calc3:"The maximum number of seats and boosters depends on the seats in the booked group. If you need more, write to us and we will confirm.",
+    orSimilar:"or similar",
+    sPickup:"Pick-up",sDropoff:"Drop-off",sPlace:"Office",
+    sBase:"7-day rental",included:"Included",sExtras:"Selected extras",
+    noExtrasNote:"No extras selected. You can continue like this.",
+    sTotal:"Total",taxesIncl:"Taxes included",
+    continueWith:"Continue to details",continueWithout:"Continue without extras",continueShort:"Continue",
+    summaryNote:"Nothing is charged yet. Payment happens in the last step.",
+    extrasNone:"No extras",extrasOne:"1 extra",extrasMany:"extras"},
+  de:{helpPhone:"Hilfe +34 971 000 000",
+    step1:"Fahrzeug",step2:"Versicherung",step3:"Extras",step4:"Daten",step5:"Zahlung",
+    title:"Möchten Sie Extras hinzufügen?",
+    intro:"Alles ist optional: Sie können ohne Extras fortfahren und sie später in Meine Buchung ergänzen, je nach Verfügbarkeit.",
+    added:"Hinzugefügt",add:"Eine Einheit hinzufügen",remove:"Eine Einheit entfernen",
+    perDay:"pro Tag",perUnit:"pro Stück",maxDays:"max. 10 berechnete Tage",
+    maxOf:"Maximal",units:"Einheiten",maxNote:"Maximum erreicht",
+    calcTitle:"So berechnen wir die Extras",
+    calc1:"Extras pro Tag werden für jeden Miettag berechnet, begrenzt auf 10 Tage: bei 15 Tagen zahlen Sie höchstens 10.",
+    calc2:"Extras pro Stück werden einmalig berechnet, unabhängig von der Mietdauer.",
+    calc3:"Die maximale Anzahl an Kindersitzen hängt von den Sitzplätzen der gebuchten Gruppe ab. Wenn Sie mehr benötigen, schreiben Sie uns.",
+    orSimilar:"oder ähnlich",
+    sPickup:"Abholung",sDropoff:"Rückgabe",sPlace:"Station",
+    sBase:"Miete 7 Tage",included:"Inklusive",sExtras:"Gewählte Extras",
+    noExtrasNote:"Keine Extras gewählt. Sie können so fortfahren.",
+    sTotal:"Gesamt",taxesIncl:"inkl. Steuern",
+    continueWith:"Weiter zu den Daten",continueWithout:"Ohne Extras fortfahren",continueShort:"Weiter",
+    summaryNote:"Es wird noch nichts abgebucht. Die Zahlung erfolgt im letzten Schritt.",
+    extrasNone:"Keine Extras",extrasOne:"1 Extra",extrasMany:"Extras"},
+  fr:{helpPhone:"Aide +34 971 000 000",
+    step1:"Véhicule",step2:"Couverture",step3:"Options",step4:"Coordonnées",step5:"Paiement",
+    title:"Souhaitez-vous ajouter des options ?",
+    intro:"Tout est optionnel : vous pouvez continuer sans options et les ajouter plus tard depuis Ma réservation, selon disponibilité.",
+    added:"Ajouté",add:"Ajouter une unité",remove:"Retirer une unité",
+    perDay:"par jour",perUnit:"par unité",maxDays:"max. 10 jours facturés",
+    maxOf:"Maximum",units:"unités",maxNote:"Maximum atteint",
+    calcTitle:"Comment nous calculons les options",
+    calc1:"Les options par jour sont facturées pour chaque jour de location, plafonnées à 10 jours : sur 15 jours, vous payez 10 au maximum.",
+    calc2:"Les options par unité sont facturées une seule fois, quelle que soit la durée.",
+    calc3:"Le nombre maximum de sièges enfant dépend des places du groupe réservé. Si vous en avez besoin de plus, écrivez-nous.",
+    orSimilar:"ou similaire",
+    sPickup:"Prise en charge",sDropoff:"Restitution",sPlace:"Agence",
+    sBase:"Location 7 jours",included:"Inclus",sExtras:"Options sélectionnées",
+    noExtrasNote:"Aucune option sélectionnée. Vous pouvez continuer ainsi.",
+    sTotal:"Total",taxesIncl:"Taxes incluses",
+    continueWith:"Continuer vers les coordonnées",continueWithout:"Continuer sans options",continueShort:"Continuer",
+    summaryNote:"Rien n'est débité pour le moment. Le paiement a lieu à la dernière étape.",
+    extrasNone:"Aucune option",extrasOne:"1 option",extrasMany:"options"}
+};
+
+const NAMES = {
+  baby:{es:"Silla de bebé (0–13 kg)",en:"Baby seat (0–13 kg)",de:"Babyschale (0–13 kg)",fr:"Siège bébé (0–13 kg)"},
+  child:{es:"Silla infantil (9–18 kg)",en:"Child seat (9–18 kg)",de:"Kindersitz (9–18 kg)",fr:"Siège enfant (9–18 kg)"},
+  booster:{es:"Elevador (15–36 kg)",en:"Booster seat (15–36 kg)",de:"Sitzerhöhung (15–36 kg)",fr:"Rehausseur (15–36 kg)"},
+  driver:{es:"Conductor adicional",en:"Additional driver",de:"Zusätzlicher Fahrer",fr:"Conducteur supplémentaire"},
+  wifi:{es:"Wifi portátil 4G",en:"Portable 4G wifi",de:"Mobiles 4G-WLAN",fr:"Wifi portable 4G"},
+  cross:{es:"Traslado entre oficinas",en:"One-way transfer",de:"Einwegmiete zwischen Stationen",fr:"Transfert entre agences"}
+};
+const DESCS = {
+  baby:{es:"Homologada i-Size. La instalamos en la oficina si lo necesitas.",en:"i-Size approved. We can fit it at the office if you need.",de:"i-Size zugelassen. Wir bauen sie auf Wunsch in der Station ein.",fr:"Homologué i-Size. Nous l'installons en agence si besoin."},
+  child:{es:"Grupo 1 con arnés de cinco puntos.",en:"Group 1 with a five-point harness.",de:"Gruppe 1 mit Fünfpunktgurt.",fr:"Groupe 1 avec harnais cinq points."},
+  booster:{es:"Alzador con respaldo, obligatorio hasta 135 cm.",en:"Booster with backrest, required up to 135 cm.",de:"Sitzerhöhung mit Rückenlehne, Pflicht bis 135 cm.",fr:"Rehausseur avec dossier, obligatoire jusqu'à 135 cm."},
+  driver:{es:"Añade a otra persona al contrato. Debe presentar su permiso al recoger.",en:"Adds another person to the contract. They must show their licence at pick-up.",de:"Fügt eine weitere Person zum Vertrag hinzu. Führerschein bei Abholung vorlegen.",fr:"Ajoute une autre personne au contrat. Permis à présenter au départ."},
+  wifi:{es:"Router con datos ilimitados en Mallorca, hasta 5 dispositivos.",en:"Router with unlimited data in Mallorca, up to 5 devices.",de:"Router mit unbegrenzten Daten auf Mallorca, bis zu 5 Geräte.",fr:"Routeur avec data illimitée à Majorque, jusqu'à 5 appareils."},
+  cross:{es:"Recoger y devolver en oficinas distintas de la isla.",en:"Pick up and return at different offices on the island.",de:"Abholung und Rückgabe an unterschiedlichen Stationen der Insel.",fr:"Prise en charge et restitution dans des agences différentes."}
+};
+
+const EXTRAS = [
+  {id:"baby", price:6, unit:"day", max:2, cap:10, photo:"silla bebé · 300×220"},
+  {id:"child", price:6, unit:"day", max:2, cap:10, photo:"silla infantil · 300×220"},
+  {id:"booster", price:3.5, unit:"day", max:3, cap:10, photo:"elevador · 300×220"},
+  {id:"driver", price:9, unit:"day", max:2, cap:10, photo:"conductor · 300×220"},
+  {id:"wifi", price:7, unit:"day", max:1, cap:10, photo:"router wifi · 300×220"},
+  {id:"cross", price:35, unit:"unit", max:1, cap:0, photo:"oficinas · 300×220"}
+];
+
+const DAYS = 7, BASE = 217;
+
+function money(n){
+  const r = Math.round(n * 100) / 100;
+  return (Number.isInteger(r) ? r : r.toFixed(2).replace(".", ",")) + " €";
+}
+
+class Component extends DCLogic {
+  state = {lang:"es", qty:{}, toast:null, narrow:false};
+
+  componentDidMount(){
+    this._onResize = () => {
+      const n = window.innerWidth < 860;
+      if (n !== this.state.narrow) this.setState({narrow:n});
+    };
+    this._onResize();
+    window.addEventListener("resize", this._onResize);
+  }
+  componentWillUnmount(){ window.removeEventListener("resize", this._onResize); clearTimeout(this._tm); }
+
+  toast(msg){ this.setState({toast:msg}); clearTimeout(this._tm); this._tm=setTimeout(()=>this.setState({toast:null}),6000); }
+
+  langBtn(code){
+    const on = this.state.lang===code;
+    return "border:0;border-radius:6px;padding:6px 9px;font-size:12.5px;font-weight:700;cursor:pointer;min-width:34px;" +
+      (on?"background:#fff;color:#10161C;box-shadow:0 1px 2px rgba(16,22,28,.16)":"background:transparent;color:#4A5560");
+  }
+  step(enabled, tone){
+    return "flex:none;width:44px;height:44px;border-radius:10px;font-size:22px;font-weight:700;cursor:" +
+      (enabled ? "pointer" : "not-allowed") + ";display:flex;align-items:center;justify-content:center;" +
+      (enabled
+        ? "border:1px solid " + (tone === "add" ? "#009FE3" : "#CDD5DB") + ";background:#fff;color:" + (tone === "add" ? "#0079B0" : "#10161C")
+        : "border:1px solid #E4E8EC;background:#F5F7F9;color:#B4BDC5");
+  }
+  setQty(id, v){
+    const qty = Object.assign({}, this.state.qty);
+    if (v <= 0) delete qty[id]; else qty[id] = v;
+    this.setState({qty});
+  }
+  lineAmount(x, q){
+    const billable = x.unit === "day" ? Math.min(DAYS, x.cap) : 1;
+    return x.price * billable * q;
+  }
+
+  renderVals(){
+    const lang = this.state.lang, t = DICT[lang], qtyMap = this.state.qty;
+
+    const extras = EXTRAS.map(x => {
+      const q = qtyMap[x.id] || 0;
+      const billable = x.unit === "day" ? Math.min(DAYS, x.cap) : 1;
+      const maxReached = q >= x.max;
+      return {
+        name: NAMES[x.id][lang],
+        desc: DESCS[x.id][lang],
+        photo: x.photo,
+        qty: q,
+        priceLabel: money(x.price),
+        unitLabel: (x.unit === "day" ? t.perDay + " · " + t.maxDays : t.perUnit),
+        limitLabel: t.maxOf + " " + x.max + " " + t.units,
+        lineLabel: q > 0 ? q + " × " + billable + (x.unit === "day" ? " d" : "") + " = " + money(this.lineAmount(x, q)) : null,
+        maxReached,
+        maxNote: t.maxNote + " (" + x.max + ")",
+        cardStyle: "background:#fff;border-radius:14px;padding:16px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;" +
+          (q > 0 ? "border:2px solid #009FE3;box-shadow:0 8px 22px rgba(16,22,28,.07)" : "border:1px solid #E4E8EC"),
+        decStyle: this.step(q > 0, "remove"),
+        incStyle: this.step(!maxReached, "add"),
+        dec: () => this.setQty(x.id, q - 1),
+        inc: () => { if (q < x.max) this.setQty(x.id, q + 1); }
+      };
+    });
+
+    const chosen = EXTRAS.filter(x => (qtyMap[x.id] || 0) > 0);
+    const lines = chosen.map(x => ({
+      label: (qtyMap[x.id] > 1 ? qtyMap[x.id] + " × " : "") + NAMES[x.id][lang],
+      amount: money(this.lineAmount(x, qtyMap[x.id]))
+    }));
+    const extrasTotal = chosen.reduce((s, x) => s + this.lineAmount(x, qtyMap[x.id]), 0);
+    const count = chosen.reduce((s, x) => s + qtyMap[x.id], 0);
+
+    return {
+      t, extras, lines,
+      hasExtras: chosen.length > 0,
+      noExtras: chosen.length === 0,
+      total: money(BASE + extrasTotal),
+      continueLabel: chosen.length === 0 ? t.continueWithout : t.continueWith,
+      extrasCountLabel: count === 0 ? t.extrasNone : (count === 1 ? t.extrasOne : count + " " + t.extrasMany),
+      narrow: this.state.narrow,
+      toast: this.state.toast,
+      langEs:this.langBtn("es"),langEn:this.langBtn("en"),langDe:this.langBtn("de"),langFr:this.langBtn("fr"),
+      setEs:()=>this.setState({lang:"es"}),setEn:()=>this.setState({lang:"en"}),
+      setDe:()=>this.setState({lang:"de"}),setFr:()=>this.setState({lang:"fr"}),
+      goData:()=>this.toast("Siguiente pantalla: W06 Datos de reserva. Aún no prototipada."),
+      closeToast:()=>this.setState({toast:null})
+    };
+  }
+}
+
+</script>
+</body>
+</html>

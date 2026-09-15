@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#fff;font-family:Figtree,"Helvetica Neue",Helvetica,sans-serif;color:#10161C;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+*{box-sizing:border-box}
+a{color:#0079B0;text-decoration:none}
+a:hover{color:#005D87;text-decoration:underline}
+summary{cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+details[open] .faq-plus{transform:rotate(45deg)}
+input,select,button{font-family:inherit}
+</style>
+</helmet>
+
+<div style="width:100%;max-width:100%;overflow-x:hidden">
+
+<sc-if value="{{ promoBar }}" hint-placeholder-val="{{ true }}">
+<div style="background:#10161C;color:#fff;font-size:13px;line-height:1.4;padding:9px 20px;display:flex;justify-content:center;gap:10px;align-items:center;flex-wrap:wrap;text-align:center">
+<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#0B983A"></span>
+<span>Reserva sin tarjeta y cancela gratis hasta 48 h antes · Código <strong style="font-weight:700;letter-spacing:.04em">MALLORCA10</strong></span>
+</div>
+</sc-if>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #E4E8EC">
+<div style="max-width:1200px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:24px">
+<a href="#inicio" style="flex:none;display:flex;align-items:center"><img src="moov-logo.png" alt="Moov rent a car" style="height:30px;width:auto;display:block"></a>
+<nav style="display:flex;gap:22px;align-items:center;margin-left:8px;flex:1;min-width:0;font-size:14.5px;font-weight:500">
+<a href="#categorias" style="color:#10161C;text-decoration:none">{{ t.navCars }}</a>
+<a href="#ubicaciones" style="color:#10161C;text-decoration:none">{{ t.navLocations }}</a>
+<a href="#packs" style="color:#10161C;text-decoration:none">{{ t.navPacks }}</a>
+<a href="#faq" style="color:#10161C;text-decoration:none">{{ t.navHelp }}</a>
+</nav>
+<div style="display:flex;align-items:center;gap:14px;flex:none">
+<div role="group" aria-label="Idioma" style="display:flex;gap:2px;padding:2px;background:#F0F3F5;border-radius:8px">
+<button type="button" onClick="{{ setEs }}" style="{{ langEs }}">ES</button>
+<button type="button" onClick="{{ setEn }}" style="{{ langEn }}">EN</button>
+<button type="button" onClick="{{ setDe }}" style="{{ langDe }}">DE</button>
+<button type="button" onClick="{{ setFr }}" style="{{ langFr }}">FR</button>
+</div>
+<button type="button" onClick="{{ goMyBooking }}" style="border:1px solid #CDD5DB;background:#fff;color:#10161C;font-size:14px;font-weight:600;padding:9px 15px;border-radius:9px;cursor:pointer;white-space:nowrap" style-hover="border-color:#009FE3;color:#0079B0">{{ t.myBooking }}</button>
+</div>
+</div>
+<sc-if value="{{ showTranslationNote }}" hint-placeholder-val="{{ false }}">
+<div style="background:#FFF8E6;border-top:1px solid #F0E2B6;color:#6B5A1E;font-size:12.5px;padding:7px 20px;text-align:center">{{ t.translationNote }}</div>
+</sc-if>
+</header>
+
+<section id="inicio" style="position:relative;padding:0 0 0">
+<div style="position:relative;min-height:520px;display:flex;align-items:flex-end;background:repeating-linear-gradient(135deg,#D9E2E8 0 12px,#E6ECF0 12px 24px)">
+<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,22,28,.45) 0%,rgba(16,22,28,.18) 45%,rgba(16,22,28,.62) 100%)"></div>
+<div style="position:absolute;top:16px;left:16px;font:500 11px/1 ui-monospace,Menlo,monospace;color:#10161C;background:rgba(255,255,255,.82);border:1px solid rgba(16,22,28,.12);padding:6px 9px;border-radius:5px">imagen hero · coche en carretera de la Serra de Tramuntana · 2400×1200</div>
+<div style="position:relative;max-width:1200px;margin:0 auto;padding:110px 20px 56px;width:100%">
+<p style="margin:0 0 14px;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#fff;opacity:.9">{{ t.kicker }}</p>
+<h1 style="margin:0;font-size:clamp(34px,5.2vw,60px);line-height:1.04;font-weight:800;letter-spacing:-.02em;color:#fff;max-width:17ch">{{ t.h1 }}</h1>
+<p style="margin:18px 0 0;font-size:clamp(16px,1.6vw,19px);line-height:1.5;color:#fff;max-width:46ch;font-weight:500">{{ t.sub }}</p>
+<div style="display:flex;flex-wrap:wrap;gap:10px 22px;margin:26px 0 0;font-size:14.5px;font-weight:600;color:#fff">
+<span style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;background:#0B983A;border-radius:2px;display:inline-block"></span>{{ t.trust1 }}</span>
+<span style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;background:#009FE3;border-radius:2px;display:inline-block"></span>{{ t.trust2 }}</span>
+<span style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;background:#82358C;border-radius:2px;display:inline-block"></span>{{ t.trust3 }}</span>
+</div>
+</div>
+</div>
+
+<div style="max-width:1200px;margin:0 auto;padding:0 20px">
+<div style="margin-top:-46px;position:relative;z-index:5;background:#fff;border:1px solid #E4E8EC;border-radius:16px;box-shadow:0 18px 44px rgba(16,22,28,.14);padding:20px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;align-items:end">
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0">
+<span style="font-size:12.5px;font-weight:700;letter-spacing:.02em;color:#4A5560;text-transform:uppercase">{{ t.fPickupPlace }}</span>
+<select value="{{ place }}" onChange="{{ onPlace }}" style="appearance:none;width:100%;border:1px solid #CDD5DB;border-radius:10px;padding:12px 13px;font-size:15px;font-weight:600;color:#10161C;background:#fff;cursor:pointer;min-height:46px">
+<option value="pmi">Aeropuerto de Palma (PMI)</option>
+<option value="palma">Palma · Paseo Marítimo</option>
+<option value="alcudia">Port d'Alcúdia</option>
+<option value="manacor">Manacor · Estación</option>
+</select>
+</label>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0">
+<span style="font-size:12.5px;font-weight:700;letter-spacing:.02em;color:#4A5560;text-transform:uppercase">{{ t.fPickup }}</span>
+<div style="display:flex;gap:8px">
+<input type="date" value="{{ dateFrom }}" onChange="{{ onDateFrom }}" style="flex:1;min-width:0;border:1px solid #CDD5DB;border-radius:10px;padding:12px 11px;font-size:15px;font-weight:600;color:#10161C;background:#fff;min-height:46px">
+<select value="{{ timeFrom }}" onChange="{{ onTimeFrom }}" style="appearance:none;width:84px;flex:none;border:1px solid #CDD5DB;border-radius:10px;padding:12px 9px;font-size:15px;font-weight:600;background:#fff;cursor:pointer;min-height:46px">
+<option value="09:00">09:00</option><option value="10:00">10:00</option><option value="11:00">11:00</option><option value="12:00">12:00</option><option value="15:00">15:00</option><option value="18:30">18:30</option>
+</select>
+</div>
+</label>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0">
+<span style="font-size:12.5px;font-weight:700;letter-spacing:.02em;color:#4A5560;text-transform:uppercase">{{ t.fDropoff }}</span>
+<div style="display:flex;gap:8px">
+<input type="date" value="{{ dateTo }}" onChange="{{ onDateTo }}" style="flex:1;min-width:0;border:1px solid #CDD5DB;border-radius:10px;padding:12px 11px;font-size:15px;font-weight:600;color:#10161C;background:#fff;min-height:46px">
+<select value="{{ timeTo }}" onChange="{{ onTimeTo }}" style="appearance:none;width:84px;flex:none;border:1px solid #CDD5DB;border-radius:10px;padding:12px 9px;font-size:15px;font-weight:600;background:#fff;cursor:pointer;min-height:46px">
+<option value="10:00">10:00</option><option value="11:00">11:00</option><option value="12:00">12:00</option><option value="13:00">13:00</option><option value="17:00">17:00</option><option value="20:00">20:00</option>
+</select>
+</div>
+</label>
+<button type="button" onClick="{{ goResults }}" style="min-height:46px;border:0;border-radius:10px;background:#009FE3;color:#fff;font-size:16px;font-weight:700;padding:13px 22px;cursor:pointer;box-shadow:0 2px 0 #0079B0" style-hover="background:#0093D2" style-active="box-shadow:none;transform:translateY(1px)">{{ t.search }}</button>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid #EEF1F3">
+<label style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:#4A5560;cursor:pointer">
+<input type="checkbox" checked="{{ otherOffice }}" onChange="{{ onOtherOffice }}" style="width:17px;height:17px;accent-color:#009FE3;cursor:pointer">
+{{ t.otherOffice }}
+</label>
+<sc-if value="{{ otherOffice }}" hint-placeholder-val="{{ false }}">
+<select style="appearance:none;border:1px solid #CDD5DB;border-radius:9px;padding:8px 11px;font-size:14px;font-weight:600;background:#fff;cursor:pointer">
+<option>Palma · Paseo Marítimo</option><option>Port d'Alcúdia</option><option>Aeropuerto de Palma (PMI)</option>
+</select>
+</sc-if>
+<span style="font-size:14px;color:#4A5560">·</span>
+<a href="#promo" style="font-size:14px;font-weight:600">{{ t.promoCode }}</a>
+<span style="margin-left:auto;font-size:13px;color:#6B7580">{{ t.minAge }}</span>
+</div>
+</div>
+</div>
+</section>
+
+<section style="max-width:1200px;margin:0 auto;padding:54px 20px 10px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:24px">
+<div style="display:flex;flex-direction:column;gap:9px"><span style="width:26px;height:6px;background:#009FE3;border-radius:3px"></span><h3 style="margin:0;font-size:17px;font-weight:700">{{ t.b1t }}</h3><p style="margin:0;font-size:14.5px;line-height:1.5;color:#4A5560">Depósito reducido y sin cargos ocultos al recoger el coche.</p></div>
+<div style="display:flex;flex-direction:column;gap:9px"><span style="width:26px;height:6px;background:#0B983A;border-radius:3px"></span><h3 style="margin:0;font-size:17px;font-weight:700">{{ t.b2t }}</h3><p style="margin:0;font-size:14.5px;line-height:1.5;color:#4A5560">Check in online antes de llegar: en el mostrador solo recoges la llave.</p></div>
+<div style="display:flex;flex-direction:column;gap:9px"><span style="width:26px;height:6px;background:#82358C;border-radius:3px"></span><h3 style="margin:0;font-size:17px;font-weight:700">{{ t.b3t }}</h3><p style="margin:0;font-size:14.5px;line-height:1.5;color:#4A5560">Seguimos tu vuelo: si se retrasa, tu coche sigue reservado.</p></div>
+<div style="display:flex;flex-direction:column;gap:9px"><span style="width:26px;height:6px;background:#E30613;border-radius:3px"></span><h3 style="margin:0;font-size:17px;font-weight:700">{{ t.b4t }}</h3><p style="margin:0;font-size:14.5px;line-height:1.5;color:#4A5560">Equipo local en Mallorca, atención en cuatro idiomas.</p></div>
+</div>
+</section>
+
+<section id="categorias" style="max-width:1200px;margin:0 auto;padding:46px 20px 0">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:6px">
+<div>
+<h2 style="margin:0;font-size:clamp(24px,3vw,32px);line-height:1.12;font-weight:800;letter-spacing:-.015em">{{ t.catsTitle }}</h2>
+<p style="margin:9px 0 0;font-size:15px;color:#4A5560;max-width:56ch">Reservas una categoría, no un modelo concreto. Te mostramos un vehículo de referencia y te garantizamos sus características: plazas, maletas y transmisión.</p>
+</div>
+<a href="#catalogo" style="font-size:15px;font-weight:700;white-space:nowrap">{{ t.allCats }} →</a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;margin-top:22px">
+
+<article style="border:1px solid #E4E8EC;border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column" style-hover="border-color:#009FE3;box-shadow:0 10px 26px rgba(16,22,28,.09)">
+<div style="position:relative;aspect-ratio:16/10;background:repeating-linear-gradient(135deg,#DFE6EA 0 9px,#E9EEF1 9px 18px);display:flex;align-items:flex-end;padding:10px">
+<span style="font:500 10.5px/1 ui-monospace,Menlo,monospace;color:#4A5560;background:rgba(255,255,255,.85);padding:5px 7px;border-radius:4px">foto grupo A · 800×500</span>
+<span style="position:absolute;top:10px;left:10px;background:#10161C;color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;padding:5px 8px;border-radius:5px">GRUPO A</span>
+</div>
+<div style="padding:15px 15px 17px;display:flex;flex-direction:column;gap:11px;flex:1">
+<div><h3 style="margin:0;font-size:18px;font-weight:700">Mini</h3><p style="margin:3px 0 0;font-size:13.5px;color:#6B7580">Fiat Panda <em style="font-style:normal;font-weight:600">o similar</em></p></div>
+<ul style="margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px">
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">4 plazas</li>
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">1 maleta</li>
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">Manual</li>
+</ul>
+<div style="margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding-top:6px">
+<div><p style="margin:0;font-size:12px;color:#6B7580;font-weight:600">{{ t.from }}</p><p style="margin:1px 0 0;font-size:24px;font-weight:800;letter-spacing:-.02em">{{ priceA }}<span style="font-size:13px;font-weight:600;color:#6B7580">{{ t.perUnit }}</span></p></div>
+<button type="button" onClick="{{ goResults }}" style="border:1px solid #009FE3;background:#fff;color:#0079B0;font-size:14px;font-weight:700;padding:9px 13px;border-radius:9px;cursor:pointer;min-height:40px" style-hover="background:#009FE3;color:#fff">{{ t.see }}</button>
+</div>
+</div>
+</article>
+
+<article style="border:1px solid #E4E8EC;border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column" style-hover="border-color:#009FE3;box-shadow:0 10px 26px rgba(16,22,28,.09)">
+<div style="position:relative;aspect-ratio:16/10;background:repeating-linear-gradient(135deg,#DFE6EA 0 9px,#E9EEF1 9px 18px);display:flex;align-items:flex-end;padding:10px">
+<span style="font:500 10.5px/1 ui-monospace,Menlo,monospace;color:#4A5560;background:rgba(255,255,255,.85);padding:5px 7px;border-radius:4px">foto grupo C · 800×500</span>
+<span style="position:absolute;top:10px;left:10px;background:#10161C;color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;padding:5px 8px;border-radius:5px">GRUPO C</span>
+<span style="position:absolute;top:10px;right:10px;background:#0B983A;color:#fff;font-size:11px;font-weight:700;padding:5px 8px;border-radius:5px">{{ t.popular }}</span>
+</div>
+<div style="padding:15px 15px 17px;display:flex;flex-direction:column;gap:11px;flex:1">
+<div><h3 style="margin:0;font-size:18px;font-weight:700">Económico</h3><p style="margin:3px 0 0;font-size:13.5px;color:#6B7580">Seat Ibiza <em style="font-style:normal;font-weight:600">o similar</em></p></div>
+<ul style="margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px">
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">5 plazas</li>
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">2 maletas</li>
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">Manual</li>
+</ul>
+<div style="margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding-top:6px">
+<div><p style="margin:0;font-size:12px;color:#6B7580;font-weight:600">{{ t.from }}</p><p style="margin:1px 0 0;font-size:24px;font-weight:800;letter-spacing:-.02em">{{ priceC }}<span style="font-size:13px;font-weight:600;color:#6B7580">{{ t.perUnit }}</span></p></div>
+<button type="button" onClick="{{ goResults }}" style="border:1px solid #009FE3;background:#fff;color:#0079B0;font-size:14px;font-weight:700;padding:9px 13px;border-radius:9px;cursor:pointer;min-height:40px" style-hover="background:#009FE3;color:#fff">{{ t.see }}</button>
+</div>
+</div>
+</article>
+
+<article style="border:1px solid #E4E8EC;border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column" style-hover="border-color:#009FE3;box-shadow:0 10px 26px rgba(16,22,28,.09)">
+<div style="position:relative;aspect-ratio:16/10;background:repeating-linear-gradient(135deg,#DFE6EA 0 9px,#E9EEF1 9px 18px);display:flex;align-items:flex-end;padding:10px">
+<span style="font:500 10.5px/1 ui-monospace,Menlo,monospace;color:#4A5560;background:rgba(255,255,255,.85);padding:5px 7px;border-radius:4px">foto grupo F · 800×500</span>
+<span style="position:absolute;top:10px;left:10px;background:#10161C;color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;padding:5px 8px;border-radius:5px">GRUPO F</span>
+</div>
+<div style="padding:15px 15px 17px;display:flex;flex-direction:column;gap:11px;flex:1">
+<div><h3 style="margin:0;font-size:18px;font-weight:700">Familiar</h3><p style="margin:3px 0 0;font-size:13.5px;color:#6B7580">Citroën C4 SpaceTourer <em style="font-style:normal;font-weight:600">o similar</em></p></div>
+<ul style="margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px">
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">7 plazas</li>
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">3 maletas</li>
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">Manual</li>
+</ul>
+<div style="margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding-top:6px">
+<div><p style="margin:0;font-size:12px;color:#6B7580;font-weight:600">{{ t.from }}</p><p style="margin:1px 0 0;font-size:24px;font-weight:800;letter-spacing:-.02em">{{ priceF }}<span style="font-size:13px;font-weight:600;color:#6B7580">{{ t.perUnit }}</span></p></div>
+<button type="button" onClick="{{ goResults }}" style="border:1px solid #009FE3;background:#fff;color:#0079B0;font-size:14px;font-weight:700;padding:9px 13px;border-radius:9px;cursor:pointer;min-height:40px" style-hover="background:#009FE3;color:#fff">{{ t.see }}</button>
+</div>
+</div>
+</article>
+
+<article style="border:1px solid #E4E8EC;border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column" style-hover="border-color:#009FE3;box-shadow:0 10px 26px rgba(16,22,28,.09)">
+<div style="position:relative;aspect-ratio:16/10;background:repeating-linear-gradient(135deg,#DFE6EA 0 9px,#E9EEF1 9px 18px);display:flex;align-items:flex-end;padding:10px">
+<span style="font:500 10.5px/1 ui-monospace,Menlo,monospace;color:#4A5560;background:rgba(255,255,255,.85);padding:5px 7px;border-radius:4px">foto grupo K · 800×500</span>
+<span style="position:absolute;top:10px;left:10px;background:#10161C;color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;padding:5px 8px;border-radius:5px">GRUPO K</span>
+</div>
+<div style="padding:15px 15px 17px;display:flex;flex-direction:column;gap:11px;flex:1">
+<div><h3 style="margin:0;font-size:18px;font-weight:700">Cabrio</h3><p style="margin:3px 0 0;font-size:13.5px;color:#6B7580">Fiat 500C <em style="font-style:normal;font-weight:600">o similar</em></p></div>
+<ul style="margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px">
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">4 plazas</li>
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">1 maleta</li>
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">Automático</li>
+</ul>
+<div style="margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding-top:6px">
+<div><p style="margin:0;font-size:12px;color:#6B7580;font-weight:600">{{ t.from }}</p><p style="margin:1px 0 0;font-size:24px;font-weight:800;letter-spacing:-.02em">{{ priceK }}<span style="font-size:13px;font-weight:600;color:#6B7580">{{ t.perUnit }}</span></p></div>
+<button type="button" onClick="{{ goResults }}" style="border:1px solid #009FE3;background:#fff;color:#0079B0;font-size:14px;font-weight:700;padding:9px 13px;border-radius:9px;cursor:pointer;min-height:40px" style-hover="background:#009FE3;color:#fff">{{ t.see }}</button>
+</div>
+</div>
+</article>
+</div>
+<p style="margin:14px 0 0;font-size:13px;color:#6B7580">Precios orientativos para las fechas seleccionadas. El precio final depende de la temporada, la duración y el pack elegido.</p>
+</section>
+
+<section id="packs" style="background:#F5F7F9;margin-top:52px;padding:48px 0">
+<div style="max-width:1200px;margin:0 auto;padding:0 20px">
+<h2 style="margin:0;font-size:clamp(24px,3vw,32px);line-height:1.12;font-weight:800;letter-spacing:-.015em">{{ t.packsTitle }}</h2>
+<p style="margin:9px 0 26px;font-size:15px;color:#4A5560;max-width:60ch">Dos opciones, sin letra pequeña escondida. Puedes cambiar de pack durante la reserva y el total se actualiza al instante.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px">
+<div style="background:#fff;border:1px solid #E4E8EC;border-top:4px solid #0B983A;border-radius:14px;padding:22px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap"><h3 style="margin:0;font-size:21px;font-weight:800">Pack Green</h3><span style="font-size:14px;font-weight:700;color:#0B983A">Incluido</span></div>
+<p style="margin:10px 0 16px;font-size:14.5px;color:#4A5560;line-height:1.5">La cobertura básica obligatoria, con franquicia en caso de daño.</p>
+<dl style="margin:0 0 18px;display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:14.5px">
+<dt style="color:#6B7580">Franquicia</dt><dd style="margin:0;font-weight:700">900 €</dd>
+<dt style="color:#6B7580">Depósito</dt><dd style="margin:0;font-weight:700">900 € en tarjeta</dd>
+<dt style="color:#6B7580">Combustible</dt><dd style="margin:0;font-weight:700">Mismo nivel</dd>
+</dl>
+<ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:14.5px;color:#10161C">
+<li style="display:flex;gap:9px"><span style="flex:none;width:7px;height:7px;margin-top:7px;border-radius:50%;background:#0B983A"></span>Responsabilidad civil obligatoria</li>
+<li style="display:flex;gap:9px"><span style="flex:none;width:7px;height:7px;margin-top:7px;border-radius:50%;background:#0B983A"></span>Asistencia en carretera 24 h</li>
+<li style="display:flex;gap:9px"><span style="flex:none;width:7px;height:7px;margin-top:7px;border-radius:50%;background:#0B983A"></span>Cancelación gratuita hasta 48 h antes</li>
+</ul>
+</div>
+<div style="background:#fff;border:1px solid #E4E8EC;border-top:4px solid #E30613;border-radius:14px;padding:22px;position:relative">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap"><h3 style="margin:0;font-size:21px;font-weight:800">Pack Red</h3><span style="font-size:14px;font-weight:700;color:#E30613">+14 €/día</span></div>
+<p style="margin:10px 0 16px;font-size:14.5px;color:#4A5560;line-height:1.5">Sin franquicia y sin depósito bloqueado: recoges y te vas.</p>
+<dl style="margin:0 0 18px;display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:14.5px">
+<dt style="color:#6B7580">Franquicia</dt><dd style="margin:0;font-weight:700">0 €</dd>
+<dt style="color:#6B7580">Depósito</dt><dd style="margin:0;font-weight:700">Sin depósito</dd>
+<dt style="color:#6B7580">Combustible</dt><dd style="margin:0;font-weight:700">Mismo nivel</dd>
+</dl>
+<ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:14.5px;color:#10161C">
+<li style="display:flex;gap:9px"><span style="flex:none;width:7px;height:7px;margin-top:7px;border-radius:50%;background:#E30613"></span>Todo lo del Pack Green</li>
+<li style="display:flex;gap:9px"><span style="flex:none;width:7px;height:7px;margin-top:7px;border-radius:50%;background:#E30613"></span>Daños, robo, lunas y neumáticos sin franquicia</li>
+<li style="display:flex;gap:9px"><span style="flex:none;width:7px;height:7px;margin-top:7px;border-radius:50%;background:#E30613"></span>Segundo conductor incluido</li>
+</ul>
+</div>
+<div style="display:flex;flex-direction:column;justify-content:center;gap:14px;padding:22px;border:1px dashed #CDD5DB;border-radius:14px">
+<p style="margin:0;font-size:15px;line-height:1.55;color:#4A5560">¿Dudas sobre qué cubre cada pack? Te explicamos las exclusiones principales en lenguaje claro, sin tecnicismos.</p>
+<a href="#packs-detalle" style="font-size:15px;font-weight:700">{{ t.comparePacks }} →</a>
+<p style="margin:0;font-size:13px;color:#6B7580">El precio del pack depende de las fechas y la categoría.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section style="max-width:1200px;margin:0 auto;padding:48px 20px 0">
+<h2 style="margin:0 0 24px;font-size:clamp(24px,3vw,32px);line-height:1.12;font-weight:800;letter-spacing:-.015em">{{ t.stepsTitle }}</h2>
+<ol style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:20px;counter-reset:s">
+<li style="display:flex;flex-direction:column;gap:10px"><span style="font-size:13px;font-weight:800;color:#009FE3;letter-spacing:.08em">PASO 1</span><h3 style="margin:0;font-size:17.5px;font-weight:700">{{ t.s1 }}</h3><p style="margin:0;font-size:14.5px;line-height:1.5;color:#4A5560">Elige lugar y fechas y compara las categorías realmente disponibles.</p></li>
+<li style="display:flex;flex-direction:column;gap:10px"><span style="font-size:13px;font-weight:800;color:#009FE3;letter-spacing:.08em">PASO 2</span><h3 style="margin:0;font-size:17.5px;font-weight:700">{{ t.s2 }}</h3><p style="margin:0;font-size:14.5px;line-height:1.5;color:#4A5560">Cobertura, extras y datos del conductor. Ves el total antes de pagar.</p></li>
+<li style="display:flex;flex-direction:column;gap:10px"><span style="font-size:13px;font-weight:800;color:#009FE3;letter-spacing:.08em">PASO 3</span><h3 style="margin:0;font-size:17.5px;font-weight:700">{{ t.s3 }}</h3><p style="margin:0;font-size:14.5px;line-height:1.5;color:#4A5560">Sube tu DNI y tu permiso desde el móvil y ahorra tiempo al llegar.</p></li>
+<li style="display:flex;flex-direction:column;gap:10px"><span style="font-size:13px;font-weight:800;color:#009FE3;letter-spacing:.08em">PASO 4</span><h3 style="margin:0;font-size:17.5px;font-weight:700">{{ t.s4 }}</h3><p style="margin:0;font-size:14.5px;line-height:1.5;color:#4A5560">Te esperamos en el punto indicado en tus instrucciones de recogida.</p></li>
+</ol>
+</section>
+
+<section style="max-width:1200px;margin:0 auto;padding:48px 20px 0">
+<div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:22px">
+<h2 style="margin:0;font-size:clamp(24px,3vw,32px);line-height:1.12;font-weight:800;letter-spacing:-.015em">{{ t.reviewsTitle }}</h2>
+<p style="margin:0;font-size:15px;font-weight:600;color:#4A5560">4,7 sobre 5 · 1.284 opiniones verificadas</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:18px">
+<blockquote style="margin:0;background:#fff;border:1px solid #E4E8EC;border-radius:14px;padding:20px"><p style="margin:0 0 14px;font-size:15.5px;line-height:1.55">«Recogimos en el aeropuerto a medianoche y en diez minutos estábamos en el coche. El check in online funciona de verdad.»</p><footer style="font-size:13.5px;color:#6B7580;font-weight:600">Marta G. · Barcelona · Agosto</footer></blockquote>
+<blockquote style="margin:0;background:#fff;border:1px solid #E4E8EC;border-radius:14px;padding:20px"><p style="margin:0 0 14px;font-size:15.5px;line-height:1.55">«Precio final igual al de la reserva. Nos avisaron del retraso del vuelo antes de que lo supiéramos nosotros.»</p><footer style="font-size:13.5px;color:#6B7580;font-weight:600">Thomas K. · Stuttgart · Junio</footer></blockquote>
+<blockquote style="margin:0;background:#fff;border:1px solid #E4E8EC;border-radius:14px;padding:20px"><p style="margin:0 0 14px;font-size:15.5px;line-height:1.55">«Atención en francés y explicación clara de la cobertura. Repetiremos el año que viene.»</p><footer style="font-size:13.5px;color:#6B7580;font-weight:600">Claire B. · Lyon · Mayo</footer></blockquote>
+</div>
+</section>
+
+<section id="ubicaciones" style="max-width:1200px;margin:0 auto;padding:48px 20px 0">
+<h2 style="margin:0 0 6px;font-size:clamp(24px,3vw,32px);line-height:1.12;font-weight:800;letter-spacing:-.015em">{{ t.locTitle }}</h2>
+<p style="margin:0 0 22px;font-size:15px;color:#4A5560;max-width:56ch">Cuatro puntos de recogida en la isla. Las instrucciones detalladas llegan con tu reserva.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:18px">
+<a href="#ubicacion-pmi" style="text-decoration:none;color:inherit;border:1px solid #E4E8EC;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;background:#fff" style-hover="border-color:#009FE3">
+<div style="aspect-ratio:3/2;background:repeating-linear-gradient(45deg,#E1E8EC 0 9px,#EBF0F3 9px 18px);display:flex;align-items:flex-end;padding:10px"><span style="font:500 10.5px/1 ui-monospace,Menlo,monospace;color:#4A5560;background:rgba(255,255,255,.85);padding:5px 7px;border-radius:4px">mapa PMI · 600×400</span></div>
+<div style="padding:15px"><h3 style="margin:0;font-size:17px;font-weight:700">Aeropuerto de Palma</h3><p style="margin:5px 0 0;font-size:14px;color:#4A5560">Traslado gratuito · 07:00–23:30</p></div>
+</a>
+<a href="#ubicacion-palma" style="text-decoration:none;color:inherit;border:1px solid #E4E8EC;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;background:#fff" style-hover="border-color:#009FE3">
+<div style="aspect-ratio:3/2;background:repeating-linear-gradient(45deg,#E1E8EC 0 9px,#EBF0F3 9px 18px);display:flex;align-items:flex-end;padding:10px"><span style="font:500 10.5px/1 ui-monospace,Menlo,monospace;color:#4A5560;background:rgba(255,255,255,.85);padding:5px 7px;border-radius:4px">mapa Palma · 600×400</span></div>
+<div style="padding:15px"><h3 style="margin:0;font-size:17px;font-weight:700">Palma · Paseo Marítimo</h3><p style="margin:5px 0 0;font-size:14px;color:#4A5560">Oficina en calle · 08:00–20:00</p></div>
+</a>
+<a href="#ubicacion-alcudia" style="text-decoration:none;color:inherit;border:1px solid #E4E8EC;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;background:#fff" style-hover="border-color:#009FE3">
+<div style="aspect-ratio:3/2;background:repeating-linear-gradient(45deg,#E1E8EC 0 9px,#EBF0F3 9px 18px);display:flex;align-items:flex-end;padding:10px"><span style="font:500 10.5px/1 ui-monospace,Menlo,monospace;color:#4A5560;background:rgba(255,255,255,.85);padding:5px 7px;border-radius:4px">mapa Alcúdia · 600×400</span></div>
+<div style="padding:15px"><h3 style="margin:0;font-size:17px;font-weight:700">Port d'Alcúdia</h3><p style="margin:5px 0 0;font-size:14px;color:#4A5560">Entrega en hotel · 09:00–19:00</p></div>
+</a>
+<a href="#ubicacion-manacor" style="text-decoration:none;color:inherit;border:1px solid #E4E8EC;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;background:#fff" style-hover="border-color:#009FE3">
+<div style="aspect-ratio:3/2;background:repeating-linear-gradient(45deg,#E1E8EC 0 9px,#EBF0F3 9px 18px);display:flex;align-items:flex-end;padding:10px"><span style="font:500 10.5px/1 ui-monospace,Menlo,monospace;color:#4A5560;background:rgba(255,255,255,.85);padding:5px 7px;border-radius:4px">mapa Manacor · 600×400</span></div>
+<div style="padding:15px"><h3 style="margin:0;font-size:17px;font-weight:700">Manacor</h3><p style="margin:5px 0 0;font-size:14px;color:#4A5560">Junto a la estación · 09:00–18:00</p></div>
+</a>
+</div>
+</section>
+
+<section id="faq" style="max-width:820px;margin:0 auto;padding:52px 20px 0">
+<h2 style="margin:0 0 20px;font-size:clamp(24px,3vw,32px);line-height:1.12;font-weight:800;letter-spacing:-.015em">{{ t.faqTitle }}</h2>
+<div style="border-top:1px solid #E4E8EC">
+<details style="border-bottom:1px solid #E4E8EC"><summary style="display:flex;gap:16px;align-items:center;justify-content:space-between;padding:17px 2px;font-size:16.5px;font-weight:600"><span>¿Qué documentación necesito para recoger el coche?</span><span class="faq-plus" style="flex:none;font-size:20px;font-weight:400;color:#009FE3;transition:transform .18s ease">+</span></summary><p style="margin:0;padding:0 2px 20px;font-size:15px;line-height:1.6;color:#4A5560;max-width:66ch">DNI o pasaporte del conductor principal, permiso de conducción en vigor y una tarjeta de crédito a su nombre. Si eliges el Pack Red no bloqueamos depósito, pero la tarjeta sigue siendo necesaria como identificación.</p></details>
+<details style="border-bottom:1px solid #E4E8EC"><summary style="display:flex;gap:16px;align-items:center;justify-content:space-between;padding:17px 2px;font-size:16.5px;font-weight:600"><span>¿Me garantizáis el modelo que aparece en la web?</span><span class="faq-plus" style="flex:none;font-size:20px;font-weight:400;color:#009FE3;transition:transform .18s ease">+</span></summary><p style="margin:0;padding:0 2px 20px;font-size:15px;line-height:1.6;color:#4A5560;max-width:66ch">Reservas una categoría. El modelo que ves es el vehículo de referencia y te garantizamos sus características —plazas, maletas y transmisión— pero el coche concreto puede ser otro equivalente.</p></details>
+<details style="border-bottom:1px solid #E4E8EC"><summary style="display:flex;gap:16px;align-items:center;justify-content:space-between;padding:17px 2px;font-size:16.5px;font-weight:600"><span>¿Qué política de combustible aplicáis?</span><span class="faq-plus" style="flex:none;font-size:20px;font-weight:400;color:#009FE3;transition:transform .18s ease">+</span></summary><p style="margin:0;padding:0 2px 20px;font-size:15px;line-height:1.6;color:#4A5560;max-width:66ch">Mismo nivel de combustible: recoges el coche con un nivel determinado y lo devuelves igual. No cobramos servicio de repostaje si vuelve al nivel indicado.</p></details>
+<details style="border-bottom:1px solid #E4E8EC"><summary style="display:flex;gap:16px;align-items:center;justify-content:space-between;padding:17px 2px;font-size:16.5px;font-weight:600"><span>¿Puedo cancelar o cambiar mis fechas?</span><span class="faq-plus" style="flex:none;font-size:20px;font-weight:400;color:#009FE3;transition:transform .18s ease">+</span></summary><p style="margin:0;padding:0 2px 20px;font-size:15px;line-height:1.6;color:#4A5560;max-width:66ch">Puedes cancelar sin coste hasta 48 horas antes de la recogida desde Mi reserva. Para cambios de fechas, escríbenos o llámanos y te confirmamos la disponibilidad.</p></details>
+<details style="border-bottom:1px solid #E4E8EC"><summary style="display:flex;gap:16px;align-items:center;justify-content:space-between;padding:17px 2px;font-size:16.5px;font-weight:600"><span>¿Qué pasa si mi vuelo se retrasa?</span><span class="faq-plus" style="flex:none;font-size:20px;font-weight:400;color:#009FE3;transition:transform .18s ease">+</span></summary><p style="margin:0;padding:0 2px 20px;font-size:15px;line-height:1.6;color:#4A5560;max-width:66ch">Indica tu número de vuelo al reservar. Mantenemos el coche disponible dentro del horario de la oficina y te avisamos si el retraso afecta a la recogida.</p></details>
+<details style="border-bottom:1px solid #E4E8EC"><summary style="display:flex;gap:16px;align-items:center;justify-content:space-between;padding:17px 2px;font-size:16.5px;font-weight:600"><span>¿Es obligatorio el check in online?</span><span class="faq-plus" style="flex:none;font-size:20px;font-weight:400;color:#009FE3;transition:transform .18s ease">+</span></summary><p style="margin:0;padding:0 2px 20px;font-size:15px;line-height:1.6;color:#4A5560;max-width:66ch">No es obligatorio, pero reduce mucho el tiempo en el mostrador. Puedes completarlo desde el móvil en cualquier momento antes de la recogida.</p></details>
+</div>
+<p style="margin:20px 0 0;font-size:15px;color:#4A5560">¿No encuentras tu respuesta? <a href="#contacto" style="font-weight:700">{{ t.contactUs }}</a></p>
+</section>
+
+<section style="max-width:1200px;margin:0 auto;padding:52px 20px 0">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:20px">
+<h2 style="margin:0;font-size:clamp(24px,3vw,32px);line-height:1.12;font-weight:800;letter-spacing:-.015em">{{ t.blogTitle }}</h2>
+<a href="#blog" style="font-size:15px;font-weight:700">{{ t.allArticles }} →</a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:18px">
+<a href="#articulo-1" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:12px" style-hover="color:#0079B0">
+<div style="aspect-ratio:16/10;border-radius:12px;background:repeating-linear-gradient(135deg,#DFE6EA 0 9px,#E9EEF1 9px 18px);display:flex;align-items:flex-end;padding:10px"><span style="font:500 10.5px/1 ui-monospace,Menlo,monospace;color:#4A5560;background:rgba(255,255,255,.85);padding:5px 7px;border-radius:4px">foto Formentor · 800×500</span></div>
+<div><p style="margin:0 0 5px;font-size:12px;font-weight:700;letter-spacing:.06em;color:#82358C">RUTAS</p><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.25">Cómo visitar el Cap de Formentor en coche</h3><p style="margin:6px 0 0;font-size:14.5px;color:#4A5560;line-height:1.5">Horarios de acceso restringido, aparcamientos y la mejor hora para el mirador.</p></div>
+</a>
+<a href="#articulo-2" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:12px" style-hover="color:#0079B0">
+<div style="aspect-ratio:16/10;border-radius:12px;background:repeating-linear-gradient(135deg,#DFE6EA 0 9px,#E9EEF1 9px 18px);display:flex;align-items:flex-end;padding:10px"><span style="font:500 10.5px/1 ui-monospace,Menlo,monospace;color:#4A5560;background:rgba(255,255,255,.85);padding:5px 7px;border-radius:4px">foto Palma · 800×500</span></div>
+<div><p style="margin:0 0 5px;font-size:12px;font-weight:700;letter-spacing:.06em;color:#82358C">CIUDAD</p><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.25">Dónde aparcar en Palma sin complicaciones</h3><p style="margin:6px 0 0;font-size:14.5px;color:#4A5560;line-height:1.5">Zonas ORA, parkings cubiertos y qué calles evitar en temporada alta.</p></div>
+</a>
+<a href="#articulo-3" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:12px" style-hover="color:#0079B0">
+<div style="aspect-ratio:16/10;border-radius:12px;background:repeating-linear-gradient(135deg,#DFE6EA 0 9px,#E9EEF1 9px 18px);display:flex;align-items:flex-end;padding:10px"><span style="font:500 10.5px/1 ui-monospace,Menlo,monospace;color:#4A5560;background:rgba(255,255,255,.85);padding:5px 7px;border-radius:4px">foto calas · 800×500</span></div>
+<div><p style="margin:0 0 5px;font-size:12px;font-weight:700;letter-spacing:.06em;color:#82358C">PLAYAS</p><h3 style="margin:0;font-size:18px;font-weight:700;line-height:1.25">Siete calas del este a las que llegar en coche</h3><p style="margin:6px 0 0;font-size:14.5px;color:#4A5560;line-height:1.5">Accesos, aparcamiento y alternativas cuando la primera opción está llena.</p></div>
+</a>
+</div>
+</section>
+
+<section style="max-width:1200px;margin:52px auto 0;padding:0 20px">
+<div style="background:#009FE3;border-radius:18px;padding:36px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+<div style="min-width:0"><h2 style="margin:0;font-size:clamp(22px,2.6vw,29px);line-height:1.15;font-weight:800;color:#fff;letter-spacing:-.015em">{{ t.ctaTitle }}</h2><p style="margin:8px 0 0;font-size:16px;color:#fff;font-weight:500;max-width:48ch">Cancelación gratuita hasta 48 h antes y precio final sin sorpresas.</p></div>
+<button type="button" onClick="{{ scrollTop }}" style="flex:none;border:0;border-radius:11px;background:#fff;color:#0079B0;font-size:16.5px;font-weight:700;padding:15px 26px;cursor:pointer;min-height:48px" style-hover="background:#F0F8FD">{{ t.search }}</button>
+</div>
+</section>
+
+<footer style="margin-top:56px;background:#10161C;color:#C3CBD2;padding:44px 0 26px">
+<div style="max-width:1200px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:30px">
+<div>
+<img src="moov-logo.png" alt="Moov rent a car" style="height:28px;width:auto;display:block;background:#fff;padding:7px 9px;border-radius:7px">
+<p style="margin:14px 0 0;font-size:14px;line-height:1.55">Alquiler de coches en Mallorca desde 2009. Flota propia y equipo local.</p>
+</div>
+<div><h3 style="margin:0 0 12px;font-size:13px;font-weight:700;letter-spacing:.08em;color:#fff;text-transform:uppercase">Alquiler</h3><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:14.5px"><li><a href="#catalogo" style="color:#C3CBD2">Categorías de vehículos</a></li><li><a href="#packs" style="color:#C3CBD2">Packs y coberturas</a></li><li><a href="#extras" style="color:#C3CBD2">Extras</a></li><li><a href="#promo" style="color:#C3CBD2">Ofertas</a></li></ul></div>
+<div><h3 style="margin:0 0 12px;font-size:13px;font-weight:700;letter-spacing:.08em;color:#fff;text-transform:uppercase">Ubicaciones</h3><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:14.5px"><li><a href="#ubicacion-pmi" style="color:#C3CBD2">Aeropuerto de Palma</a></li><li><a href="#ubicacion-palma" style="color:#C3CBD2">Palma centro</a></li><li><a href="#ubicacion-alcudia" style="color:#C3CBD2">Port d'Alcúdia</a></li><li><a href="#ubicacion-manacor" style="color:#C3CBD2">Manacor</a></li></ul></div>
+<div><h3 style="margin:0 0 12px;font-size:13px;font-weight:700;letter-spacing:.08em;color:#fff;text-transform:uppercase">Ayuda</h3><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:14.5px"><li><a href="#faq" style="color:#C3CBD2">Preguntas frecuentes</a></li><li><a href="#contacto" style="color:#C3CBD2">Contacto</a></li><li><a href="#mi-reserva" style="color:#C3CBD2">Mi reserva</a></li><li><a href="#condiciones" style="color:#C3CBD2">Condiciones de alquiler</a></li></ul></div>
+<div><h3 style="margin:0 0 12px;font-size:13px;font-weight:700;letter-spacing:.08em;color:#fff;text-transform:uppercase">Contacto</h3><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:14.5px"><li>+34 971 000 000</li><li>reservas@moovrentacar.com</li><li>Todos los días 08:00–22:00</li></ul></div>
+</div>
+<div style="max-width:1200px;margin:30px auto 0;padding:18px 20px 0;border-top:1px solid rgba(255,255,255,.14);display:flex;flex-wrap:wrap;gap:12px 22px;font-size:13px">
+<span>© 2026 Moov Rent a Car</span>
+<a href="#legal" style="color:#C3CBD2">Aviso legal</a>
+<a href="#privacidad" style="color:#C3CBD2">Privacidad</a>
+<a href="#cookies" style="color:#C3CBD2">Cookies</a>
+<span style="margin-left:auto">ES · EN · DE · FR</span>
+</div>
+</footer>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:80;max-width:min(560px,calc(100vw - 32px));background:#10161C;color:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 14px 40px rgba(16,22,28,.3);display:flex;gap:14px;align-items:flex-start">
+<span style="flex:none;width:8px;height:8px;border-radius:50%;background:#0B983A;margin-top:7px"></span>
+<p style="margin:0;font-size:14.5px;line-height:1.45">{{ toast }}</p>
+<button type="button" onClick="{{ closeToast }}" style="flex:none;border:0;background:transparent;color:#fff;font-size:18px;line-height:1;cursor:pointer;padding:2px 4px" aria-label="Cerrar">×</button>
+</div>
+</sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;promoBar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Contenido&quot;},&quot;priceDisplay&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;daily&quot;,&quot;total&quot;],&quot;default&quot;:&quot;daily&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contenido&quot;}}">
+const DICT = {
+  es: {navCars:"Vehículos",navLocations:"Ubicaciones",navPacks:"Packs",navHelp:"Ayuda",myBooking:"Mi reserva",
+    kicker:"Alquiler de coches en Mallorca",h1:"Tu coche listo al aterrizar en Mallorca",
+    sub:"Precio final sin sorpresas, check in online y equipo local en la isla.",
+    trust1:"Cancelación gratis 48 h",trust2:"Sin cargos ocultos",trust3:"Recogida en 10 minutos",
+    b1t:"Precio final transparente",b2t:"Recogida rápida",b3t:"Seguimiento de vuelo",b4t:"Equipo local",
+    fPickupPlace:"Lugar de recogida",fPickup:"Recogida",fDropoff:"Devolución",search:"Buscar vehículos",
+    otherOffice:"Devolver en otra oficina",promoCode:"Tengo un código promocional",minAge:"Edad mínima 21 años",
+    catsTitle:"Categorías destacadas",allCats:"Ver todas las categorías",from:"Desde",see:"Ver disponibilidad",popular:"Más reservado",
+    packsTitle:"Elige tu cobertura",comparePacks:"Comparar coberturas en detalle",
+    stepsTitle:"Cómo funciona",s1:"Busca y compara",s2:"Reserva en 3 minutos",s3:"Haz el check in online",s4:"Recoge y conduce",
+    reviewsTitle:"Lo que dicen nuestros clientes",locTitle:"Dónde recoger tu coche",faqTitle:"Preguntas frecuentes",
+    contactUs:"Escríbenos",blogTitle:"Mallorca en coche",allArticles:"Ver todos los artículos",
+    ctaTitle:"¿Listo para reservar tu coche en Mallorca?",perUnit:" /día",perUnitTotal:" total",
+    translationNote:""},
+  en: {navCars:"Cars",navLocations:"Locations",navPacks:"Packs",navHelp:"Help",myBooking:"My booking",
+    kicker:"Car hire in Mallorca",h1:"Your car ready the moment you land in Mallorca",
+    sub:"Final price with no surprises, online check in and a local team on the island.",
+    trust1:"Free cancellation 48 h",trust2:"No hidden charges",trust3:"Pick up in 10 minutes",
+    b1t:"Transparent final price",b2t:"Fast pick-up",b3t:"Flight tracking",b4t:"Local team",
+    fPickupPlace:"Pick-up location",fPickup:"Pick-up",fDropoff:"Drop-off",search:"Search cars",
+    otherOffice:"Return at a different office",promoCode:"I have a promo code",minAge:"Minimum age 21",
+    catsTitle:"Featured categories",allCats:"See all categories",from:"From",see:"See availability",popular:"Most booked",
+    packsTitle:"Choose your cover",comparePacks:"Compare cover in detail",
+    stepsTitle:"How it works",s1:"Search and compare",s2:"Book in 3 minutes",s3:"Complete online check in",s4:"Pick up and drive",
+    reviewsTitle:"What our customers say",locTitle:"Where to pick up your car",faqTitle:"Frequently asked questions",
+    contactUs:"Contact us",blogTitle:"Mallorca by car",allArticles:"See all articles",
+    ctaTitle:"Ready to book your car in Mallorca?",perUnit:" /day",perUnitTotal:" total",
+    translationNote:"Interface shown in English. Editorial content is still pending translation (managed from Moov Core · E23)."},
+  de: {navCars:"Fahrzeuge",navLocations:"Standorte",navPacks:"Pakete",navHelp:"Hilfe",myBooking:"Meine Buchung",
+    kicker:"Mietwagen auf Mallorca",h1:"Ihr Mietwagen wartet, sobald Sie auf Mallorca landen",
+    sub:"Endpreis ohne Überraschungen, Online-Check-in und ein lokales Team auf der Insel.",
+    trust1:"Kostenlose Stornierung 48 Std.",trust2:"Keine versteckten Kosten",trust3:"Abholung in 10 Minuten",
+    b1t:"Transparenter Endpreis",b2t:"Schnelle Abholung",b3t:"Flugverfolgung",b4t:"Lokales Team",
+    fPickupPlace:"Abholort",fPickup:"Abholung",fDropoff:"Rückgabe",search:"Fahrzeuge suchen",
+    otherOffice:"Rückgabe an anderer Station",promoCode:"Ich habe einen Aktionscode",minAge:"Mindestalter 21 Jahre",
+    catsTitle:"Empfohlene Kategorien",allCats:"Alle Kategorien ansehen",from:"Ab",see:"Verfügbarkeit ansehen",popular:"Am häufigsten gebucht",
+    packsTitle:"Wählen Sie Ihren Versicherungsschutz",comparePacks:"Versicherungsschutz im Detail vergleichen",
+    stepsTitle:"So funktioniert es",s1:"Suchen und vergleichen",s2:"In 3 Minuten buchen",s3:"Online-Check-in erledigen",s4:"Abholen und losfahren",
+    reviewsTitle:"Das sagen unsere Kunden",locTitle:"Wo Sie Ihr Fahrzeug abholen",faqTitle:"Häufig gestellte Fragen",
+    contactUs:"Schreiben Sie uns",blogTitle:"Mallorca mit dem Auto",allArticles:"Alle Artikel ansehen",
+    ctaTitle:"Bereit, Ihren Mietwagen auf Mallorca zu buchen?",perUnit:" /Tag",perUnitTotal:" gesamt",
+    translationNote:"Oberfläche auf Deutsch. Redaktionelle Inhalte sind noch nicht übersetzt (Verwaltung in Moov Core · E23)."},
+  fr: {navCars:"Véhicules",navLocations:"Agences",navPacks:"Packs",navHelp:"Aide",myBooking:"Ma réservation",
+    kicker:"Location de voitures à Majorque",h1:"Votre voiture prête dès votre arrivée à Majorque",
+    sub:"Prix final sans surprise, check-in en ligne et une équipe locale sur l'île.",
+    trust1:"Annulation gratuite 48 h",trust2:"Sans frais cachés",trust3:"Départ en 10 minutes",
+    b1t:"Prix final transparent",b2t:"Départ rapide",b3t:"Suivi des vols",b4t:"Équipe locale",
+    fPickupPlace:"Lieu de prise en charge",fPickup:"Prise en charge",fDropoff:"Restitution",search:"Rechercher un véhicule",
+    otherOffice:"Restituer dans une autre agence",promoCode:"J'ai un code promo",minAge:"Âge minimum 21 ans",
+    catsTitle:"Catégories à la une",allCats:"Voir toutes les catégories",from:"À partir de",see:"Voir la disponibilité",popular:"Le plus réservé",
+    packsTitle:"Choisissez votre couverture",comparePacks:"Comparer les couvertures en détail",
+    stepsTitle:"Comment ça marche",s1:"Comparez les offres",s2:"Réservez en 3 minutes",s3:"Faites le check-in en ligne",s4:"Récupérez et roulez",
+    reviewsTitle:"Ce que disent nos clients",locTitle:"Où récupérer votre voiture",faqTitle:"Questions fréquentes",
+    contactUs:"Écrivez-nous",blogTitle:"Majorque en voiture",allArticles:"Voir tous les articles",
+    ctaTitle:"Prêt à réserver votre voiture à Majorque ?",perUnit:" /jour",perUnitTotal:" total",
+    translationNote:"Interface en français. Le contenu éditorial reste à traduire (géré depuis Moov Core · E23)."}
+};
+
+const DAILY = {A:"24 €",C:"31 €",F:"58 €",K:"72 €"};
+const TOTAL = {A:"168 €",C:"217 €",F:"406 €",K:"504 €"};
+
+class Component extends DCLogic {
+  state = {lang:"es", place:"pmi", dateFrom:"2026-07-11", dateTo:"2026-07-18",
+    timeFrom:"10:00", timeTo:"10:00", otherOffice:false, toast:null};
+
+  toast(msg){ this.setState({toast:msg}); clearTimeout(this._tm); this._tm = setTimeout(()=>this.setState({toast:null}), 6000); }
+
+  langBtn(code){
+    const on = this.state.lang === code;
+    return "border:0;border-radius:6px;padding:6px 9px;font-size:12.5px;font-weight:700;cursor:pointer;min-width:34px;" +
+      (on ? "background:#fff;color:#10161C;box-shadow:0 1px 2px rgba(16,22,28,.16)" : "background:transparent;color:#4A5560");
+  }
+
+  renderVals(){
+    const lang = this.state.lang;
+    const t = DICT[lang];
+    const daily = (this.props.priceDisplay ?? "daily") === "daily";
+    const src = daily ? DAILY : TOTAL;
+    const nights = 7;
+    return {
+      t, lang,
+      promoBar: this.props.promoBar ?? true,
+      showTranslationNote: lang !== "es",
+      place: this.state.place, dateFrom: this.state.dateFrom, dateTo: this.state.dateTo,
+      timeFrom: this.state.timeFrom, timeTo: this.state.timeTo, otherOffice: this.state.otherOffice,
+      priceA: src.A, priceC: src.C, priceF: src.F, priceK: src.K,
+      toast: this.state.toast,
+      setEs: ()=>this.setState({lang:"es"}), setEn: ()=>this.setState({lang:"en"}),
+      setDe: ()=>this.setState({lang:"de"}), setFr: ()=>this.setState({lang:"fr"}),
+      langEs: this.langBtn("es"), langEn: this.langBtn("en"), langDe: this.langBtn("de"), langFr: this.langBtn("fr"),
+      onPlace: e=>this.setState({place:e.target.value}),
+      onDateFrom: e=>this.setState({dateFrom:e.target.value}),
+      onDateTo: e=>this.setState({dateTo:e.target.value}),
+      onTimeFrom: e=>this.setState({timeFrom:e.target.value}),
+      onTimeTo: e=>this.setState({timeTo:e.target.value}),
+      onOtherOffice: e=>this.setState({otherOffice:e.target.checked}),
+      goResults: ()=>this.toast("Siguiente pantalla: W02 Resultados — " + nights + " días, recogida " + this.state.dateFrom + " " + this.state.timeFrom + ". Aún no prototipada."),
+      goMyBooking: ()=>this.toast("Siguiente pantalla: W09 Acceso a Mi reserva. Aún no prototipada."),
+      scrollTop: ()=>window.scrollTo({top:0,behavior:"smooth"}),
+      closeToast: ()=>this.setState({toast:null})
+    };
+  }
+}
+
+</script>
+</body>
+</html>

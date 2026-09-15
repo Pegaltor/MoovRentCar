@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F7F9;font-family:Figtree,"Helvetica Neue",Helvetica,sans-serif;color:#10161C;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+*{box-sizing:border-box}
+a{color:#0079B0;text-decoration:none}
+a:hover{color:#005D87;text-decoration:underline}
+summary{cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+details[open] .chev{transform:rotate(45deg)}
+input,select,button,textarea{font-family:inherit}
+input::placeholder,textarea::placeholder{color:#9AA4AE}
+</style>
+</helmet>
+
+<div style="width:100%;max-width:100%;overflow-x:hidden;min-height:100vh">
+
+<header style="background:#fff;border-bottom:1px solid #E4E8EC">
+<div style="max-width:1200px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+<a href="Moov Web - W01 Inicio.dc.html" style="flex:none;display:flex;align-items:center"><img src="moov-logo.png" alt="Moov rent a car" style="height:30px;width:auto;display:block"></a>
+<span style="flex:1"></span>
+<div style="display:flex;align-items:center;gap:14px;flex:none">
+<div role="group" aria-label="Idioma" style="display:flex;gap:2px;padding:2px;background:#F0F3F5;border-radius:8px">
+<button type="button" onClick="{{ setEs }}" style="{{ langEs }}">ES</button>
+<button type="button" onClick="{{ setEn }}" style="{{ langEn }}">EN</button>
+<button type="button" onClick="{{ setDe }}" style="{{ langDe }}">DE</button>
+<button type="button" onClick="{{ setFr }}" style="{{ langFr }}">FR</button>
+</div>
+<span style="font-size:13.5px;font-weight:600;color:#4A5560">{{ t.helpPhone }}</span>
+</div>
+</div>
+</header>
+
+<div style="background:#fff;border-bottom:1px solid #E4E8EC">
+<div style="max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;gap:10px 22px;flex-wrap:wrap;align-items:center">
+<a href="Moov Web - W02 Resultados.dc.html" style="font-size:13.5px;font-weight:600;color:#0079B0">{{ t.step1 }}</a>
+<span aria-hidden="true" style="flex:none;width:18px;height:1px;background:#CDD5DB"></span>
+<a href="Moov Web - W04 Seleccion de pack.dc.html" style="font-size:13.5px;font-weight:600;color:#0079B0">{{ t.step2 }}</a>
+<span aria-hidden="true" style="flex:none;width:18px;height:1px;background:#CDD5DB"></span>
+<a href="Moov Web - W05 Extras.dc.html" style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#0079B0"><span style="font-size:15px">←</span>{{ t.step3 }}</a>
+<span aria-hidden="true" style="flex:none;width:18px;height:1px;background:#CDD5DB"></span>
+<span style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:800;color:#10161C"><span style="flex:none;width:22px;height:22px;border-radius:50%;background:#009FE3;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">4</span>{{ t.step4 }}</span>
+<span aria-hidden="true" style="flex:none;width:18px;height:1px;background:#CDD5DB"></span>
+<span style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:#8D98A3"><span style="flex:none;width:22px;height:22px;border-radius:50%;border:1px solid #CDD5DB;font-size:12px;display:flex;align-items:center;justify-content:center">5</span>{{ t.step5 }}</span>
+</div>
+</div>
+
+<main style="max-width:1200px;margin:0 auto;padding:24px 20px 140px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+
+<form style="flex:3 1 520px;min-width:0;display:flex;flex-direction:column;gap:18px" onSubmit="{{ onSubmit }}">
+
+<div>
+<h1 style="margin:0;font-size:clamp(23px,3vw,31px);font-weight:800;letter-spacing:-.018em">{{ t.title }}</h1>
+<p style="margin:10px 0 0;font-size:15.5px;line-height:1.55;color:#4A5560;max-width:62ch">{{ t.intro }}</p>
+</div>
+
+<sc-if value="{{ showErrorSummary }}" hint-placeholder-val="{{ false }}">
+<div role="alert" style="background:#FDE8E9;border:1px solid #F3BFC3;border-left:4px solid #E30613;border-radius:12px;padding:15px 18px">
+<p style="margin:0;font-size:15px;font-weight:800;color:#A3060F">{{ t.errTitle }}</p>
+<p style="margin:6px 0 0;font-size:14.5px;line-height:1.5;color:#7D1319">{{ errorSummary }}</p>
+</div>
+</sc-if>
+
+<section style="background:#fff;border:1px solid #E4E8EC;border-radius:14px;padding:20px">
+<h2 style="margin:0 0 4px;font-size:18px;font-weight:800">{{ t.driverTitle }}</h2>
+<p style="margin:0 0 18px;font-size:14px;color:#4A5560">{{ t.driverNote }}</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px">
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0">
+<span style="font-size:13px;font-weight:700;color:#4A5560">{{ t.fName }} *</span>
+<input type="text" value="{{ name }}" onChange="{{ onName }}" onBlur="{{ blurName }}" placeholder="{{ t.phName }}" style="{{ sName }}">
+<sc-if value="{{ eName }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:600;color:#A3060F">{{ eName }}</span></sc-if>
+</label>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0">
+<span style="font-size:13px;font-weight:700;color:#4A5560">{{ t.fSurname }} *</span>
+<input type="text" value="{{ surname }}" onChange="{{ onSurname }}" onBlur="{{ blurSurname }}" placeholder="{{ t.phSurname }}" style="{{ sSurname }}">
+<sc-if value="{{ eSurname }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:600;color:#A3060F">{{ eSurname }}</span></sc-if>
+</label>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0">
+<span style="font-size:13px;font-weight:700;color:#4A5560">{{ t.fBirth }} *</span>
+<input type="date" value="{{ birth }}" onChange="{{ onBirth }}" onBlur="{{ blurBirth }}" style="{{ sBirth }}">
+<sc-if value="{{ eBirth }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:600;color:#A3060F">{{ eBirth }}</span></sc-if>
+<sc-if value="{{ noBirthError }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px;color:#6B7580">{{ t.hBirth }}</span></sc-if>
+</label>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0">
+<span style="font-size:13px;font-weight:700;color:#4A5560">{{ t.fCountry }} *</span>
+<select value="{{ country }}" onChange="{{ onCountry }}" style="appearance:none;border:1px solid #CDD5DB;border-radius:10px;padding:12px 13px;font-size:15px;font-weight:600;background:#fff;min-height:48px;cursor:pointer;color:#10161C">
+<option value="ES">España</option><option value="DE">Alemania</option><option value="FR">Francia</option><option value="GB">Reino Unido</option><option value="IT">Italia</option><option value="NL">Países Bajos</option><option value="OTHER">{{ t.otherCountry }}</option>
+</select>
+</label>
+</div>
+</section>
+
+<section style="background:#fff;border:1px solid #E4E8EC;border-radius:14px;padding:20px">
+<h2 style="margin:0 0 4px;font-size:18px;font-weight:800">{{ t.contactTitle }}</h2>
+<p style="margin:0 0 18px;font-size:14px;color:#4A5560">{{ t.contactNote }}</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px">
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0">
+<span style="font-size:13px;font-weight:700;color:#4A5560">{{ t.fEmail }} *</span>
+<input type="email" value="{{ email }}" onChange="{{ onEmail }}" onBlur="{{ blurEmail }}" placeholder="nombre@correo.com" style="{{ sEmail }}">
+<sc-if value="{{ eEmail }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:600;color:#A3060F">{{ eEmail }}</span></sc-if>
+<sc-if value="{{ noEmailError }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px;color:#6B7580">{{ t.hEmail }}</span></sc-if>
+</label>
+<div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+<span style="font-size:13px;font-weight:700;color:#4A5560">{{ t.fPhone }} *</span>
+<div style="display:flex;gap:8px">
+<select value="{{ prefix }}" onChange="{{ onPrefix }}" aria-label="{{ t.fPrefix }}" style="appearance:none;flex:none;width:112px;border:1px solid #CDD5DB;border-radius:10px;padding:12px 10px;font-size:15px;font-weight:600;background:#fff;min-height:48px;cursor:pointer;color:#10161C">
+<option value="+34">+34 ES</option><option value="+49">+49 DE</option><option value="+33">+33 FR</option><option value="+44">+44 GB</option><option value="+39">+39 IT</option><option value="+31">+31 NL</option>
+</select>
+<input type="tel" value="{{ phone }}" onChange="{{ onPhone }}" onBlur="{{ blurPhone }}" placeholder="600 000 000" style="{{ sPhone }}">
+</div>
+<sc-if value="{{ ePhone }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:600;color:#A3060F">{{ ePhone }}</span></sc-if>
+<sc-if value="{{ noPhoneError }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px;color:#6B7580">{{ t.hPhone }}</span></sc-if>
+</div>
+</div>
+</section>
+
+<section style="background:#fff;border:1px solid #E4E8EC;border-radius:14px;padding:20px">
+<h2 style="margin:0 0 4px;font-size:18px;font-weight:800">{{ t.flightTitle }}</h2>
+<p style="margin:0 0 18px;font-size:14px;color:#4A5560;max-width:66ch">{{ t.flightNote }}</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px">
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0">
+<span style="font-size:13px;font-weight:700;color:#4A5560">{{ t.fFlight }}</span>
+<input type="text" value="{{ flight }}" onChange="{{ onFlight }}" placeholder="p. ej. VY3820" style="border:1px solid #CDD5DB;border-radius:10px;padding:12px 13px;font-size:15px;font-weight:600;background:#fff;min-height:48px;color:#10161C;text-transform:uppercase">
+<span style="font-size:13px;color:#6B7580">{{ t.hFlight }}</span>
+</label>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0">
+<span style="font-size:13px;font-weight:700;color:#4A5560">{{ t.fArrival }}</span>
+<select value="{{ arrival }}" onChange="{{ onArrival }}" style="appearance:none;border:1px solid #CDD5DB;border-radius:10px;padding:12px 13px;font-size:15px;font-weight:600;background:#fff;min-height:48px;cursor:pointer;color:#10161C">
+<option value="10:00">10:00</option><option value="11:00">11:00</option><option value="12:00">12:00</option><option value="13:00">13:00</option><option value="14:00">14:00</option><option value="22:00">22:00</option>
+</select>
+<span style="font-size:13px;color:#6B7580">{{ t.hArrival }}</span>
+</label>
+</div>
+<label style="display:flex;flex-direction:column;gap:6px;margin-top:16px">
+<span style="font-size:13px;font-weight:700;color:#4A5560">{{ t.fNotes }}</span>
+<textarea value="{{ notes }}" onChange="{{ onNotes }}" rows="3" placeholder="{{ t.phNotes }}" style="border:1px solid #CDD5DB;border-radius:10px;padding:12px 13px;font-size:15px;font-weight:500;background:#fff;color:#10161C;resize:vertical;line-height:1.5"></textarea>
+<span style="font-size:13px;color:#6B7580">{{ t.hNotes }}</span>
+</label>
+</section>
+
+<section style="background:#fff;border:1px solid #E4E8EC;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px">
+<h2 style="margin:0;font-size:18px;font-weight:800">{{ t.consentTitle }}</h2>
+<label style="{{ sPrivacy }}">
+<input type="checkbox" checked="{{ privacy }}" onChange="{{ onPrivacy }}" style="flex:none;width:19px;height:19px;margin-top:2px;accent-color:#009FE3;cursor:pointer">
+<span style="font-size:14.5px;line-height:1.5"><strong style="font-weight:700">{{ t.required }}</strong> · {{ t.privacy1 }} <a href="#privacidad">{{ t.privacyLink }}</a>{{ t.privacy2 }}</span>
+</label>
+<sc-if value="{{ ePrivacy }}" hint-placeholder-val="{{ false }}"><p style="margin:-6px 0 0 30px;font-size:13px;font-weight:600;color:#A3060F">{{ ePrivacy }}</p></sc-if>
+<label style="display:flex;gap:11px;align-items:flex-start;padding:13px 14px;border:1px solid #E4E8EC;border-radius:11px;cursor:pointer">
+<input type="checkbox" checked="{{ marketing }}" onChange="{{ onMarketing }}" style="flex:none;width:19px;height:19px;margin-top:2px;accent-color:#009FE3;cursor:pointer">
+<span style="font-size:14.5px;line-height:1.5;color:#4A5560"><strong style="font-weight:700;color:#10161C">{{ t.optional }}</strong> · {{ t.marketing }}</span>
+</label>
+</section>
+
+<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+<button type="submit" style="border:0;border-radius:11px;background:#009FE3;color:#fff;font-size:16.5px;font-weight:700;padding:15px 24px;cursor:pointer;min-height:50px;box-shadow:0 2px 0 #0079B0" style-hover="background:#0093D2">{{ t.continue }}</button>
+<a href="Moov Web - W05 Extras.dc.html" style="font-size:15px;font-weight:700">{{ t.back }}</a>
+</div>
+
+</form>
+
+<aside style="flex:1 1 300px;min-width:0;position:sticky;top:18px;background:#fff;border:1px solid #E4E8EC;border-radius:16px;overflow:hidden">
+<div style="padding:16px 18px;border-bottom:1px solid #EEF1F3;display:flex;gap:14px;align-items:center">
+<div style="flex:none;width:76px;height:54px;border-radius:8px;background:repeating-linear-gradient(135deg,#DFE6EA 0 8px,#E9EEF1 8px 16px)"></div>
+<div style="min-width:0"><p style="margin:0;font-size:11.5px;font-weight:800;letter-spacing:.06em;color:#6B7580;text-transform:uppercase">GRUPO C</p><h2 style="margin:3px 0 0;font-size:17px;font-weight:800">Económico</h2><p style="margin:2px 0 0;font-size:13px;color:#6B7580">Seat Ibiza <em style="font-style:normal;font-weight:700;color:#10161C">{{ t.orSimilar }}</em></p></div>
+</div>
+<dl style="margin:0;padding:15px 18px;border-bottom:1px solid #EEF1F3;display:grid;grid-template-columns:auto 1fr;gap:9px 12px;font-size:13.5px">
+<dt style="color:#6B7580;font-weight:600">{{ t.sPickup }}</dt><dd style="margin:0;font-weight:700;text-align:right">11 jul · 10:00</dd>
+<dt style="color:#6B7580;font-weight:600">{{ t.sDropoff }}</dt><dd style="margin:0;font-weight:700;text-align:right">18 jul · 10:00</dd>
+<dt style="color:#6B7580;font-weight:600">{{ t.sPlace }}</dt><dd style="margin:0;font-weight:700;text-align:right">Aeropuerto PMI</dd>
+</dl>
+<div style="padding:15px 18px;display:flex;flex-direction:column;gap:10px;font-size:14px">
+<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A5560;font-weight:600">{{ t.sBase }}</span><strong style="font-weight:700">217 €</strong></div>
+<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A5560;font-weight:600">Pack Green</span><strong style="font-weight:700">{{ t.included }}</strong></div>
+<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A5560;font-weight:600">1 × {{ t.childSeat }}</span><strong style="font-weight:700">42 €</strong></div>
+</div>
+<div style="padding:0 18px 16px">
+<div style="border-top:1px solid #EEF1F3;padding-top:14px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+<div><p style="margin:0;font-size:12.5px;font-weight:700;color:#6B7580;text-transform:uppercase;letter-spacing:.04em">{{ t.sTotal }}</p><p style="margin:2px 0 0;font-size:13px;color:#6B7580">{{ t.taxesIncl }}</p></div>
+<p style="margin:0;font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1">259 €</p>
+</div>
+<p style="margin:12px 0 0;font-size:12.5px;line-height:1.5;color:#6B7580">{{ t.summaryNote }}</p>
+</div>
+</aside>
+
+</main>
+
+<sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;left:0;right:0;bottom:0;z-index:70;background:#fff;border-top:1px solid #E4E8EC;box-shadow:0 -6px 22px rgba(16,22,28,.12);padding:11px 16px 13px;display:flex;align-items:center;gap:14px">
+<div style="min-width:0;flex:1">
+<p style="margin:0;font-size:12px;font-weight:700;color:#6B7580;text-transform:uppercase;letter-spacing:.04em">{{ t.sTotal }} · {{ t.taxesIncl }}</p>
+<p style="margin:2px 0 0;font-size:24px;font-weight:800;letter-spacing:-.025em;line-height:1.05">259 €</p>
+</div>
+<button type="button" onClick="{{ onSubmitMobile }}" style="flex:none;border:0;border-radius:11px;background:#009FE3;color:#fff;font-size:15.5px;font-weight:700;padding:14px 18px;cursor:pointer;min-height:48px;box-shadow:0 2px 0 #0079B0">{{ t.continueShort }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:80;max-width:min(560px,calc(100vw - 32px));background:#10161C;color:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 14px 40px rgba(16,22,28,.3);display:flex;gap:14px;align-items:flex-start">
+<span style="flex:none;width:8px;height:8px;border-radius:50%;background:#0B983A;margin-top:7px"></span>
+<p style="margin:0;font-size:14.5px;line-height:1.45">{{ toast }}</p>
+<button type="button" onClick="{{ closeToast }}" style="flex:none;border:0;background:transparent;color:#fff;font-size:18px;line-height:1;cursor:pointer;padding:2px 4px" aria-label="Cerrar">×</button>
+</div>
+</sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:960}}">
+const DICT = {
+  es:{helpPhone:"Ayuda +34 971 000 000",
+    step1:"Vehículo",step2:"Cobertura",step3:"Extras",step4:"Datos",step5:"Pago",
+    title:"Tus datos para la reserva",
+    intro:"Solo pedimos lo necesario para crear la reserva y poder avisarte. El resto de datos se completan en el check in online.",
+    errTitle:"Revisa los campos marcados",
+    driverTitle:"Conductor principal",driverNote:"Debe ser quien recoja el coche y presente su permiso de conducción.",
+    contactTitle:"Contacto",contactNote:"Aquí enviaremos la confirmación, el localizador y las instrucciones de recogida.",
+    flightTitle:"Vuelo (opcional)",
+    flightNote:"Si nos indicas tu vuelo, mantenemos el coche disponible dentro del horario de oficina cuando hay retrasos.",
+    consentTitle:"Consentimientos",
+    fName:"Nombre",fSurname:"Apellidos",fBirth:"Fecha de nacimiento",fCountry:"País de residencia",otherCountry:"Otro país",
+    fEmail:"Email",fPhone:"Teléfono móvil",fPrefix:"Prefijo",fFlight:"Número de vuelo",fArrival:"Hora estimada de llegada",fNotes:"Observaciones",
+    phName:"Marta",phSurname:"García Ferrer",phNotes:"Cualquier cosa que debamos saber antes de tu llegada.",
+    hBirth:"Edad mínima 21 años en la fecha de recogida.",
+    hEmail:"Revisa que sea correcto: allí va tu localizador.",
+    hPhone:"Formato internacional, solo para avisos de tu reserva.",
+    hFlight:"Lo encuentras en tu billete, junto a la hora de salida.",
+    hArrival:"Hora local en Palma. No es vinculante.",
+    hNotes:"No incluyas datos de tarjeta ni documentos personales.",
+    required:"Obligatorio",optional:"Opcional",
+    privacy1:"He leído y acepto la",privacyLink:"política de privacidad",privacy2:" y el tratamiento de mis datos para gestionar el alquiler.",
+    marketing:"Quiero recibir ofertas y novedades de Moov por email. Puedo darme de baja cuando quiera.",
+    continue:"Continuar al pago",continueShort:"Continuar",back:"Volver a extras",
+    orSimilar:"o similar",childSeat:"Silla infantil",
+    sPickup:"Recogida",sDropoff:"Devolución",sPlace:"Oficina",sBase:"Alquiler 7 días",included:"Incluido",
+    sTotal:"Total",taxesIncl:"Impuestos incluidos",
+    summaryNote:"Todavía no se cobra nada. El pago se realiza en el último paso.",
+    eReq:"Este campo es obligatorio",eEmail:"Escribe un email válido, por ejemplo nombre@correo.com",
+    ePhone:"Escribe un número válido, solo cifras y espacios",eAge:"El conductor principal debe tener 21 años o más",
+    ePrivacy:"Necesitamos tu aceptación para poder gestionar la reserva",
+    errOne:"Falta 1 campo por completar o corregir.",errMany:"campos por completar o corregir."},
+  en:{helpPhone:"Help +34 971 000 000",
+    step1:"Car",step2:"Cover",step3:"Extras",step4:"Details",step5:"Payment",
+    title:"Your booking details",
+    intro:"We only ask for what we need to create the booking and reach you. Everything else is collected in the online check in.",
+    errTitle:"Please review the highlighted fields",
+    driverTitle:"Main driver",driverNote:"Must be the person collecting the car and showing their driving licence.",
+    contactTitle:"Contact",contactNote:"We will send the confirmation, booking reference and pick-up instructions here.",
+    flightTitle:"Flight (optional)",
+    flightNote:"If you give us your flight, we keep the car available within office hours when there are delays.",
+    consentTitle:"Consents",
+    fName:"First name",fSurname:"Surname",fBirth:"Date of birth",fCountry:"Country of residence",otherCountry:"Other country",
+    fEmail:"Email",fPhone:"Mobile phone",fPrefix:"Country code",fFlight:"Flight number",fArrival:"Estimated arrival time",fNotes:"Notes",
+    phName:"Marta",phSurname:"García Ferrer",phNotes:"Anything we should know before you arrive.",
+    hBirth:"Minimum age 21 on the pick-up date.",
+    hEmail:"Double-check it: your booking reference goes there.",
+    hPhone:"International format, only for booking notices.",
+    hFlight:"You will find it on your ticket, next to the departure time.",
+    hArrival:"Local time in Palma. Not binding.",
+    hNotes:"Do not include card details or personal documents.",
+    required:"Required",optional:"Optional",
+    privacy1:"I have read and accept the",privacyLink:"privacy policy",privacy2:" and the processing of my data to manage the rental.",
+    marketing:"I want to receive Moov offers and news by email. I can unsubscribe at any time.",
+    continue:"Continue to payment",continueShort:"Continue",back:"Back to extras",
+    orSimilar:"or similar",childSeat:"Child seat",
+    sPickup:"Pick-up",sDropoff:"Drop-off",sPlace:"Office",sBase:"7-day rental",included:"Included",
+    sTotal:"Total",taxesIncl:"Taxes included",
+    summaryNote:"Nothing is charged yet. Payment happens in the last step.",
+    eReq:"This field is required",eEmail:"Enter a valid email, for example name@email.com",
+    ePhone:"Enter a valid number, digits and spaces only",eAge:"The main driver must be 21 or older",
+    ePrivacy:"We need your acceptance to manage the booking",
+    errOne:"1 field still needs to be completed or corrected.",errMany:"fields need to be completed or corrected."},
+  de:{helpPhone:"Hilfe +34 971 000 000",
+    step1:"Fahrzeug",step2:"Versicherung",step3:"Extras",step4:"Daten",step5:"Zahlung",
+    title:"Ihre Buchungsdaten",
+    intro:"Wir fragen nur, was wir für die Buchung und den Kontakt brauchen. Alles Weitere erfassen wir beim Online-Check-in.",
+    errTitle:"Bitte prüfen Sie die markierten Felder",
+    driverTitle:"Hauptfahrer",driverNote:"Muss die Person sein, die das Fahrzeug abholt und den Führerschein vorlegt.",
+    contactTitle:"Kontakt",contactNote:"Hierhin senden wir Bestätigung, Buchungsnummer und Abholhinweise.",
+    flightTitle:"Flug (optional)",
+    flightNote:"Mit Ihrer Flugnummer halten wir das Fahrzeug bei Verspätungen innerhalb der Öffnungszeiten bereit.",
+    consentTitle:"Einwilligungen",
+    fName:"Vorname",fSurname:"Nachname",fBirth:"Geburtsdatum",fCountry:"Wohnsitzland",otherCountry:"Anderes Land",
+    fEmail:"E-Mail",fPhone:"Mobiltelefon",fPrefix:"Vorwahl",fFlight:"Flugnummer",fArrival:"Geschätzte Ankunftszeit",fNotes:"Anmerkungen",
+    phName:"Marta",phSurname:"García Ferrer",phNotes:"Alles, was wir vor Ihrer Ankunft wissen sollten.",
+    hBirth:"Mindestalter 21 Jahre am Abholtag.",
+    hEmail:"Bitte prüfen: dorthin geht Ihre Buchungsnummer.",
+    hPhone:"Internationales Format, nur für Buchungshinweise.",
+    hFlight:"Sie finden sie auf dem Ticket neben der Abflugzeit.",
+    hArrival:"Ortszeit in Palma. Nicht verbindlich.",
+    hNotes:"Keine Kartendaten oder persönlichen Dokumente angeben.",
+    required:"Pflichtfeld",optional:"Optional",
+    privacy1:"Ich habe die",privacyLink:"Datenschutzerklärung",privacy2:" gelesen und akzeptiere die Verarbeitung meiner Daten zur Abwicklung der Miete.",
+    marketing:"Ich möchte Angebote und Neuigkeiten von Moov per E-Mail erhalten. Abmeldung jederzeit möglich.",
+    continue:"Weiter zur Zahlung",continueShort:"Weiter",back:"Zurück zu den Extras",
+    orSimilar:"oder ähnlich",childSeat:"Kindersitz",
+    sPickup:"Abholung",sDropoff:"Rückgabe",sPlace:"Station",sBase:"Miete 7 Tage",included:"Inklusive",
+    sTotal:"Gesamt",taxesIncl:"inkl. Steuern",
+    summaryNote:"Es wird noch nichts abgebucht. Die Zahlung erfolgt im letzten Schritt.",
+    eReq:"Dieses Feld ist erforderlich",eEmail:"Bitte geben Sie eine gültige E-Mail ein, z. B. name@mail.com",
+    ePhone:"Bitte gültige Nummer eingeben, nur Ziffern und Leerzeichen",eAge:"Der Hauptfahrer muss mindestens 21 Jahre alt sein",
+    ePrivacy:"Wir benötigen Ihre Einwilligung, um die Buchung abzuwickeln",
+    errOne:"1 Feld muss noch ausgefüllt oder korrigiert werden.",errMany:"Felder müssen noch ausgefüllt oder korrigiert werden."},
+  fr:{helpPhone:"Aide +34 971 000 000",
+    step1:"Véhicule",step2:"Couverture",step3:"Options",step4:"Coordonnées",step5:"Paiement",
+    title:"Vos coordonnées",
+    intro:"Nous ne demandons que le nécessaire pour créer la réservation et vous joindre. Le reste est recueilli lors du check-in en ligne.",
+    errTitle:"Veuillez vérifier les champs signalés",
+    driverTitle:"Conducteur principal",driverNote:"Doit être la personne qui récupère la voiture et présente son permis.",
+    contactTitle:"Contact",contactNote:"Nous y enverrons la confirmation, la référence et les instructions de prise en charge.",
+    flightTitle:"Vol (optionnel)",
+    flightNote:"Avec votre numéro de vol, nous gardons la voiture disponible pendant les horaires d'ouverture en cas de retard.",
+    consentTitle:"Consentements",
+    fName:"Prénom",fSurname:"Nom",fBirth:"Date de naissance",fCountry:"Pays de résidence",otherCountry:"Autre pays",
+    fEmail:"E-mail",fPhone:"Téléphone mobile",fPrefix:"Indicatif",fFlight:"Numéro de vol",fArrival:"Heure d'arrivée estimée",fNotes:"Remarques",
+    phName:"Marta",phSurname:"García Ferrer",phNotes:"Tout ce que nous devons savoir avant votre arrivée.",
+    hBirth:"Âge minimum 21 ans à la date de prise en charge.",
+    hEmail:"Vérifiez bien : votre référence y sera envoyée.",
+    hPhone:"Format international, uniquement pour les avis de réservation.",
+    hFlight:"Il figure sur votre billet, à côté de l'heure de départ.",
+    hArrival:"Heure locale à Palma. Non contractuelle.",
+    hNotes:"N'indiquez pas de données bancaires ni de documents personnels.",
+    required:"Obligatoire",optional:"Optionnel",
+    privacy1:"J'ai lu et j'accepte la",privacyLink:"politique de confidentialité",privacy2:" et le traitement de mes données pour gérer la location.",
+    marketing:"Je souhaite recevoir les offres et actualités Moov par e-mail. Je peux me désabonner à tout moment.",
+    continue:"Continuer vers le paiement",continueShort:"Continuer",back:"Retour aux options",
+    orSimilar:"ou similaire",childSeat:"Siège enfant",
+    sPickup:"Prise en charge",sDropoff:"Restitution",sPlace:"Agence",sBase:"Location 7 jours",included:"Inclus",
+    sTotal:"Total",taxesIncl:"Taxes incluses",
+    summaryNote:"Rien n'est débité pour le moment. Le paiement a lieu à la dernière étape.",
+    eReq:"Ce champ est obligatoire",eEmail:"Saisissez un e-mail valide, par exemple nom@mail.com",
+    ePhone:"Saisissez un numéro valide, chiffres et espaces uniquement",eAge:"Le conducteur principal doit avoir 21 ans ou plus",
+    ePrivacy:"Nous avons besoin de votre accord pour gérer la réservation",
+    errOne:"1 champ reste à compléter ou corriger.",errMany:"champs restent à compléter ou corriger."}
+};
+
+const PICKUP = new Date("2026-07-11");
+
+class Component extends DCLogic {
+  state = {lang:"es", narrow:false, submitted:false, touched:{}, toast:null,
+    name:"", surname:"", birth:"", country:"ES", email:"", prefix:"+34", phone:"",
+    flight:"", arrival:"12:00", notes:"", privacy:false, marketing:false};
+
+  componentDidMount(){
+    this._onResize = () => {
+      const n = window.innerWidth < 860;
+      if (n !== this.state.narrow) this.setState({narrow:n});
+    };
+    this._onResize();
+    window.addEventListener("resize", this._onResize);
+  }
+  componentWillUnmount(){ window.removeEventListener("resize", this._onResize); clearTimeout(this._tm); }
+
+  toast(msg){ this.setState({toast:msg}); clearTimeout(this._tm); this._tm=setTimeout(()=>this.setState({toast:null}),6000); }
+
+  langBtn(code){
+    const on = this.state.lang===code;
+    return "border:0;border-radius:6px;padding:6px 9px;font-size:12.5px;font-weight:700;cursor:pointer;min-width:34px;" +
+      (on?"background:#fff;color:#10161C;box-shadow:0 1px 2px rgba(16,22,28,.16)":"background:transparent;color:#4A5560");
+  }
+  field(err){
+    return "width:100%;min-width:0;border-radius:10px;padding:12px 13px;font-size:15px;font-weight:600;background:#fff;min-height:48px;color:#10161C;" +
+      (err ? "border:1px solid #E30613;box-shadow:0 0 0 3px rgba(227,6,19,.10)" : "border:1px solid #CDD5DB");
+  }
+  touch(k){ this.setState({touched:Object.assign({}, this.state.touched, {[k]:true})}); }
+
+  errors(){
+    const s = this.state, t = DICT[s.lang], e = {};
+    if (!s.name.trim()) e.name = t.eReq;
+    if (!s.surname.trim()) e.surname = t.eReq;
+    if (!s.birth) e.birth = t.eReq;
+    else {
+      const b = new Date(s.birth);
+      let age = PICKUP.getFullYear() - b.getFullYear();
+      const m = PICKUP.getMonth() - b.getMonth();
+      if (m < 0 || (m === 0 && PICKUP.getDate() < b.getDate())) age--;
+      if (age < 21) e.birth = t.eAge;
+    }
+    if (!s.email.trim()) e.email = t.eReq;
+    else if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(s.email.trim())) e.email = t.eEmail;
+    if (!s.phone.trim()) e.phone = t.eReq;
+    else if (!/^[0-9\s]{6,15}$/.test(s.phone.trim())) e.phone = t.ePhone;
+    if (!s.privacy) e.privacy = t.ePrivacy;
+    return e;
+  }
+
+  submit(){
+    const e = this.errors();
+    this.setState({submitted:true});
+    if (Object.keys(e).length === 0) {
+      this.toast("Datos válidos. Siguiente pantalla: W07 Pago. Aún no prototipada.");
+    } else {
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+  }
+
+  renderVals(){
+    const s = this.state, t = DICT[s.lang], errs = this.errors();
+    const show = k => (s.submitted || s.touched[k]) ? errs[k] : null;
+    const n = Object.keys(errs).length;
+
+    return {
+      t,
+      narrow: s.narrow, toast: s.toast,
+      name:s.name, surname:s.surname, birth:s.birth, country:s.country,
+      email:s.email, prefix:s.prefix, phone:s.phone,
+      flight:s.flight, arrival:s.arrival, notes:s.notes,
+      privacy:s.privacy, marketing:s.marketing,
+      eName:show("name"), eSurname:show("surname"), eBirth:show("birth"),
+      eEmail:show("email"), ePhone:show("phone"), ePrivacy:show("privacy"),
+      noBirthError: !show("birth"), noEmailError: !show("email"), noPhoneError: !show("phone"),
+      sName:this.field(show("name")), sSurname:this.field(show("surname")), sBirth:this.field(show("birth")),
+      sEmail:this.field(show("email")), sPhone:this.field(show("phone")),
+      sPrivacy: "display:flex;gap:11px;align-items:flex-start;padding:13px 14px;border-radius:11px;cursor:pointer;" +
+        (show("privacy") ? "border:1px solid #E30613;background:#FEF6F6" : "border:1px solid #E4E8EC"),
+      showErrorSummary: s.submitted && n > 0,
+      errorSummary: n === 1 ? t.errOne : n + " " + t.errMany,
+      langEs:this.langBtn("es"),langEn:this.langBtn("en"),langDe:this.langBtn("de"),langFr:this.langBtn("fr"),
+      setEs:()=>this.setState({lang:"es"}),setEn:()=>this.setState({lang:"en"}),
+      setDe:()=>this.setState({lang:"de"}),setFr:()=>this.setState({lang:"fr"}),
+      onName:e=>this.setState({name:e.target.value}), blurName:()=>this.touch("name"),
+      onSurname:e=>this.setState({surname:e.target.value}), blurSurname:()=>this.touch("surname"),
+      onBirth:e=>this.setState({birth:e.target.value}), blurBirth:()=>this.touch("birth"),
+      onCountry:e=>this.setState({country:e.target.value}),
+      onEmail:e=>this.setState({email:e.target.value}), blurEmail:()=>this.touch("email"),
+      onPrefix:e=>this.setState({prefix:e.target.value}),
+      onPhone:e=>this.setState({phone:e.target.value}), blurPhone:()=>this.touch("phone"),
+      onFlight:e=>this.setState({flight:e.target.value}),
+      onArrival:e=>this.setState({arrival:e.target.value}),
+      onNotes:e=>this.setState({notes:e.target.value}),
+      onPrivacy:e=>this.setState({privacy:e.target.checked}),
+      onMarketing:e=>this.setState({marketing:e.target.checked}),
+      onSubmit:e=>{ e.preventDefault(); this.submit(); },
+      onSubmitMobile:()=>this.submit(),
+      closeToast:()=>this.setState({toast:null})
+    };
+  }
+}
+
+</script>
+</body>
+</html>

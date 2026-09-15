@@ -1,0 +1,567 @@
+DOCUMENTO FUNCIONAL PARA PROTOTIPADO
+[Title] Especificación de pantallas Moov Digital Platform
+[Subtitle] Briefings para Moov Core y Moov Web
+Cliente  Moov Rent a Car
+Propuesta preparada por Brain4Tech
+Septiembre de 2026
+
+Documento de trabajo comercial sujeto a validación funcional con Moov
+
+[Heading1] Finalidad del documento
+Este documento define las pantallas propuestas para la primera fase de Moov Digital Platform. Cada ficha puede utilizarse como base de trabajo con Claude Design o Lovable. Los prototipos resultantes servirán para validar la experiencia de usuario antes de que Códex o Claude Code construyan el producto definitivo.
+Las descripciones concretan qué debe mostrar cada pantalla y cómo debe comportarse. No sustituyen el análisis de procesos ni autorizan funciones fuera del alcance comercial. Si durante el prototipado aparece una nueva regla de negocio, deberá documentarse y decidirse antes de incorporarla al desarrollo.
+[Heading1] Criterios comunes de diseño
+[ListBullet] Moov Core debe sentirse como una herramienta operativa rápida y sobria, con alta densidad de información, jerarquía clara y pocas acciones por pantalla.
+[ListBullet] Moov Web debe transmitir confianza, sencillez y orientación al turismo de Mallorca, con fotografía amplia, precios transparentes y un proceso de reserva muy visible.
+[ListBullet] Diseño mobile first para la web pública y responsive para el ERP, aunque el ERP se optimizará principalmente para ordenadores y tabletas.
+[ListBullet] Componentes consistentes: botones, filtros, etiquetas de estado, tablas, formularios, tarjetas, modales, mensajes de error y confirmaciones.
+[ListBullet] Accesibilidad: contraste suficiente, navegación por teclado, etiquetas visibles, mensajes que no dependan solo del color y tamaños táctiles adecuados.
+[ListBullet] Idiomas: español, inglés, alemán y francés. Los textos deben admitir longitudes distintas sin romper el diseño.
+[ListBullet] Estados obligatorios en prototipos: carga, vacío, error, sin resultados, éxito, permiso insuficiente y datos incompletos.
+[ListBullet] La interfaz debe evitar prometer una matrícula concreta cuando la reserva se vende por grupo o categoría.
+[Heading2] Prompt general para Moov Core
+[Screenprompt] Texto para prototipado. Diseña un ERP web responsive para una empresa de alquiler de vehículos llamada Moov Rent a Car. Usa un estilo profesional, limpio y operativo, con fondo claro, navegación lateral fija, cabecera compacta, tablas legibles, filtros persistentes y etiquetas de estado accesibles. Prioriza rapidez de lectura y acciones claras. El sistema gestiona flota, categorías, planning, disponibilidad, mantenimientos, reservas, clientes, tarifas, extras, promociones, documentos y pagos. Incluye estados de carga, vacío, error y confirmación. El diseño debe funcionar especialmente bien en escritorio de 1440 píxeles y adaptarse a tableta.
+[Heading2] Prompt general para Moov Web
+[Screenprompt] Texto para prototipado. Diseña una web premium, cercana y muy clara para Moov Rent a Car en Mallorca. El buscador de alquiler debe ser el elemento principal. Usa fotografía realista de vehículos y localizaciones de Mallorca, tipografía legible, precios transparentes y llamadas a la acción directas. El proceso debe ser mobile first, rápido y multilingüe en español, inglés, alemán y francés. Mantén visible el resumen de fechas y precio durante la reserva. No prometas un modelo exacto: presenta cada opción como una categoría con un vehículo de referencia y la expresión o similar.
+[Heading1] Mapa de pantallas de Moov Core
+Código
+Pantalla
+Finalidad
+E01
+Acceso
+Autenticación y recuperación.
+E02
+Panel principal
+Resumen diario y alertas.
+E03
+Planning de flota
+Calendario operativo por vehículo.
+E04
+Consulta de disponibilidad
+Búsqueda interna por fechas y categoría.
+E05
+Listado de vehículos
+Inventario y filtros.
+E06
+Ficha de vehículo
+Datos, estado, documentos e histórico.
+E07
+Categorías de vehículos
+Grupos comerciales y atributos.
+E08
+Mantenimientos
+Agenda, vencimientos y bloqueos.
+E09
+Ficha de mantenimiento
+Intervención y coste.
+E10
+Bloqueos operativos
+Inmovilizaciones no asociadas a reserva.
+E11
+Listado de reservas
+Consulta y seguimiento.
+E12
+Ficha de reserva
+Visión completa de una operación.
+E13
+Nueva reserva
+Creación manual asistida.
+E14
+Asignación de vehículo
+Asignar matrícula a una reserva.
+E15
+Listado de clientes
+Búsqueda y segmentación básica.
+E16
+Ficha de cliente
+Datos, documentos e histórico.
+E17
+Tarifas y temporadas
+Matriz de precio base.
+E18
+Packs y coberturas
+Configuración comercial.
+E19
+Extras
+Catálogo y precios.
+E20
+Promociones
+Códigos y vigencia.
+E21
+Documentos
+Repositorio relacionado.
+E22
+Pagos
+Operaciones y estados.
+E23
+Contenidos web
+Edición básica multilingüe.
+E24
+Usuarios y roles
+Acceso y permisos.
+E25
+Configuración
+Parámetros generales.
+
+[Heading1] Pantallas de Moov Core
+[Heading2] E01 Acceso
+Área. Seguridad
+Objetivo. Permitir el acceso del personal autorizado y recuperar la contraseña.
+Contenido. Logotipo de Moov, correo, contraseña, opción para mostrar la contraseña, recordarme, enlace de recuperación y mensaje breve de soporte.
+Acciones. Iniciar sesión y solicitar recuperación.
+Estados y comportamiento. Mostrar errores genéricos sin revelar si un usuario existe. Incluir espera durante la validación y confirmación del envío de recuperación.
+[Screenprompt] Texto para prototipado. Crea una pantalla de acceso sobria para Moov Core. Centra un formulario compacto con correo y contraseña, botón principal Iniciar sesión, enlace He olvidado mi contraseña y mensajes accesibles de error. Añade una versión de recuperación con correo y confirmación. No incluyas registro público.
+[Heading2] E02 Panel principal
+Área. Operación
+Objetivo. Dar al equipo una visión inmediata de la actividad de hoy y de los asuntos que requieren atención.
+Contenido. Indicadores de vehículos totales, alquilados, disponibles, en mantenimiento, entregas, devoluciones y check ins pendientes. Agenda de próximas horas, reservas sin vehículo, devoluciones retrasadas y alertas de ITV o mantenimiento.
+Acciones. Abrir una reserva, asignar vehículo, registrar devolución, crear bloqueo y consultar planning.
+Estados y comportamiento. Permitir filtrar por ubicación y fecha. Diferenciar avisos críticos de recordatorios sin usar solo el color. Mostrar un estado vacío útil cuando no haya actividad.
+[Screenprompt] Texto para prototipado. Diseña un dashboard operativo para rent a car. Incluye una fila de indicadores compactos, agenda cronológica de entregas y devoluciones, alertas priorizadas y una tabla de reservas que requieren acción. Añade filtros de fecha y ubicación y accesos rápidos a Nueva reserva, Planning y Disponibilidad.
+[Heading2] E03 Planning de flota
+Área. Flota
+Objetivo. Visualizar en una sola línea temporal qué ocurre con cada vehículo y detectar conflictos.
+Contenido. Filas por vehículo con matrícula, modelo, categoría y estado. Columnas por día u hora. Bloques diferenciados para reserva, alquiler en curso, mantenimiento, avería y bloqueo. Cabecera fija y leyenda.
+Acciones. Cambiar rango, filtrar por grupo o estado, abrir el elemento, crear reserva o bloqueo y mover fechas cuando el permiso lo permita.
+Estados y comportamiento. Evitar solapamientos silenciosos. Al arrastrar un bloque, mostrar impacto y pedir confirmación. Ofrecer vistas de día, semana y mes.
+[Screenprompt] Texto para prototipado. Crea un planning tipo Gantt para una flota de alquiler. Cada fila representa un vehículo y la línea temporal muestra reservas, alquileres, mantenimiento y bloqueos. Incluye zoom día semana mes, filtros, leyenda, cabecera y primera columna fijas, indicador de hoy y advertencia visible ante cualquier conflicto.
+[Heading2] E04 Consulta de disponibilidad
+Área. Reservas
+Objetivo. Permitir que un operador sepa qué categorías puede vender para un intervalo.
+Contenido. Formulario de ubicación, recogida, devolución y filtros opcionales. Resultado por categoría con unidades de flota, comprometidas, bloqueadas y disponibles, además del precio orientativo.
+Acciones. Crear una reserva desde una categoría, abrir el detalle del cálculo y cambiar fechas.
+Estados y comportamiento. Bloquear fechas inválidas. Mostrar por qué una categoría no está disponible y advertir si queda una sola unidad.
+[Screenprompt] Texto para prototipado. Diseña una consulta de disponibilidad interna. Arriba incluye recogida, devolución y ubicación. Debajo muestra tarjetas o una tabla por categoría con flota total, reservas, mantenimientos, bloqueos, disponibilidad neta y tarifa desde. Añade un botón Crear reserva y un desglose explicativo del cálculo.
+[Heading2] E05 Listado de vehículos
+Área. Flota
+Objetivo. Consultar y administrar todos los vehículos con filtros operativos.
+Contenido. Tabla con matrícula, marca, modelo, categoría, kilómetros, estado, ubicación, próxima reserva y próximo mantenimiento. Buscador y filtros por categoría, estado y ubicación.
+Acciones. Crear vehículo, editar, abrir ficha, cambiar estado permitido y exportar listado.
+Estados y comportamiento. Conservar filtros al volver desde una ficha. Incluir paginación, ordenación y estado vacío con acción de alta.
+[Screenprompt] Texto para prototipado. Diseña un inventario de vehículos en formato tabla para un ERP. Incluye búsqueda, filtros, columnas operativas, etiquetas de estado, ordenación, paginación y botón Nuevo vehículo. Prioriza matrícula, categoría, disponibilidad, próxima reserva y mantenimiento.
+[Heading2] E06 Ficha de vehículo
+Área. Flota
+Objetivo. Reunir toda la información y el historial de una unidad concreta.
+Contenido. Cabecera con matrícula, modelo, fotografía, categoría, estado y ubicación. Pestañas de datos técnicos, reservas, mantenimiento, documentos e historial. Kilometraje, bastidor, combustible, transmisión, plazas, color y fechas de alta y baja.
+Acciones. Editar datos, cambiar estado, programar mantenimiento, crear bloqueo, añadir documento y consultar próximas reservas.
+Estados y comportamiento. Un cambio a mantenimiento, avería o bloqueado debe solicitar fechas y afectar a disponibilidad. Mostrar confirmación y trazabilidad básica.
+[Screenprompt] Texto para prototipado. Crea la ficha de un vehículo de alquiler. Usa una cabecera con foto, matrícula, modelo, categoría y estado, seguida de pestañas Datos, Agenda, Mantenimiento, Documentos e Historial. Incluye acciones Editar, Programar mantenimiento y Bloquear vehículo. Destaca cualquier conflicto con reservas futuras.
+[Heading2] E07 Categorías de vehículos
+Área. Flota
+Objetivo. Gestionar los grupos comerciales que se ofrecen en la web.
+Contenido. Listado de categorías con código, nombre, vehículo de referencia, transmisión, combustible, plazas, puertas, equipaje, imagen, orden web y número de vehículos activos.
+Acciones. Crear, duplicar, editar, activar, desactivar y reordenar categorías.
+Estados y comportamiento. Impedir la desactivación sin advertencia si existen reservas futuras. Separar claramente categoría comercial de matrícula real.
+[Screenprompt] Texto para prototipado. Diseña la gestión de categorías de una rent a car. Presenta cada grupo con código, nombre, vehículo de referencia y atributos de capacidad. Incluye contador de vehículos, visibilidad web, orden, imagen y acciones Crear, Editar, Duplicar y Desactivar.
+[Heading2] E08 Mantenimientos
+Área. Flota
+Objetivo. Controlar intervenciones previstas, vencidas y en curso que condicionan la disponibilidad.
+Contenido. Vista combinada de agenda y tabla con vehículo, tipo, fecha, kilómetros previstos, estado, proveedor, coste y periodo de inmovilización. Alertas de ITV, revisión y kilometraje.
+Acciones. Programar intervención, completar, cancelar, reprogramar y abrir ficha.
+Estados y comportamiento. Al programar una inmovilización, comprobar reservas afectadas. Marcar vencidos y próximos con texto e icono además de color.
+[Screenprompt] Texto para prototipado. Crea una pantalla de mantenimiento de flota con filtros, indicadores de vencidos y próximos, una agenda mensual y una tabla de intervenciones. Cada registro muestra vehículo, tipo, fechas, estado, proveedor y coste. Incluye Nueva intervención y advertencias por reservas afectadas.
+[Heading2] E09 Ficha de mantenimiento
+Área. Flota
+Objetivo. Registrar una intervención y su efecto operativo y económico.
+Contenido. Vehículo, tipo, descripción, estado, fechas previstas y reales, kilometraje, proveedor, coste, periodo de bloqueo, documentos y observaciones.
+Acciones. Guardar borrador, programar, iniciar, completar, cancelar y adjuntar factura o justificante.
+Estados y comportamiento. Validar que la fecha final no sea anterior a la inicial. Mostrar las reservas que se solapan antes de confirmar.
+[Screenprompt] Texto para prototipado. Diseña un formulario detallado de mantenimiento. Divide la información en Intervención, Inmovilización, Costes, Proveedor y Documentos. Incluye una columna lateral con el vehículo y las reservas afectadas. Las acciones cambian según el estado: Programar, Iniciar y Completar.
+[Heading2] E10 Bloqueos operativos
+Área. Flota
+Objetivo. Excluir vehículos o unidades de una categoría de la venta por motivos distintos al mantenimiento.
+Contenido. Tabla con vehículo o categoría, motivo, inicio, fin, estado, creador y observaciones. Motivos configurados como limpieza, traslado, reserva interna o indisponibilidad.
+Acciones. Crear, editar, finalizar antes de tiempo y eliminar un bloqueo futuro.
+Estados y comportamiento. Comprobar conflictos y recalcular disponibilidad al guardar. Mantener historial de bloqueos finalizados.
+[Screenprompt] Texto para prototipado. Crea una pantalla de bloqueos operativos para flota. Incluye listado, filtros por fecha motivo y estado, botón Nuevo bloqueo y formulario con vehículo o categoría, intervalo, motivo y observaciones. Muestra el impacto en reservas y disponibilidad antes de confirmar.
+[Heading2] E11 Listado de reservas
+Área. Reservas
+Objetivo. Localizar y seguir todas las reservas, independientemente de su canal.
+Contenido. Tabla con localizador, cliente, fechas, categoría, vehículo asignado, importe, pago, check in, origen y estado. Buscador y filtros por fechas, estado, categoría, pago y canal.
+Acciones. Crear reserva, abrir ficha, cancelar, exportar y aplicar acciones masivas limitadas.
+Estados y comportamiento. Usar filtros guardables. Señalar reservas sin asignación, con documentación pendiente o con pago fallido.
+[Screenprompt] Texto para prototipado. Diseña un listado de reservas para un ERP de alquiler. Incluye búsqueda por localizador cliente email o matrícula, filtros avanzados, columnas de estado de reserva pago y check in, y botón Nueva reserva. Usa indicadores claros para pendientes y conflictos.
+[Heading2] E12 Ficha de reserva
+Área. Reservas
+Objetivo. Mostrar toda la operación y permitir al equipo avanzar por sus estados.
+Contenido. Cabecera con localizador, estado, cliente, fechas, categoría y vehículo asignado. Secciones de itinerario, tarifa, cobertura, extras, importes, pago, vuelo, check in, documentos, notas e historial.
+Acciones. Editar datos permitidos, asignar vehículo, reenviar confirmación, registrar pago manual, cancelar, cambiar estado y abrir cliente.
+Estados y comportamiento. Las acciones deben depender del estado. Mostrar el impacto económico antes de editar y conservar historial básico de cambios.
+[Screenprompt] Texto para prototipado. Crea una ficha de reserva completa con cabecera de estado y localizador, resumen de recogida y devolución, cliente, categoría, vehículo, precio, pack, extras y pago. Usa pestañas o secciones para Check in, Documentos, Comunicaciones e Historial. Coloca las acciones relevantes en una barra fija.
+[Heading2] E13 Nueva reserva
+Área. Reservas
+Objetivo. Crear una reserva manual utilizando la misma disponibilidad y precios que la web.
+Contenido. Asistente por pasos: fechas y ubicación, categoría disponible, tarifa y pack, extras, cliente, vuelo, pago y confirmación.
+Acciones. Buscar cliente existente, crear cliente, aplicar promoción autorizada, guardar borrador y confirmar.
+Estados y comportamiento. No permitir continuar sin disponibilidad. Mostrar siempre resumen de precio y advertir si el operador fuerza una excepción.
+[Screenprompt] Texto para prototipado. Diseña un asistente de nueva reserva para personal interno. Usa pasos visibles y un resumen lateral persistente con fechas, categoría, extras y total. Permite buscar o crear cliente. Consulta disponibilidad real y muestra confirmaciones antes de cualquier excepción.
+[Heading2] E14 Asignación de vehículo
+Área. Reservas
+Objetivo. Relacionar una reserva confirmada con una matrícula adecuada sin generar conflictos.
+Contenido. Datos de la reserva y lista de vehículos compatibles con categoría, estado, ubicación, kilometraje, reserva anterior y siguiente, y advertencias.
+Acciones. Asignar, sustituir o dejar pendiente.
+Estados y comportamiento. Ordenar primero los vehículos más adecuados. No mostrar como seleccionables los que tengan conflicto; permitir excepción solo a perfiles autorizados.
+[Screenprompt] Texto para prototipado. Crea un modal o pantalla de asignación de vehículo. A la izquierda resume la reserva; a la derecha lista matrículas compatibles con disponibilidad, ubicación, kilómetros y margen entre alquileres. Destaca la recomendación y explica por qué cualquier vehículo no es elegible.
+[Heading2] E15 Listado de clientes
+Área. Clientes
+Objetivo. Buscar clientes y acceder a su historial sin convertir el módulo en un CRM complejo.
+Contenido. Tabla con nombre, documento, país, teléfono, email, última reserva, número de reservas y alertas documentales.
+Acciones. Crear cliente, abrir ficha, editar y exportar datos según permiso.
+Estados y comportamiento. Permitir búsqueda por nombre, email, teléfono y documento. Señalar posibles duplicados.
+[Screenprompt] Texto para prototipado. Diseña un listado de clientes simple y operativo. Incluye búsqueda multivariable, filtros por país y actividad, columnas de contacto, última reserva y total de reservas, alerta de documentación y botón Nuevo cliente.
+[Heading2] E16 Ficha de cliente
+Área. Clientes
+Objetivo. Concentrar datos personales, documentos y relación histórica con Moov.
+Contenido. Datos de identidad y contacto, dirección, país, nacimiento, permiso de conducción, caducidades, documentos, reservas, notas y consentimiento.
+Acciones. Editar, añadir documento, crear reserva, abrir histórico y solicitar actualización de check in.
+Estados y comportamiento. Proteger datos sensibles y mostrar solo lo necesario según el rol. Alertar de documentos caducados o incompletos.
+[Screenprompt] Texto para prototipado. Crea una ficha de cliente con cabecera de identidad y contacto y pestañas Perfil, Documentos, Reservas y Notas. Muestra caducidades y alertas de forma discreta. Incluye Crear reserva y Editar, con tratamiento visual cuidadoso de datos personales.
+[Heading2] E17 Tarifas y temporadas
+Área. Comercial
+Objetivo. Configurar precios comprensibles sin construir todavía un sistema de revenue management.
+Contenido. Selector de temporada, fechas de vigencia y matriz por categoría y tramos de duración. Suplementos de ubicación u horario si se aprueban. Vista previa de cálculo.
+Acciones. Crear temporada, duplicar, editar precios, validar solapamientos y activar.
+Estados y comportamiento. Advertir de fechas sin tarifa y temporadas solapadas. Mantener una simulación para comprobar el resultado antes de publicar.
+[Screenprompt] Texto para prototipado. Diseña una pantalla de tarifas para rent a car con selector de temporada y una matriz editable de categorías por tramos 1 a 3 días, 4 a 7, 8 a 14 y 15 o más. Añade calendario de vigencias, validación de solapamientos, estado borrador publicado y simulador de precio.
+[Heading2] E18 Packs y coberturas
+Área. Comercial
+Objetivo. Definir las opciones de tarifa que el cliente comparará durante la reserva.
+Contenido. Listado de packs con nombre, descripción, franquicia, coberturas, beneficios, orden, visibilidad y regla de precio.
+Acciones. Crear, editar, duplicar, activar y previsualizar la comparación web.
+Estados y comportamiento. No permitir publicar un pack sin descripción en los idiomas obligatorios. Mostrar diferencias de manera estructurada.
+[Screenprompt] Texto para prototipado. Crea un editor de packs de cobertura. Incluye nombre, precio o suplemento, franquicia, lista de coberturas, beneficios, idiomas, orden y visibilidad. Añade una previsualización del comparador que verá el cliente y acciones Guardar borrador y Publicar.
+[Heading2] E19 Extras
+Área. Comercial
+Objetivo. Administrar los servicios adicionales ofrecidos en la reserva.
+Contenido. Nombre, descripción, imagen opcional, precio por día o unidad, tope máximo, impuestos, categorías compatibles, idiomas y estado.
+Acciones. Crear, editar, activar, desactivar y ordenar.
+Estados y comportamiento. Validar precio y tope. En Fase 1, el control de stock por unidad será informativo o no estará incluido salvo acuerdo expreso.
+[Screenprompt] Texto para prototipado. Diseña un catálogo administrable de extras con vista de tarjetas y edición lateral. Cada extra muestra precio por día o unidad, máximo, compatibilidad, visibilidad e idiomas. Incluye previsualización web y ordenación.
+[Heading2] E20 Promociones
+Área. Comercial
+Objetivo. Crear códigos de descuento básicos y controlar su vigencia.
+Contenido. Código, nombre interno, tipo de descuento, valor, periodo de reserva y alquiler, categorías válidas, uso máximo y estado.
+Acciones. Crear, duplicar, activar, pausar y consultar usos.
+Estados y comportamiento. Detectar códigos duplicados, fechas incoherentes y condiciones no compatibles. Fase 1 no incluye reglas encadenadas ni afiliación compleja.
+[Screenprompt] Texto para prototipado. Crea una pantalla de promociones con tabla de códigos, vigencia, descuento, usos y estado. El formulario permite porcentaje o importe, fechas, categorías y límite básico. Incluye una vista previa del resultado y validaciones claras.
+[Heading2] E21 Documentos
+Área. Administración
+Objetivo. Localizar archivos relacionados con vehículos, clientes y reservas.
+Contenido. Buscador, filtros por tipo y entidad, nombre, propietario, fecha, caducidad y acceso. Vista previa cuando sea posible.
+Acciones. Adjuntar, descargar, sustituir, clasificar y eliminar según permiso.
+Estados y comportamiento. Evitar exposición accidental de documentos personales. Mostrar caducidad y relación con la entidad de origen.
+[Screenprompt] Texto para prototipado. Diseña un repositorio documental vinculado al ERP, no un gestor documental genérico. Incluye búsqueda, filtros por cliente vehículo reserva y tipo, vista previa, caducidad y permisos. Permite adjuntar y sustituir archivos desde cada entidad.
+[Heading2] E22 Pagos
+Área. Administración
+Objetivo. Consultar el estado de los cobros asociados a reservas y detectar incidencias.
+Contenido. Tabla con fecha, reserva, cliente, pasarela, referencia, importe, moneda, estado y motivo de fallo. Resumen de pagados, pendientes, fallidos y reembolsados manualmente.
+Acciones. Abrir reserva, consultar detalle, registrar pago manual autorizado y exportar.
+Estados y comportamiento. Los estados deben proceder de la pasarela o de una acción autorizada. No permitir editar libremente una transacción confirmada.
+[Screenprompt] Texto para prototipado. Diseña una pantalla de pagos centrada en seguimiento. Incluye indicadores por estado, tabla con referencias y filtros, detalle de eventos de la pasarela y enlace a la reserva. Diferencia claramente pago, fallo, pendiente y reembolso sin permitir alterar transacciones confirmadas.
+[Heading2] E23 Contenidos web
+Área. Web
+Objetivo. Editar contenido básico sin acceder al código.
+Contenido. Árbol de páginas y bloques editables por idioma: home, ubicaciones, vehículos, packs, preguntas frecuentes, condiciones y contacto. Estado borrador o publicado y previsualización.
+Acciones. Editar, guardar borrador, previsualizar y publicar.
+Estados y comportamiento. Avisar de traducciones pendientes. No incluir un constructor visual libre; usar bloques controlados para mantener el diseño.
+[Screenprompt] Texto para prototipado. Crea un CMS básico integrado en el ERP. A la izquierda muestra páginas y secciones; en el centro campos estructurados por idioma; a la derecha una previsualización. Incluye estado borrador publicado, traducciones pendientes y acciones Guardar y Publicar.
+[Heading2] E24 Usuarios y roles
+Área. Seguridad
+Objetivo. Administrar quién puede acceder al ERP y qué acciones puede realizar.
+Contenido. Listado de usuarios con nombre, correo, rol, estado, último acceso y ubicación. Roles básicos de administración y operación, con matriz resumida de permisos.
+Acciones. Invitar, editar rol, desactivar, reactivar y restablecer acceso.
+Estados y comportamiento. No permitir que un administrador se elimine a sí mismo si deja el sistema sin administración. Registrar cambios de acceso.
+[Screenprompt] Texto para prototipado. Diseña una pantalla de usuarios y roles para un ERP. Incluye tabla de usuarios, estado, rol y último acceso, formulario de invitación y una matriz sencilla de permisos. Añade confirmaciones para desactivar y evita configuraciones que dejen el sistema sin administrador.
+[Heading2] E25 Configuración
+Área. Administración
+Objetivo. Centralizar parámetros generales con bajo riesgo de cambio accidental.
+Contenido. Datos de empresa, ubicaciones, horarios, impuestos, numeración, correo remitente, textos de confirmación, políticas básicas y parámetros definidos en análisis.
+Acciones. Editar por secciones, probar correo y guardar.
+Estados y comportamiento. Separar ajustes sensibles, pedir confirmación y mostrar cuándo un cambio afecta a nuevas reservas.
+[Screenprompt] Texto para prototipado. Crea una configuración por secciones con navegación lateral: Empresa, Ubicaciones, Horarios, Impuestos, Reservas, Comunicaciones e Integraciones. Usa formularios claros, ayuda contextual, botón Guardar por sección y avisos cuando un cambio afecte a operaciones futuras.
+
+[Heading1] Mapa de pantallas de Moov Web
+Código
+Pantalla
+Finalidad
+W01
+Inicio
+Propuesta de valor y buscador.
+W02
+Resultados
+Categorías disponibles y precios.
+W03
+Detalle de categoría
+Características y condiciones.
+W04
+Selección de pack
+Comparación de coberturas.
+W05
+Selección de extras
+Complementos y total.
+W06
+Datos de reserva
+Conductor contacto y vuelo.
+W07
+Pago
+Resumen y pasarela.
+W08
+Confirmación
+Localizador y siguientes pasos.
+W09
+Acceso a Mi reserva
+Entrada segura.
+W10
+Resumen de Mi reserva
+Información y tareas pendientes.
+W11
+Check in online
+Datos previos a la recogida.
+W12
+Carga de documentos
+DNI pasaporte y permiso.
+W13
+Instrucciones de recogida
+Información contextual.
+W14
+Catálogo de vehículos
+Exploración por categorías.
+W15
+Página de ubicación
+Información y SEO local.
+W16
+Packs y coberturas
+Explicación comercial.
+W17
+Promoción
+Campaña con buscador.
+W18
+Preguntas frecuentes
+Autoservicio informativo.
+W19
+Condiciones
+Información legal y comercial.
+W20
+Contacto
+Canales de ayuda.
+W21
+Contenido Mallorca
+Artículo y entrada al buscador.
+W22
+Estados del sistema
+Errores vacíos y sesión.
+
+[Heading1] Pantallas de Moov Web
+[Heading2] W01 Inicio
+Área. Web pública
+Objetivo. Presentar Moov y llevar al visitante a buscar disponibilidad en pocos segundos.
+Contenido. Cabecera compacta, selector de idioma, acceso a Mi reserva, buscador principal, ventajas, categorías destacadas, comparación breve de packs, proceso de alquiler, opiniones, ubicaciones, preguntas frecuentes y enlaces a contenidos de Mallorca.
+Acciones. Buscar vehículos, explorar categorías, consultar packs y acceder a Mi reserva.
+Estados y comportamiento. El buscador debe estar visible sin desplazamiento en escritorio y muy arriba en móvil. Recordar datos introducidos al volver desde resultados.
+[Screenprompt] Texto para prototipado. Diseña la home de Moov Rent a Car en Mallorca. Coloca un buscador destacado con lugar, fecha y hora de recogida y devolución. Añade beneficios concretos, categorías, packs, pasos de alquiler, opiniones, ubicaciones y FAQ. Incluye selector ES EN DE FR y acceso Mi reserva. El estilo debe ser premium, cercano y muy claro, con excelente versión móvil.
+[Heading2] W02 Resultados
+Área. Reserva web
+Objetivo. Mostrar solo categorías realmente disponibles y facilitar una comparación rápida.
+Contenido. Resumen editable de búsqueda, filtros de transmisión, plazas y categoría, tarjetas con vehículo de referencia, expresión o similar, capacidad, transmisión, combustible, precio total y precio diario orientativo.
+Acciones. Seleccionar categoría, ver detalle, modificar búsqueda y ordenar.
+Estados y comportamiento. Explicar cuando no haya disponibilidad y proponer fechas alternativas sin inventar stock. Mantener fechas y total visibles.
+[Screenprompt] Texto para prototipado. Diseña resultados de alquiler con resumen fijo de fechas y ubicación, filtros simples y tarjetas de categorías disponibles. Cada tarjeta muestra foto, nombre del grupo, vehículo de referencia o similar, plazas, maletas, transmisión, precio total y botón Seleccionar. Incluye un estado sin resultados con cambio de fechas.
+[Heading2] W03 Detalle de categoría
+Área. Reserva web
+Objetivo. Resolver dudas sobre capacidad y características antes de elegir.
+Contenido. Galería, vehículo de referencia, aviso o similar, plazas, puertas, equipaje, transmisión, combustible, descripción, condiciones principales y precio para las fechas buscadas.
+Acciones. Seleccionar categoría y volver a resultados.
+Estados y comportamiento. No mostrar equipamiento garantizado si depende de la unidad. Diferenciar características garantizadas de ejemplos.
+[Screenprompt] Texto para prototipado. Crea un detalle de categoría de vehículo para una rent a car. Muestra una imagen grande, vehículo de referencia o similar, atributos de capacidad, características garantizadas, ejemplos de modelos, precio para las fechas elegidas y botón Continuar. Mantén visible el resumen de búsqueda.
+[Heading2] W04 Selección de pack
+Área. Reserva web
+Objetivo. Ayudar al cliente a elegir cobertura sin confusión ni letra pequeña oculta.
+Contenido. Comparador de packs con precio, franquicia, depósito si aplica, coberturas y beneficios. Diferencias resaltadas y explicación ampliable.
+Acciones. Elegir pack, consultar detalles y volver.
+Estados y comportamiento. Una opción puede aparecer recomendada solo si Moov lo aprueba. El total debe actualizarse al seleccionar.
+[Screenprompt] Texto para prototipado. Diseña una comparación de packs de alquiler en dos o tres columnas, por ejemplo Green y Red. Muestra suplemento, franquicia, depósito, coberturas y beneficios con lenguaje simple. Incluye selección clara, explicación ampliable y resumen lateral con el nuevo total.
+[Heading2] W05 Selección de extras
+Área. Reserva web
+Objetivo. Permitir añadir complementos sin interrumpir el flujo.
+Contenido. Tarjetas de extras con nombre, imagen o icono, descripción, precio por día o unidad, máximo y selector de cantidad. Resumen de precio persistente.
+Acciones. Añadir, quitar, cambiar cantidad y continuar.
+Estados y comportamiento. Desactivar cantidades no disponibles si se implementa inventario. Explicar el cálculo del máximo.
+[Screenprompt] Texto para prototipado. Diseña un paso de extras con tarjetas para silla infantil, elevador, conductor adicional y otros servicios configurables. Muestra precio, unidad, máximo y cantidad. Actualiza el resumen lateral de forma inmediata y permite continuar sin extras.
+[Heading2] W06 Datos de reserva
+Área. Reserva web
+Objetivo. Recoger únicamente la información necesaria para crear la reserva y contactar con el cliente.
+Contenido. Nombre, apellidos, email, teléfono, país, fecha de nacimiento si es necesaria, número de vuelo, hora estimada, observaciones, aceptación de privacidad y comunicaciones obligatorias.
+Acciones. Continuar a pago y volver.
+Estados y comportamiento. Validación en línea, formato internacional de teléfono, ayuda para número de vuelo y conservación segura del progreso.
+[Screenprompt] Texto para prototipado. Diseña un formulario de datos de reserva en una sola pantalla clara. Agrupa Conductor, Contacto y Vuelo. Usa etiquetas visibles, validación en línea y ejemplos. Mantén un resumen fijo de vehículo, fechas, pack, extras y total. Diferencia consentimientos obligatorios y opcionales.
+[Heading2] W07 Pago
+Área. Reserva web
+Objetivo. Cerrar la compra con confianza y sin sorpresas.
+Contenido. Resumen completo, desglose de precio, política básica de cancelación, datos de facturación mínimos si se acuerdan, contenedor seguro de la pasarela y aceptación de condiciones.
+Acciones. Pagar y volver al paso anterior.
+Estados y comportamiento. Desactivar pagos duplicados, mostrar procesamiento y gestionar fallo recuperable sin perder la reserva. No almacenar datos de tarjeta en Moov.
+[Screenprompt] Texto para prototipado. Diseña un checkout de pago limpio con resumen completo, desglose, condiciones principales y área segura para Stripe o Redsys. Añade botón Pagar importe, estado Procesando y mensajes de error recuperables. Mantén visibles los datos de soporte y no pidas información innecesaria.
+[Heading2] W08 Confirmación
+Área. Reserva web
+Objetivo. Confirmar que la operación se ha registrado y explicar el siguiente paso.
+Contenido. Mensaje de éxito, localizador, resumen, estado de pago, envío de correo, botón de acceso a Mi reserva y recordatorio de check in.
+Acciones. Abrir Mi reserva, añadir a calendario opcional y volver a inicio.
+Estados y comportamiento. Si el pago queda pendiente, no mostrar confirmación definitiva. Explicar claramente el estado real.
+[Screenprompt] Texto para prototipado. Diseña una confirmación de reserva con localizador grande, resumen de fechas y categoría, estado de pago, aviso de correo enviado y siguiente acción Completar check in. Incluye acceso a Mi reserva y contacto de ayuda. Prepara variante de pago pendiente.
+[Heading2] W09 Acceso a Mi reserva
+Área. Área cliente
+Objetivo. Permitir recuperar una reserva de forma segura cuando el enlace directo no está disponible.
+Contenido. Localizador y email o segundo dato acordado, ayuda para localizar la confirmación y enlace de contacto.
+Acciones. Acceder y solicitar reenvío del enlace.
+Estados y comportamiento. Mensajes genéricos para no revelar reservas. Limitar intentos y mostrar recuperación.
+[Screenprompt] Texto para prototipado. Diseña una pantalla de acceso a Mi reserva con localizador y email, botón Consultar reserva, ayuda breve y opción Reenviar enlace. Mantén el diseño coherente con la web y crea estados de error genérico, bloqueo temporal y éxito.
+[Heading2] W10 Resumen de Mi reserva
+Área. Área cliente
+Objetivo. Dar al cliente una vista única de su alquiler y de las tareas pendientes.
+Contenido. Estado, fechas, ubicación, categoría, pack, extras, importe, pago, vuelo, progreso de check in, documentos e instrucciones. Línea temporal simple.
+Acciones. Completar check in, cargar documentos, consultar instrucciones y solicitar cancelación si la regla básica lo permite.
+Estados y comportamiento. Priorizar la siguiente acción. Mostrar qué falta y qué ya está completado. No permitir modificaciones complejas de fechas en Fase 1.
+[Screenprompt] Texto para prototipado. Diseña un panel móvil de Mi reserva con localizador, estado, resumen del alquiler y una lista de tareas. Destaca Completar check in o Cargar documentos cuando corresponda. Añade secciones de pago, vuelo, extras e instrucciones, con una línea temporal hasta la recogida.
+[Heading2] W11 Check in online
+Área. Área cliente
+Objetivo. Recoger antes de la llegada los datos necesarios del conductor principal y adicional.
+Contenido. Pasos de datos personales, dirección, identidad, permiso de conducción, conductor adicional cuando exista, revisión y aceptación de condiciones.
+Acciones. Guardar y continuar, volver, añadir conductor y finalizar check in.
+Estados y comportamiento. Permitir guardar progreso. Validar edad, fechas y campos obligatorios según reglas aprobadas. No realizar OCR en Fase 1.
+[Screenprompt] Texto para prototipado. Diseña un check in online por pasos optimizado para móvil. Muestra progreso, guardado automático y resumen de lo pendiente. Incluye datos personales, dirección, identidad, permiso de conducción, conductor adicional y revisión final. Usa validaciones amables y no incluyas reconocimiento automático de documentos.
+[Heading2] W12 Carga de documentos
+Área. Área cliente
+Objetivo. Adjuntar de forma segura los documentos asociados a la reserva.
+Contenido. Carga separada de anverso y reverso cuando aplique, pasaporte y permiso de conducción. Requisitos de formato, tamaño, calidad y estado de revisión.
+Acciones. Tomar foto, elegir archivo, sustituir, eliminar antes de enviar y confirmar.
+Estados y comportamiento. Mostrar progreso de carga, error recuperable, documento recibido y pendiente de revisión. No afirmar que está validado automáticamente.
+[Screenprompt] Texto para prototipado. Diseña una carga documental mobile first con tarjetas separadas para documento de identidad y permiso de conducción. Permite cámara o archivo, previsualización, sustitución y progreso. Muestra requisitos y estados Pendiente, Recibido y Requiere nueva imagen. Evita decir validado por IA.
+[Heading2] W13 Instrucciones de recogida
+Área. Área cliente
+Objetivo. Explicar al cliente dónde ir y qué hacer según su reserva.
+Contenido. Ubicación, mapa o imagen, pasos numerados, horario, teléfono, referencia de vuelo, qué llevar y aviso de cambios. Contenido administrado por ubicación e idioma.
+Acciones. Abrir mapa, llamar, copiar dirección y volver a Mi reserva.
+Estados y comportamiento. Mostrar solo instrucciones vigentes. Preparar mensaje si todavía no están disponibles.
+[Screenprompt] Texto para prototipado. Diseña una pantalla de instrucciones de recogida para aeropuerto de Palma. Incluye mapa o imagen, dirección, pasos numerados, horario, teléfono y lista de documentación. Prioriza lectura en móvil y añade botones Abrir mapa y Llamar. Incluye estado Instrucciones disponibles próximamente.
+[Heading2] W14 Catálogo de vehículos
+Área. Web pública
+Objetivo. Permitir explorar la oferta antes de indicar fechas y apoyar el SEO comercial.
+Contenido. Categorías, vehículo de referencia, capacidad, transmisión, combustible, breve descripción y enlace al buscador. Filtros sencillos.
+Acciones. Ver categoría y buscar disponibilidad.
+Estados y comportamiento. Aclarar que los modelos son ejemplos. No mostrar disponibilidad sin fechas.
+[Screenprompt] Texto para prototipado. Diseña un catálogo de categorías de alquiler en Mallorca con filtros por plazas transmisión y tipo. Cada tarjeta muestra un modelo de referencia o similar, capacidad y características. El botón debe decir Ver disponibilidad y abrir el buscador con la categoría preseleccionada.
+[Heading2] W15 Página de ubicación
+Área. Web pública
+Objetivo. Convertir búsquedas locales y resolver dudas sobre recogida y devolución.
+Contenido. Título local, buscador preconfigurado, ventajas, dirección o zona, horarios, instrucciones generales, categorías populares, preguntas frecuentes y contenido SEO local.
+Acciones. Buscar, abrir mapa y contactar.
+Estados y comportamiento. Separar información general de instrucciones privadas de una reserva. Adaptar metadatos e idioma.
+[Screenprompt] Texto para prototipado. Diseña una landing de alquiler de coches en Aeropuerto de Palma. Incluye buscador preconfigurado, información de recogida, horario, mapa, ventajas, categorías populares, preguntas frecuentes y contenido local. Mantén el buscador y la reserva como objetivo principal.
+[Heading2] W16 Packs y coberturas
+Área. Web pública
+Objetivo. Explicar las opciones comerciales antes de iniciar una reserva.
+Contenido. Comparación general de packs, franquicia, coberturas, exclusiones principales y preguntas frecuentes. CTA al buscador.
+Acciones. Buscar coche y consultar condiciones completas.
+Estados y comportamiento. Los precios concretos dependen de fechas y categoría. Evitar afirmaciones legales no aprobadas.
+[Screenprompt] Texto para prototipado. Diseña una página explicativa de packs de alquiler con comparación clara, ejemplos de cobertura, franquicia y exclusiones principales. Añade preguntas frecuentes y un buscador o llamada a la acción. Indica que el precio final depende de fechas y categoría.
+[Heading2] W17 Promoción
+Área. Web pública
+Objetivo. Presentar una campaña y aplicar su código o condiciones al buscador.
+Contenido. Mensaje de campaña, periodo, condiciones, categorías, código cuando exista, contador solo si es real y buscador integrado.
+Acciones. Aplicar promoción y buscar disponibilidad.
+Estados y comportamiento. Validar vigencia. Si termina, mostrar contenido alternativo y retirar el código.
+[Screenprompt] Texto para prototipado. Diseña una landing promocional para Moov con una oferta concreta, condiciones legibles, categorías aplicables y buscador integrado. Permite aplicar el código automáticamente. Incluye variante de promoción finalizada sin crear urgencia artificial.
+[Heading2] W18 Preguntas frecuentes
+Área. Web pública
+Objetivo. Reducir consultas repetitivas y facilitar decisiones antes de reservar.
+Contenido. Buscador de preguntas, categorías como reserva, cobertura, combustible, documentación, recogida, devolución y cancelación. Acordeones accesibles y contacto.
+Acciones. Buscar respuesta, abrir pregunta y contactar.
+Estados y comportamiento. Permitir enlaces directos a una pregunta. Mantener versión por idioma y buen marcado SEO.
+[Screenprompt] Texto para prototipado. Diseña una FAQ accesible con buscador, categorías y acordeones. Incluye preguntas sobre reserva, coberturas, combustible, documentos, aeropuerto, recogida, devolución y cancelación. Añade un bloque final de contacto sin chatbot en la Fase 1.
+[Heading2] W19 Condiciones
+Área. Web pública
+Objetivo. Publicar la información contractual y comercial aprobada por Moov.
+Contenido. Índice, condiciones de alquiler, requisitos del conductor, pagos, combustible, coberturas, cancelación, privacidad, cookies y avisos legales mediante páginas diferenciadas.
+Acciones. Navegar por secciones, imprimir o descargar si se acuerda.
+Estados y comportamiento. Mantener fecha de actualización y versión por idioma. No generar contenido jurídico automáticamente.
+[Screenprompt] Texto para prototipado. Diseña una plantilla de página legal legible con índice lateral o superior, títulos claros, fecha de actualización y ancho de lectura contenido. Debe funcionar en móvil y permitir navegar a secciones. No uses bloques decorativos que resten seriedad.
+[Heading2] W20 Contacto
+Área. Web pública
+Objetivo. Ofrecer canales de ayuda claros sin crear un sistema complejo de tickets.
+Contenido. Teléfono, email, WhatsApp manual si Moov lo mantiene, horario, ubicación y formulario de contacto con asunto y mensaje.
+Acciones. Enviar consulta, llamar, abrir WhatsApp y mapa.
+Estados y comportamiento. Mostrar consentimiento, confirmación y error de envío. Aplicar protección contra spam.
+[Screenprompt] Texto para prototipado. Diseña una página de contacto con canales principales, horarios, mapa y formulario breve. Prioriza teléfono y WhatsApp si están activos. Incluye estados de envío correcto y error, privacidad y protección antispam visualmente discreta.
+[Heading2] W21 Contenido Mallorca
+Área. Web pública
+Objetivo. Atraer tráfico orgánico útil y conducirlo al buscador de alquiler.
+Contenido. Plantilla de artículo con título, introducción, imagen, índice, contenido, consejos prácticos, enlaces relacionados y buscador o CTA contextual.
+Acciones. Buscar vehículo, compartir y navegar a otros contenidos.
+Estados y comportamiento. Cuidar la legibilidad y el enlazado interno. No insertar promociones que interrumpan la lectura de forma agresiva.
+[Screenprompt] Texto para prototipado. Diseña una plantilla editorial para artículos como Cómo visitar Formentor en coche o Dónde aparcar en Palma. Incluye imagen, índice, texto legible, consejos, artículos relacionados y un buscador compacto contextual. Optimiza para SEO y móvil.
+[Heading2] W22 Estados del sistema
+Área. Web y área cliente
+Objetivo. Definir respuestas coherentes cuando el flujo no puede continuar.
+Contenido. Diseños para sin disponibilidad, pago fallido, sesión caducada, reserva no encontrada, mantenimiento temporal, carga documental fallida y error general.
+Acciones. Reintentar, cambiar fechas, volver al paso seguro, contactar y recuperar sesión.
+Estados y comportamiento. Nunca culpar al usuario ni borrar su progreso cuando pueda recuperarse. Evitar mensajes técnicos.
+[Screenprompt] Texto para prototipado. Crea un conjunto coherente de estados para la plataforma Moov: sin resultados, pago fallido, sesión caducada, reserva no encontrada, carga fallida y mantenimiento. Cada estado debe explicar qué ha ocurrido en lenguaje sencillo y ofrecer una acción útil como Reintentar, Cambiar fechas o Contactar.
+
+[Heading1] Pantallas futuras de la Fase 2
+Las siguientes vistas no forman parte del desarrollo inicial. Se incluyen para mostrar cómo puede evolucionar el sistema sin modificar su arquitectura básica. No conviene prototiparlas con el mismo nivel de detalle hasta que Moov priorice y contrate el módulo correspondiente.
+Código
+Pantalla futura
+Descripción
+F01
+Centro de automatizaciones
+Reglas y registro de comunicaciones por email y WhatsApp.
+F02
+Revisión documental asistida
+Datos extraídos por OCR, imagen original, confianza y validación humana.
+F03
+Seguimiento de vuelos
+Llegadas, retrasos, alertas y reservas afectadas.
+F04
+Firma de contrato
+Documento, firmantes, estado, evidencia y descarga.
+F05
+Entrega digital
+Kilómetros, combustible, daños, fotografías y aceptación.
+F06
+Devolución digital
+Plaza, fotografías, combustible, kilómetros e inspección pendiente.
+F07
+Revenue management
+Ocupación, tarifa actual, recomendación, impacto y aprobación.
+F08
+Comparador de mercado
+Precios públicos por categoría, fecha y competidor.
+F09
+Portal de partners
+Reservas B2B, clientes, comisiones y liquidaciones.
+F10
+Moov Business
+Empresas, conductores, tarifas pactadas y facturación agrupada.
+F11
+Fidelización
+Perfil recurrente, ventajas, códigos y campañas.
+F12
+Cuadros de mando
+Ocupación, ingreso, margen, canal, categoría y tendencia.
+
+[Heading1] Proceso recomendado de prototipado
+[ListNumber] Aplicar primero el prompt general del área para establecer navegación, tipografía, colores y componentes.
+[ListNumber] Prototipar el flujo principal del ERP con Panel principal, Planning, Disponibilidad, Listado de reservas y Ficha de reserva.
+[ListNumber] Prototipar el flujo principal web desde Inicio hasta Confirmación y después Mi reserva y Check in.
+[ListNumber] Validar con Moov los estados, nombres y datos antes de ampliar el resto de pantallas.
+[ListNumber] Congelar una biblioteca de componentes compartida para evitar que cada pantalla adopte un estilo diferente.
+[ListNumber] Entregar a desarrollo el prototipo junto con las reglas funcionales, no solo capturas o código visual.
+[Heading1] Criterios para aceptar los prototipos
+[ListBullet] Cada flujo permite completar su objetivo sin pasos ambiguos.
+[ListBullet] Los precios, fechas, estados y acciones importantes permanecen visibles en el momento de decidir.
+[ListBullet] El diseño distingue categoría comercial y vehículo asignado.
+[ListBullet] Las pantallas incluyen casos sin datos, errores y permisos insuficientes.
+[ListBullet] La versión móvil del proceso de reserva y check in es plenamente utilizable.
+[ListBullet] Los cuatro idiomas caben sin recortes ni componentes rotos.
+[ListBullet] Las decisiones visuales no introducen reglas de negocio que Moov no haya validado.
+[ListBullet] Los componentes se repiten de forma coherente en todo el producto.

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F7F9;font-family:Figtree,"Helvetica Neue",Helvetica,sans-serif;color:#10161C;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+*{box-sizing:border-box}
+a{color:#0079B0;text-decoration:none}
+a:hover{color:#005D87;text-decoration:underline}
+summary{cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+input,select,button{font-family:inherit}
+@keyframes shimmer{0%{opacity:.55}50%{opacity:1}100%{opacity:.55}}
+</style>
+</helmet>
+
+<div style="width:100%;max-width:100%;overflow-x:hidden;min-height:100vh">
+
+<header style="background:#fff;border-bottom:1px solid #E4E8EC">
+<div style="max-width:1200px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:24px">
+<a href="w01-inicio.html" style="flex:none;display:flex;align-items:center"><img src="moov-logo.png" alt="Moov rent a car" style="height:30px;width:auto;display:block"></a>
+<nav style="display:flex;gap:22px;align-items:center;margin-left:8px;flex:1;min-width:0;font-size:14.5px;font-weight:500">
+<a href="w01-inicio.html#categorias" style="color:#10161C">{{ t.navCars }}</a>
+<a href="w01-inicio.html#ubicaciones" style="color:#10161C">{{ t.navLocations }}</a>
+<a href="w01-inicio.html#packs" style="color:#10161C">{{ t.navPacks }}</a>
+<a href="w01-inicio.html#faq" style="color:#10161C">{{ t.navHelp }}</a>
+</nav>
+<div style="display:flex;align-items:center;gap:14px;flex:none">
+<div role="group" aria-label="Idioma" style="display:flex;gap:2px;padding:2px;background:#F0F3F5;border-radius:8px">
+<button type="button" onClick="{{ setEs }}" style="{{ langEs }}">ES</button>
+<button type="button" onClick="{{ setEn }}" style="{{ langEn }}">EN</button>
+<button type="button" onClick="{{ setDe }}" style="{{ langDe }}">DE</button>
+<button type="button" onClick="{{ setFr }}" style="{{ langFr }}">FR</button>
+</div>
+<button type="button" onClick="{{ goMyBooking }}" style="border:1px solid #CDD5DB;background:#fff;color:#10161C;font-size:14px;font-weight:600;padding:9px 15px;border-radius:9px;cursor:pointer;white-space:nowrap" style-hover="border-color:#009FE3;color:#0079B0">{{ t.myBooking }}</button>
+</div>
+</div>
+</header>
+
+<div style="position:sticky;top:0;z-index:30;background:#10161C;color:#fff;box-shadow:0 2px 12px rgba(16,22,28,.18)">
+<div style="max-width:1200px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;flex:1;min-width:0">
+<div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+<span style="font-size:11px;font-weight:700;letter-spacing:.07em;color:#8D98A3;text-transform:uppercase">{{ t.fPickupPlace }}</span>
+<span style="font-size:15px;font-weight:700">Aeropuerto de Palma (PMI)</span>
+</div>
+<span aria-hidden="true" style="width:1px;height:30px;background:rgba(255,255,255,.18)"></span>
+<div style="display:flex;flex-direction:column;gap:2px">
+<span style="font-size:11px;font-weight:700;letter-spacing:.07em;color:#8D98A3;text-transform:uppercase">{{ t.dates }}</span>
+<span style="font-size:15px;font-weight:700">11 jul 10:00 → 18 jul 10:00 · {{ t.days }}</span>
+</div>
+</div>
+<button type="button" onClick="{{ toggleEdit }}" style="flex:none;border:1px solid rgba(255,255,255,.28);background:transparent;color:#fff;font-size:14px;font-weight:700;padding:10px 15px;border-radius:9px;cursor:pointer;min-height:42px" style-hover="border-color:#fff;background:rgba(255,255,255,.08)">{{ editLabel }}</button>
+</div>
+
+<sc-if value="{{ editing }}" hint-placeholder-val="{{ false }}">
+<div style="border-top:1px solid rgba(255,255,255,.14);background:#161E26">
+<div style="max-width:1200px;margin:0 auto;padding:16px 20px 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;align-items:end">
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0"><span style="font-size:11.5px;font-weight:700;letter-spacing:.05em;color:#8D98A3;text-transform:uppercase">{{ t.fPickupPlace }}</span>
+<select style="appearance:none;border:1px solid #38424C;border-radius:9px;background:#0D1319;color:#fff;font-size:15px;font-weight:600;padding:11px 12px;min-height:44px;cursor:pointer"><option>Aeropuerto de Palma (PMI)</option><option>Palma · Paseo Marítimo</option><option>Port d'Alcúdia</option><option>Manacor · Estación</option></select></label>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0"><span style="font-size:11.5px;font-weight:700;letter-spacing:.05em;color:#8D98A3;text-transform:uppercase">{{ t.fPickup }}</span>
+<input type="date" value="{{ dateFrom }}" onChange="{{ onDateFrom }}" style="border:1px solid #38424C;border-radius:9px;background:#0D1319;color:#fff;font-size:15px;font-weight:600;padding:11px 12px;min-height:44px"></label>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0"><span style="font-size:11.5px;font-weight:700;letter-spacing:.05em;color:#8D98A3;text-transform:uppercase">{{ t.fDropoff }}</span>
+<input type="date" value="{{ dateTo }}" onChange="{{ onDateTo }}" style="border:1px solid #38424C;border-radius:9px;background:#0D1319;color:#fff;font-size:15px;font-weight:600;padding:11px 12px;min-height:44px"></label>
+<button type="button" onClick="{{ applySearch }}" style="border:0;border-radius:9px;background:#009FE3;color:#fff;font-size:15.5px;font-weight:700;padding:12px 18px;min-height:44px;cursor:pointer;box-shadow:0 2px 0 #0079B0" style-hover="background:#0093D2">{{ t.update }}</button>
+</div>
+</div>
+</sc-if>
+</div>
+
+<main style="max-width:1200px;margin:0 auto;padding:22px 20px 60px">
+
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+<h1 style="margin:0;font-size:clamp(21px,2.6vw,27px);font-weight:800;letter-spacing:-.015em">{{ t.title }}</h1>
+<span style="font-size:14.5px;font-weight:600;color:#4A5560">{{ countLabel }}</span>
+</div>
+
+<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;background:#fff;border:1px solid #E4E8EC;border-radius:12px;padding:12px 14px;margin-bottom:18px">
+<label style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#4A5560"><span>{{ t.transmission }}</span>
+<select value="{{ transmission }}" onChange="{{ onTransmission }}" style="appearance:none;border:1px solid #CDD5DB;border-radius:8px;padding:8px 11px;font-size:14px;font-weight:600;background:#fff;cursor:pointer;min-height:38px;color:#10161C">
+<option value="all">{{ t.any }}</option><option value="manual">Manual</option><option value="auto">{{ t.automatic }}</option></select></label>
+<label style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#4A5560"><span>{{ t.seats }}</span>
+<select value="{{ seats }}" onChange="{{ onSeats }}" style="appearance:none;border:1px solid #CDD5DB;border-radius:8px;padding:8px 11px;font-size:14px;font-weight:600;background:#fff;cursor:pointer;min-height:38px;color:#10161C">
+<option value="all">{{ t.any }}</option><option value="4">4</option><option value="5">5</option><option value="7">7+</option></select></label>
+<label style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#4A5560"><span>{{ t.sort }}</span>
+<select value="{{ sort }}" onChange="{{ onSort }}" style="appearance:none;border:1px solid #CDD5DB;border-radius:8px;padding:8px 11px;font-size:14px;font-weight:600;background:#fff;cursor:pointer;min-height:38px;color:#10161C">
+<option value="price">{{ t.sortPrice }}</option><option value="capacity">{{ t.sortCapacity }}</option></select></label>
+<sc-if value="{{ filtersActive }}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{ clearFilters }}" style="border:0;background:transparent;color:#0079B0;font-size:14px;font-weight:700;cursor:pointer;padding:8px 6px;min-height:38px">{{ t.clear }}</button>
+</sc-if>
+<span style="margin-left:auto;font-size:13px;color:#6B7580;font-weight:600">{{ t.pricesNote }}</span>
+</div>
+
+<sc-if value="{{ isLoading }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="background:#fff;border:1px solid #E4E8EC;border-radius:14px;padding:18px;display:flex;gap:18px;animation:shimmer 1.3s ease-in-out infinite"><div style="flex:none;width:210px;height:132px;border-radius:10px;background:#EDF1F4"></div><div style="flex:1;display:flex;flex-direction:column;gap:10px"><div style="width:44%;height:19px;border-radius:5px;background:#EDF1F4"></div><div style="width:28%;height:14px;border-radius:5px;background:#EDF1F4"></div><div style="width:62%;height:14px;border-radius:5px;background:#EDF1F4"></div></div><div style="flex:none;width:170px;display:flex;flex-direction:column;gap:10px;align-items:flex-end"><div style="width:100px;height:26px;border-radius:5px;background:#EDF1F4"></div><div style="width:150px;height:44px;border-radius:9px;background:#EDF1F4"></div></div></div>
+<div style="background:#fff;border:1px solid #E4E8EC;border-radius:14px;padding:18px;display:flex;gap:18px;animation:shimmer 1.3s ease-in-out .15s infinite"><div style="flex:none;width:210px;height:132px;border-radius:10px;background:#EDF1F4"></div><div style="flex:1;display:flex;flex-direction:column;gap:10px"><div style="width:38%;height:19px;border-radius:5px;background:#EDF1F4"></div><div style="width:24%;height:14px;border-radius:5px;background:#EDF1F4"></div><div style="width:55%;height:14px;border-radius:5px;background:#EDF1F4"></div></div><div style="flex:none;width:170px;display:flex;flex-direction:column;gap:10px;align-items:flex-end"><div style="width:100px;height:26px;border-radius:5px;background:#EDF1F4"></div><div style="width:150px;height:44px;border-radius:9px;background:#EDF1F4"></div></div></div>
+<p style="margin:0;font-size:14px;color:#4A5560;font-weight:600">{{ t.loading }}</p>
+</div>
+</sc-if>
+
+<sc-if value="{{ isNoMatch }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border:1px solid #E4E8EC;border-radius:16px;padding:30px 26px;max-width:700px">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="width:10px;height:10px;border-radius:2px;background:#009FE3"></span><span style="font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#0079B0">{{ t.nmTag }}</span></div>
+<h2 style="margin:0;font-size:23px;font-weight:800;letter-spacing:-.01em">{{ t.nmTitle }}</h2>
+<p style="margin:12px 0 22px;font-size:15.5px;line-height:1.6;color:#4A5560;max-width:60ch">{{ t.nmBody }}</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<button type="button" onClick="{{ clearFilters }}" style="border:0;border-radius:10px;background:#009FE3;color:#fff;font-size:15.5px;font-weight:700;padding:13px 20px;cursor:pointer;min-height:46px;box-shadow:0 2px 0 #0079B0">{{ t.clear }}</button>
+<button type="button" onClick="{{ toggleEdit }}" style="border:1px solid #CDD5DB;border-radius:10px;background:#fff;color:#10161C;font-size:15.5px;font-weight:700;padding:13px 20px;cursor:pointer;min-height:46px">{{ t.changeDates }}</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border:1px solid #E4E8EC;border-radius:16px;padding:32px 26px;max-width:760px">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="width:10px;height:10px;border-radius:2px;background:#E30613"></span><span style="font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#E30613">{{ t.emptyTag }}</span></div>
+<h2 style="margin:0;font-size:24px;font-weight:800;letter-spacing:-.01em">{{ t.emptyTitle }}</h2>
+<p style="margin:12px 0 22px;font-size:15.5px;line-height:1.6;color:#4A5560;max-width:60ch">{{ t.emptyBody }}</p>
+<h3 style="margin:0 0 10px;font-size:14px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#4A5560">{{ t.altDates }}</h3>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px;margin-bottom:22px">
+<button type="button" onClick="{{ applyAlt }}" style="text-align:left;background:#F5F7F9;border:1px solid #E4E8EC;border-radius:12px;padding:14px;cursor:pointer;min-height:44px" style-hover="border-color:#009FE3;background:#F0F8FD">
+<p style="margin:0;font-size:15px;font-weight:700">9 jul → 16 jul</p><p style="margin:4px 0 0;font-size:13.5px;color:#4A5560;font-weight:600">6 categorías · desde 27 €/día</p></button>
+<button type="button" onClick="{{ applyAlt }}" style="text-align:left;background:#F5F7F9;border:1px solid #E4E8EC;border-radius:12px;padding:14px;cursor:pointer;min-height:44px" style-hover="border-color:#009FE3;background:#F0F8FD">
+<p style="margin:0;font-size:15px;font-weight:700">13 jul → 20 jul</p><p style="margin:4px 0 0;font-size:13.5px;color:#4A5560;font-weight:600">4 categorías · desde 31 €/día</p></button>
+<button type="button" onClick="{{ applyAlt }}" style="text-align:left;background:#F5F7F9;border:1px solid #E4E8EC;border-radius:12px;padding:14px;cursor:pointer;min-height:44px" style-hover="border-color:#009FE3;background:#F0F8FD">
+<p style="margin:0;font-size:15px;font-weight:700">11 jul → 15 jul</p><p style="margin:4px 0 0;font-size:13.5px;color:#4A5560;font-weight:600">5 categorías · desde 29 €/día</p></button>
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<button type="button" onClick="{{ toggleEdit }}" style="border:0;border-radius:10px;background:#009FE3;color:#fff;font-size:15.5px;font-weight:700;padding:13px 20px;cursor:pointer;min-height:46px;box-shadow:0 2px 0 #0079B0">{{ t.changeDates }}</button>
+<a href="w01-inicio.html#faq" style="display:inline-flex;align-items:center;border:1px solid #CDD5DB;border-radius:10px;background:#fff;color:#10161C;font-size:15.5px;font-weight:700;padding:13px 20px;min-height:46px;text-decoration:none">{{ t.contact }}</a>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:14px">
+<sc-for list="{{ results }}" as="c" hint-placeholder-count="4">
+<article style="background:#fff;border:1px solid #E4E8EC;border-radius:14px;padding:16px;display:flex;flex-wrap:wrap;gap:18px;align-items:stretch" style-hover="border-color:#009FE3;box-shadow:0 8px 22px rgba(16,22,28,.07)">
+<div style="flex:1 1 200px;max-width:100%;position:relative;border-radius:10px;overflow:hidden;min-height:150px;background:repeating-linear-gradient(135deg,#DFE6EA 0 9px,#E9EEF1 9px 18px);display:flex;align-items:flex-end;padding:9px">
+<span style="font:500 10.5px/1 ui-monospace,Menlo,monospace;color:#4A5560;background:rgba(255,255,255,.86);padding:5px 7px;border-radius:4px">{{ c.photo }}</span>
+<span style="position:absolute;top:9px;left:9px;background:#10161C;color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;padding:5px 8px;border-radius:5px">{{ c.group }}</span>
+</div>
+<div style="flex:3 1 260px;display:flex;flex-direction:column;gap:11px;min-width:0">
+<div>
+<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><h2 style="margin:0;font-size:21px;font-weight:800;letter-spacing:-.01em">{{ c.name }}</h2>
+<sc-if value="{{ c.tag }}" hint-placeholder-val="{{ false }}"><span style="font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#0B983A;background:#E8F6EC;padding:4px 8px;border-radius:5px">{{ c.tag }}</span></sc-if>
+</div>
+<p style="margin:4px 0 0;font-size:14.5px;color:#4A5560">{{ c.ref }} <em style="font-style:normal;font-weight:700;color:#10161C">{{ t.orSimilar }}</em></p>
+</div>
+<ul style="margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px">
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">{{ c.seatsLabel }}</li>
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">{{ c.bagsLabel }}</li>
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">{{ c.transLabel }}</li>
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">{{ c.fuel }}</li>
+<li style="font-size:12.5px;font-weight:600;color:#4A5560;background:#F5F7F9;border-radius:6px;padding:5px 8px">{{ c.doorsLabel }}</li>
+</ul>
+<div style="margin-top:auto;display:flex;gap:14px;flex-wrap:wrap;align-items:center">
+<a href="#detalle" onClick="{{ goDetail }}" style="font-size:14px;font-weight:700">{{ t.details }}</a>
+<sc-if value="{{ c.lastUnit }}" hint-placeholder-val="{{ false }}">
+<span style="display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;color:#A8450F;background:#FDF0E7;border:1px solid #F5D9C4;padding:5px 9px;border-radius:6px"><span style="width:8px;height:8px;border-radius:2px;background:#E30613"></span>{{ t.lastUnit }}</span>
+</sc-if>
+</div>
+</div>
+<div style="flex:1 1 190px;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:12px;background:#FAFBFC;border:1px solid #EEF1F3;border-radius:11px;padding:14px">
+<div>
+<p style="margin:0;font-size:12.5px;font-weight:700;color:#6B7580;text-transform:uppercase;letter-spacing:.04em">{{ t.total7 }}</p>
+<p style="margin:3px 0 0;font-size:29px;font-weight:800;letter-spacing:-.025em;line-height:1">{{ c.total }}</p>
+<p style="margin:5px 0 0;font-size:13.5px;color:#4A5560;font-weight:600">{{ c.perDay }}</p>
+<p style="margin:7px 0 0;font-size:12.5px;color:#6B7580;line-height:1.4">{{ t.includes }}</p>
+</div>
+<button type="button" onClick="{{ goPack }}" style="border:0;border-radius:10px;background:#009FE3;color:#fff;font-size:15.5px;font-weight:700;padding:13px 16px;cursor:pointer;min-height:46px;box-shadow:0 2px 0 #0079B0;width:100%" style-hover="background:#0093D2" style-active="box-shadow:none;transform:translateY(1px)">{{ t.select }}</button>
+</div>
+</article>
+</sc-for>
+</div>
+
+<div style="margin-top:22px;background:#fff;border:1px dashed #CDD5DB;border-radius:14px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+<span style="flex:none;width:10px;height:10px;border-radius:2px;background:#009FE3;margin-top:6px"></span>
+<div style="flex:1;min-width:220px"><h3 style="margin:0;font-size:16px;font-weight:700">{{ t.noteTitle }}</h3><p style="margin:6px 0 0;font-size:14.5px;line-height:1.55;color:#4A5560;max-width:70ch">{{ t.noteBody }}</p></div>
+</div>
+</sc-if>
+
+</main>
+
+<div style="position:fixed;right:16px;bottom:16px;z-index:60;background:#fff;border:1px solid #CDD5DB;border-radius:12px;box-shadow:0 10px 30px rgba(16,22,28,.16);padding:11px 13px;display:flex;flex-direction:column;gap:8px;max-width:230px">
+<p style="margin:0;font:700 10.5px/1.2 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:#6B7580;text-transform:uppercase">Vista de prototipo</p>
+<div style="display:flex;gap:6px;flex-wrap:wrap">
+<button type="button" onClick="{{ viewResults }}" style="{{ vResults }}">Resultados</button>
+<button type="button" onClick="{{ viewLoading }}" style="{{ vLoading }}">Cargando</button>
+<button type="button" onClick="{{ viewEmpty }}" style="{{ vEmpty }}">Sin disponibilidad</button>
+</div>
+</div>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:80;max-width:min(560px,calc(100vw - 32px));background:#10161C;color:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 14px 40px rgba(16,22,28,.3);display:flex;gap:14px;align-items:flex-start">
+<span style="flex:none;width:8px;height:8px;border-radius:50%;background:#0B983A;margin-top:7px"></span>
+<p style="margin:0;font-size:14.5px;line-height:1.45">{{ toast }}</p>
+<button type="button" onClick="{{ closeToast }}" style="flex:none;border:0;background:transparent;color:#fff;font-size:18px;line-height:1;cursor:pointer;padding:2px 4px" aria-label="Cerrar">×</button>
+</div>
+</sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900}}">
+const DICT = {
+  es:{navCars:"Vehículos",navLocations:"Ubicaciones",navPacks:"Packs",navHelp:"Ayuda",myBooking:"Mi reserva",
+    fPickupPlace:"Recogida y devolución",fPickup:"Recogida",fDropoff:"Devolución",dates:"Fechas",days:"7 días",
+    edit:"Modificar búsqueda",close:"Cerrar",update:"Actualizar búsqueda",
+    title:"Categorías disponibles",results:"resultados",transmission:"Transmisión",seats:"Plazas",sort:"Ordenar",
+    any:"Todas",automatic:"Automático",sortPrice:"Precio más bajo",sortCapacity:"Más capacidad",clear:"Quitar filtros",
+    pricesNote:"Precios para 7 días, impuestos incluidos",
+    orSimilar:"o similar",details:"Ver características",select:"Seleccionar",total7:"Total 7 días",
+    includes:"Incluye Pack Green y kilometraje ilimitado",lastUnit:"Última unidad disponible",
+    loading:"Comprobando disponibilidad real para tus fechas…",
+    emptyTag:"Sin disponibilidad",emptyTitle:"No tenemos coches para esas fechas",
+    emptyBody:"Toda la flota está comprometida entre el 11 y el 18 de julio en Aeropuerto de Palma. No mostramos categorías que no podamos garantizar.",
+    altDates:"Fechas cercanas con disponibilidad",changeDates:"Cambiar fechas",contact:"Hablar con el equipo",
+    nmTag:"Sin resultados con estos filtros",nmTitle:"Ninguna categoría coincide con los filtros",
+    nmBody:"Hay coches disponibles para tus fechas, pero ninguna categoría cumple la combinación de transmisión y plazas que has elegido. Prueba a quitar un filtro.",
+    noteTitle:"Reservas una categoría, no una matrícula",
+    noteBody:"El vehículo que ves es el modelo de referencia del grupo. Garantizamos plazas, maletas y transmisión; el coche concreto se asigna en la oficina.",
+    seatsU:"plazas",bagsU:"maletas",doorsU:"puertas",perDayU:"/día"},
+  en:{navCars:"Cars",navLocations:"Locations",navPacks:"Packs",navHelp:"Help",myBooking:"My booking",
+    fPickupPlace:"Pick-up and drop-off",fPickup:"Pick-up",fDropoff:"Drop-off",dates:"Dates",days:"7 days",
+    edit:"Edit search",close:"Close",update:"Update search",
+    title:"Available categories",results:"results",transmission:"Transmission",seats:"Seats",sort:"Sort by",
+    any:"Any",automatic:"Automatic",sortPrice:"Lowest price",sortCapacity:"Most capacity",clear:"Clear filters",
+    pricesNote:"Prices for 7 days, taxes included",
+    orSimilar:"or similar",details:"See features",select:"Select",total7:"Total 7 days",
+    includes:"Includes Pack Green and unlimited mileage",lastUnit:"Last unit available",
+    loading:"Checking live availability for your dates…",
+    emptyTag:"No availability",emptyTitle:"We have no cars for those dates",
+    emptyBody:"The whole fleet is committed between 11 and 18 July at Palma Airport. We never show categories we cannot guarantee.",
+    altDates:"Nearby dates with availability",changeDates:"Change dates",contact:"Talk to our team",
+    nmTag:"No results with these filters",nmTitle:"No category matches your filters",
+    nmBody:"Cars are available for your dates, but no category matches the transmission and seat combination you selected. Try removing one filter.",
+    noteTitle:"You book a category, not a number plate",
+    noteBody:"The car shown is the group's reference model. We guarantee seats, luggage and transmission; the specific car is assigned at the office.",
+    seatsU:"seats",bagsU:"bags",doorsU:"doors",perDayU:"/day"},
+  de:{navCars:"Fahrzeuge",navLocations:"Standorte",navPacks:"Pakete",navHelp:"Hilfe",myBooking:"Meine Buchung",
+    fPickupPlace:"Abholung und Rückgabe",fPickup:"Abholung",fDropoff:"Rückgabe",dates:"Zeitraum",days:"7 Tage",
+    edit:"Suche ändern",close:"Schließen",update:"Suche aktualisieren",
+    title:"Verfügbare Kategorien",results:"Ergebnisse",transmission:"Getriebe",seats:"Sitze",sort:"Sortieren",
+    any:"Alle",automatic:"Automatik",sortPrice:"Niedrigster Preis",sortCapacity:"Größte Kapazität",clear:"Filter entfernen",
+    pricesNote:"Preise für 7 Tage, inkl. Steuern",
+    orSimilar:"oder ähnlich",details:"Merkmale ansehen",select:"Auswählen",total7:"Gesamt 7 Tage",
+    includes:"Inklusive Pack Green und unbegrenzte Kilometer",lastUnit:"Letztes verfügbares Fahrzeug",
+    loading:"Wir prüfen die tatsächliche Verfügbarkeit für Ihre Daten…",
+    emptyTag:"Keine Verfügbarkeit",emptyTitle:"Für diesen Zeitraum haben wir keine Fahrzeuge",
+    emptyBody:"Die gesamte Flotte ist vom 11. bis 18. Juli am Flughafen Palma vergeben. Wir zeigen keine Kategorien, die wir nicht garantieren können.",
+    altDates:"Nahe Termine mit Verfügbarkeit",changeDates:"Zeitraum ändern",contact:"Mit dem Team sprechen",
+    nmTag:"Keine Ergebnisse mit diesen Filtern",nmTitle:"Keine Kategorie entspricht Ihren Filtern",
+    nmBody:"Für Ihren Zeitraum sind Fahrzeuge verfügbar, aber keine Kategorie erfüllt die gewählte Kombination aus Getriebe und Sitzplätzen. Entfernen Sie einen Filter.",
+    noteTitle:"Sie buchen eine Kategorie, kein Kennzeichen",
+    noteBody:"Das abgebildete Fahrzeug ist das Referenzmodell der Gruppe. Wir garantieren Sitze, Gepäck und Getriebe; das konkrete Fahrzeug wird in der Station zugewiesen.",
+    seatsU:"Sitze",bagsU:"Gepäck",doorsU:"Türen",perDayU:"/Tag"},
+  fr:{navCars:"Véhicules",navLocations:"Agences",navPacks:"Packs",navHelp:"Aide",myBooking:"Ma réservation",
+    fPickupPlace:"Prise en charge et restitution",fPickup:"Prise en charge",fDropoff:"Restitution",dates:"Dates",days:"7 jours",
+    edit:"Modifier la recherche",close:"Fermer",update:"Mettre à jour",
+    title:"Catégories disponibles",results:"résultats",transmission:"Boîte",seats:"Places",sort:"Trier par",
+    any:"Toutes",automatic:"Automatique",sortPrice:"Prix le plus bas",sortCapacity:"Plus de capacité",clear:"Effacer les filtres",
+    pricesNote:"Prix pour 7 jours, taxes incluses",
+    orSimilar:"ou similaire",details:"Voir les caractéristiques",select:"Sélectionner",total7:"Total 7 jours",
+    includes:"Pack Green et kilométrage illimité inclus",lastUnit:"Dernier véhicule disponible",
+    loading:"Vérification de la disponibilité réelle pour vos dates…",
+    emptyTag:"Aucune disponibilité",emptyTitle:"Aucune voiture pour ces dates",
+    emptyBody:"Toute la flotte est réservée du 11 au 18 juillet à l'aéroport de Palma. Nous n'affichons jamais de catégories que nous ne pouvons pas garantir.",
+    altDates:"Dates proches avec disponibilité",changeDates:"Changer les dates",contact:"Parler à l'équipe",
+    nmTag:"Aucun résultat avec ces filtres",nmTitle:"Aucune catégorie ne correspond à vos filtres",
+    nmBody:"Des voitures sont disponibles pour vos dates, mais aucune catégorie ne correspond à la combinaison de boîte et de places choisie. Essayez de retirer un filtre.",
+    noteTitle:"Vous réservez une catégorie, pas une immatriculation",
+    noteBody:"Le véhicule affiché est le modèle de référence du groupe. Nous garantissons les places, les bagages et la boîte de vitesses ; le véhicule précis est attribué en agence.",
+    seatsU:"places",bagsU:"bagages",doorsU:"portes",perDayU:"/jour"}
+};
+
+const CATS = [
+  {group:"GRUPO A",name:"Mini",ref:"Fiat Panda",seats:4,bags:1,doors:4,trans:"manual",fuel:"Gasolina",day:24,total:168,photo:"foto grupo A · 700×440",tagKey:null,lastUnit:false},
+  {group:"GRUPO C",name:"Económico",ref:"Seat Ibiza",seats:5,bags:2,doors:5,trans:"manual",fuel:"Gasolina",day:31,total:217,photo:"foto grupo C · 700×440",tagKey:"popular",lastUnit:false},
+  {group:"GRUPO D",name:"Compacto automático",ref:"VW Golf",seats:5,bags:2,doors:5,trans:"auto",fuel:"Gasolina",day:46,total:322,photo:"foto grupo D · 700×440",tagKey:null,lastUnit:true},
+  {group:"GRUPO F",name:"Familiar",ref:"Citroën C4 SpaceTourer",seats:7,bags:3,doors:5,trans:"manual",fuel:"Diésel",day:58,total:406,photo:"foto grupo F · 700×440",tagKey:null,lastUnit:false},
+  {group:"GRUPO K",name:"Cabrio",ref:"Fiat 500C",seats:4,bags:1,doors:2,trans:"auto",fuel:"Gasolina",day:72,total:504,photo:"foto grupo K · 700×440",tagKey:null,lastUnit:true}
+];
+
+const TAGS = {popular:{es:"Más reservado",en:"Most booked",de:"Am häufigsten gebucht",fr:"Le plus réservé"}};
+
+class Component extends DCLogic {
+  state = {lang:"es", view:"results", editing:false, transmission:"all", seats:"all", sort:"price",
+    dateFrom:"2026-07-11", dateTo:"2026-07-18", toast:null};
+
+  toast(msg){ this.setState({toast:msg}); clearTimeout(this._tm); this._tm=setTimeout(()=>this.setState({toast:null}),6000); }
+
+  langBtn(code){
+    const on = this.state.lang===code;
+    return "border:0;border-radius:6px;padding:6px 9px;font-size:12.5px;font-weight:700;cursor:pointer;min-width:34px;" +
+      (on?"background:#fff;color:#10161C;box-shadow:0 1px 2px rgba(16,22,28,.16)":"background:transparent;color:#4A5560");
+  }
+  viewBtn(v){
+    const on = this.state.view===v;
+    return "border:1px solid " + (on?"#009FE3":"#CDD5DB") + ";background:" + (on?"#009FE3":"#fff") + ";color:" + (on?"#fff":"#4A5560") +
+      ";font-size:12px;font-weight:700;padding:7px 9px;border-radius:7px;cursor:pointer";
+  }
+
+  renderVals(){
+    const lang = this.state.lang, t = DICT[lang];
+    const st = this.state;
+    let list = CATS.filter(c =>
+      (st.transmission==="all" || c.trans===st.transmission) &&
+      (st.seats==="all" || (st.seats==="7" ? c.seats>=7 : String(c.seats)===st.seats)));
+    list = list.slice().sort((a,b)=> st.sort==="price" ? a.day-b.day : b.seats-a.seats);
+
+    const results = list.map(c => ({
+      group:c.group, name:c.name, ref:c.ref, photo:c.photo,
+      seatsLabel:c.seats + " " + t.seatsU,
+      bagsLabel:c.bags + " " + t.bagsU,
+      doorsLabel:c.doors + " " + t.doorsU,
+      transLabel:c.trans==="auto" ? t.automatic : "Manual",
+      fuel:c.fuel,
+      total:c.total + " €",
+      perDay:c.day + " € " + t.perDayU,
+      tag:c.tagKey ? TAGS[c.tagKey][lang] : null,
+      lastUnit:c.lastUnit
+    }));
+
+    const view = st.view;
+    const filtersActive = st.transmission!=="all" || st.seats!=="all";
+    const noMatch = view==="results" && results.length===0;
+
+    return {
+      t, results,
+      editing: st.editing, editLabel: st.editing ? t.close : t.edit,
+      transmission: st.transmission, seats: st.seats, sort: st.sort,
+      dateFrom: st.dateFrom, dateTo: st.dateTo,
+      filtersActive,
+      isLoading: view==="loading",
+      isEmpty: view==="empty",
+      isNoMatch: noMatch,
+      hasResults: view==="results" && results.length>0,
+      countLabel: view==="results" ? results.length + " " + t.results : "",
+      toast: st.toast,
+      langEs:this.langBtn("es"),langEn:this.langBtn("en"),langDe:this.langBtn("de"),langFr:this.langBtn("fr"),
+      setEs:()=>this.setState({lang:"es"}),setEn:()=>this.setState({lang:"en"}),
+      setDe:()=>this.setState({lang:"de"}),setFr:()=>this.setState({lang:"fr"}),
+      vResults:this.viewBtn("results"),vLoading:this.viewBtn("loading"),vEmpty:this.viewBtn("empty"),
+      viewResults:()=>this.setState({view:"results"}),
+      viewLoading:()=>this.setState({view:"loading"}),
+      viewEmpty:()=>this.setState({view:"empty"}),
+      toggleEdit:()=>this.setState({editing:!st.editing}),
+      onTransmission:e=>this.setState({transmission:e.target.value}),
+      onSeats:e=>this.setState({seats:e.target.value}),
+      onSort:e=>this.setState({sort:e.target.value}),
+      onDateFrom:e=>this.setState({dateFrom:e.target.value}),
+      onDateTo:e=>this.setState({dateTo:e.target.value}),
+      clearFilters:()=>this.setState({transmission:"all",seats:"all"}),
+      applySearch:()=>{ this.setState({editing:false,view:"loading"}); setTimeout(()=>this.setState({view:"results"}),1200); },
+      applyAlt:()=>{ this.setState({view:"loading",dateFrom:"2026-07-09",dateTo:"2026-07-16"}); setTimeout(()=>this.setState({view:"results"}),1200); },
+      goPack:()=>this.toast("Siguiente pantalla: W04 Selección de pack. Aún no prototipada."),
+      goDetail:()=>this.toast("Siguiente pantalla: W03 Detalle de categoría. Aún no prototipada."),
+      goMyBooking:()=>this.toast("Siguiente pantalla: W09 Acceso a Mi reserva. Aún no prototipada."),
+      closeToast:()=>this.setState({toast:null})
+    };
+  }
+}
+
+</script>
+</body>
+</html>

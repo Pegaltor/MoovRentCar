@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F7F9;font-family:Figtree,"Helvetica Neue",Helvetica,sans-serif;color:#10161C;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+*{box-sizing:border-box}
+a{color:#0079B0;text-decoration:none}
+a:hover{color:#005D87;text-decoration:underline}
+summary{cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+details[open] .chev{transform:rotate(45deg)}
+input,select,button{font-family:inherit}
+</style>
+</helmet>
+
+<div style="width:100%;max-width:100%;overflow-x:hidden;min-height:100vh">
+
+<header style="background:#fff;border-bottom:1px solid #E4E8EC">
+<div style="max-width:1200px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+<a href="w01-inicio.html" style="flex:none;display:flex;align-items:center"><img src="moov-logo.png" alt="Moov rent a car" style="height:30px;width:auto;display:block"></a>
+<span style="flex:1"></span>
+<div style="display:flex;align-items:center;gap:14px;flex:none">
+<div role="group" aria-label="Idioma" style="display:flex;gap:2px;padding:2px;background:#F0F3F5;border-radius:8px">
+<button type="button" onClick="{{ setEs }}" style="{{ langEs }}">ES</button>
+<button type="button" onClick="{{ setEn }}" style="{{ langEn }}">EN</button>
+<button type="button" onClick="{{ setDe }}" style="{{ langDe }}">DE</button>
+<button type="button" onClick="{{ setFr }}" style="{{ langFr }}">FR</button>
+</div>
+<span style="font-size:13.5px;font-weight:600;color:#4A5560">{{ t.helpPhone }}</span>
+</div>
+</div>
+</header>
+
+<div style="background:#fff;border-bottom:1px solid #E4E8EC">
+<div style="max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;gap:10px 22px;flex-wrap:wrap;align-items:center">
+<a href="w02-resultados.html" style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#0079B0"><span style="font-size:15px">←</span>{{ t.step1 }}</a>
+<span aria-hidden="true" style="flex:none;width:18px;height:1px;background:#CDD5DB"></span>
+<span style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:800;color:#10161C"><span style="flex:none;width:22px;height:22px;border-radius:50%;background:#009FE3;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">2</span>{{ t.step2 }}</span>
+<span aria-hidden="true" style="flex:none;width:18px;height:1px;background:#CDD5DB"></span>
+<span style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:#8D98A3"><span style="flex:none;width:22px;height:22px;border-radius:50%;border:1px solid #CDD5DB;font-size:12px;display:flex;align-items:center;justify-content:center">3</span>{{ t.step3 }}</span>
+<span aria-hidden="true" style="flex:none;width:18px;height:1px;background:#CDD5DB"></span>
+<span style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:#8D98A3"><span style="flex:none;width:22px;height:22px;border-radius:50%;border:1px solid #CDD5DB;font-size:12px;display:flex;align-items:center;justify-content:center">4</span>{{ t.step4 }}</span>
+<span aria-hidden="true" style="flex:none;width:18px;height:1px;background:#CDD5DB"></span>
+<span style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:#8D98A3"><span style="flex:none;width:22px;height:22px;border-radius:50%;border:1px solid #CDD5DB;font-size:12px;display:flex;align-items:center;justify-content:center">5</span>{{ t.step5 }}</span>
+</div>
+</div>
+
+<main style="max-width:1200px;margin:0 auto;padding:24px 20px 120px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+
+<div style="flex:3 1 520px;min-width:0;display:flex;flex-direction:column;gap:18px">
+
+<div>
+<h1 style="margin:0;font-size:clamp(23px,3vw,31px);font-weight:800;letter-spacing:-.018em">{{ t.title }}</h1>
+<p style="margin:10px 0 0;font-size:15.5px;line-height:1.55;color:#4A5560;max-width:62ch">{{ t.intro }}</p>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:16px">
+
+<div style="{{ cardGreen }}">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
+<div><h2 style="margin:0;font-size:22px;font-weight:800">Pack Green</h2><p style="margin:5px 0 0;font-size:14px;font-weight:600;color:#4A5560">{{ t.greenSub }}</p></div>
+<div style="text-align:right"><p style="margin:0;font-size:20px;font-weight:800;color:#0B983A">{{ t.included }}</p><p style="margin:2px 0 0;font-size:12.5px;color:#6B7580;font-weight:600">{{ t.inPrice }}</p></div>
+</div>
+<dl style="margin:18px 0 0;display:grid;grid-template-columns:auto 1fr;gap:9px 14px;font-size:14.5px;align-items:baseline">
+<dt style="color:#6B7580;font-weight:600">{{ t.franchise }}</dt><dd style="margin:0;font-weight:800;font-size:16px">900 €</dd>
+<dt style="color:#6B7580;font-weight:600">{{ t.deposit }}</dt><dd style="margin:0;font-weight:800;font-size:16px">900 € {{ t.onCard }}</dd>
+<dt style="color:#6B7580;font-weight:600">{{ t.secondDriver }}</dt><dd style="margin:0;font-weight:700;color:#4A5560">+9 € {{ t.perDay }}</dd>
+</dl>
+<ul style="margin:18px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;font-size:14.5px;line-height:1.45">
+<li style="display:flex;gap:10px"><span style="flex:none;width:8px;height:8px;margin-top:6px;border-radius:50%;background:#0B983A"></span>{{ t.g1 }}</li>
+<li style="display:flex;gap:10px"><span style="flex:none;width:8px;height:8px;margin-top:6px;border-radius:50%;background:#0B983A"></span>{{ t.g2 }}</li>
+<li style="display:flex;gap:10px"><span style="flex:none;width:8px;height:8px;margin-top:6px;border-radius:50%;background:#0B983A"></span>{{ t.g3 }}</li>
+<li style="display:flex;gap:10px;color:#6B7580"><span style="flex:none;width:8px;height:2px;margin-top:9px;background:#8D98A3"></span>{{ t.g4 }}</li>
+<li style="display:flex;gap:10px;color:#6B7580"><span style="flex:none;width:8px;height:2px;margin-top:9px;background:#8D98A3"></span>{{ t.g5 }}</li>
+</ul>
+<button type="button" onClick="{{ pickGreen }}" style="{{ btnGreen }}">{{ greenBtnLabel }}</button>
+</div>
+
+<div style="{{ cardRed }}">
+<sc-if value="{{ showRecommended }}" hint-placeholder-val="{{ false }}">
+<p style="margin:0 0 12px;display:inline-flex;align-items:center;gap:7px;background:#FDE8E9;color:#A3060F;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border-radius:5px">{{ t.recommended }}</p>
+</sc-if>
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
+<div><h2 style="margin:0;font-size:22px;font-weight:800">Pack Red</h2><p style="margin:5px 0 0;font-size:14px;font-weight:600;color:#4A5560">{{ t.redSub }}</p></div>
+<div style="text-align:right"><p style="margin:0;font-size:20px;font-weight:800;color:#E30613">+14 €</p><p style="margin:2px 0 0;font-size:12.5px;color:#6B7580;font-weight:600">{{ t.perDay }} · +98 € {{ t.forStay }}</p></div>
+</div>
+<dl style="margin:18px 0 0;display:grid;grid-template-columns:auto 1fr;gap:9px 14px;font-size:14.5px;align-items:baseline">
+<dt style="color:#6B7580;font-weight:600">{{ t.franchise }}</dt><dd style="margin:0;font-weight:800;font-size:16px;color:#0B983A">0 €</dd>
+<dt style="color:#6B7580;font-weight:600">{{ t.deposit }}</dt><dd style="margin:0;font-weight:800;font-size:16px;color:#0B983A">{{ t.noDeposit }}</dd>
+<dt style="color:#6B7580;font-weight:600">{{ t.secondDriver }}</dt><dd style="margin:0;font-weight:800;color:#0B983A">{{ t.included }}</dd>
+</dl>
+<ul style="margin:18px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;font-size:14.5px;line-height:1.45">
+<li style="display:flex;gap:10px"><span style="flex:none;width:8px;height:8px;margin-top:6px;border-radius:50%;background:#E30613"></span>{{ t.r1 }}</li>
+<li style="display:flex;gap:10px"><span style="flex:none;width:8px;height:8px;margin-top:6px;border-radius:50%;background:#E30613"></span>{{ t.r2 }}</li>
+<li style="display:flex;gap:10px"><span style="flex:none;width:8px;height:8px;margin-top:6px;border-radius:50%;background:#E30613"></span>{{ t.r3 }}</li>
+<li style="display:flex;gap:10px"><span style="flex:none;width:8px;height:8px;margin-top:6px;border-radius:50%;background:#E30613"></span>{{ t.r4 }}</li>
+<li style="display:flex;gap:10px"><span style="flex:none;width:8px;height:8px;margin-top:6px;border-radius:50%;background:#E30613"></span>{{ t.r5 }}</li>
+</ul>
+<button type="button" onClick="{{ pickRed }}" style="{{ btnRed }}">{{ redBtnLabel }}</button>
+</div>
+</div>
+
+<div style="background:#fff;border:1px solid #E4E8EC;border-radius:14px;overflow:hidden">
+<h2 style="margin:0;padding:18px 20px 4px;font-size:17px;font-weight:800">{{ t.diffTitle }}</h2>
+<p style="margin:0;padding:0 20px 14px;font-size:14px;color:#4A5560">{{ t.diffIntro }}</p>
+<div style="overflow-x:auto">
+<table style="width:100%;min-width:520px;border-collapse:collapse;font-size:14.5px">
+<thead><tr style="background:#F5F7F9">
+<th scope="col" style="text-align:left;padding:11px 20px;font-size:12.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#4A5560">{{ t.concept }}</th>
+<th scope="col" style="text-align:left;padding:11px 14px;font-size:12.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#0B983A">Green</th>
+<th scope="col" style="text-align:left;padding:11px 14px;font-size:12.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#E30613">Red</th>
+</tr></thead>
+<tbody>
+<tr style="border-top:1px solid #EEF1F3"><th scope="row" style="text-align:left;padding:12px 20px;font-weight:600;color:#4A5560">{{ t.rowDamage }}</th><td style="padding:12px 14px;font-weight:700">{{ t.withFranchise }}</td><td style="padding:12px 14px;font-weight:700;color:#0B983A">{{ t.noFranchise }}</td></tr>
+<tr style="border-top:1px solid #EEF1F3"><th scope="row" style="text-align:left;padding:12px 20px;font-weight:600;color:#4A5560">{{ t.rowGlass }}</th><td style="padding:12px 14px;font-weight:700">{{ t.notIncluded }}</td><td style="padding:12px 14px;font-weight:700;color:#0B983A">{{ t.includedShort }}</td></tr>
+<tr style="border-top:1px solid #EEF1F3"><th scope="row" style="text-align:left;padding:12px 20px;font-weight:600;color:#4A5560">{{ t.rowTheft }}</th><td style="padding:12px 14px;font-weight:700">{{ t.withFranchise }}</td><td style="padding:12px 14px;font-weight:700;color:#0B983A">{{ t.noFranchise }}</td></tr>
+<tr style="border-top:1px solid #EEF1F3"><th scope="row" style="text-align:left;padding:12px 20px;font-weight:600;color:#4A5560">{{ t.rowDeposit }}</th><td style="padding:12px 14px;font-weight:700">900 €</td><td style="padding:12px 14px;font-weight:700;color:#0B983A">{{ t.noDeposit }}</td></tr>
+<tr style="border-top:1px solid #EEF1F3"><th scope="row" style="text-align:left;padding:12px 20px;font-weight:600;color:#4A5560">{{ t.rowAssist }}</th><td style="padding:12px 14px;font-weight:700">{{ t.includedShort }}</td><td style="padding:12px 14px;font-weight:700">{{ t.includedShort }}</td></tr>
+<tr style="border-top:1px solid #EEF1F3"><th scope="row" style="text-align:left;padding:12px 20px;font-weight:600;color:#4A5560">{{ t.rowCancel }}</th><td style="padding:12px 14px;font-weight:700">{{ t.free48 }}</td><td style="padding:12px 14px;font-weight:700">{{ t.free48 }}</td></tr>
+</tbody>
+</table>
+</div>
+<details style="border-top:1px solid #EEF1F3">
+<summary style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 20px;font-size:15.5px;font-weight:700"><span>{{ t.exclTitle }}</span><span class="chev" style="flex:none;font-size:20px;color:#009FE3;font-weight:400;transition:transform .18s ease">+</span></summary>
+<ul style="margin:0;padding:0 20px 20px 38px;font-size:14.5px;line-height:1.6;color:#4A5560;display:flex;flex-direction:column;gap:7px">
+<li>{{ t.excl1 }}</li><li>{{ t.excl2 }}</li><li>{{ t.excl3 }}</li><li>{{ t.excl4 }}</li>
+</ul>
+</details>
+<details style="border-top:1px solid #EEF1F3">
+<summary style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 20px;font-size:15.5px;font-weight:700"><span>{{ t.depTitle }}</span><span class="chev" style="flex:none;font-size:20px;color:#009FE3;font-weight:400;transition:transform .18s ease">+</span></summary>
+<p style="margin:0;padding:0 20px 20px;font-size:14.5px;line-height:1.6;color:#4A5560;max-width:72ch">{{ t.depBody }}</p>
+</details>
+</div>
+
+</div>
+
+<aside style="flex:1 1 300px;min-width:0;position:sticky;top:18px;background:#fff;border:1px solid #E4E8EC;border-radius:16px;overflow:hidden">
+<div style="padding:16px 18px;border-bottom:1px solid #EEF1F3;display:flex;gap:14px;align-items:center">
+<div style="flex:none;width:76px;height:54px;border-radius:8px;background:repeating-linear-gradient(135deg,#DFE6EA 0 8px,#E9EEF1 8px 16px)"></div>
+<div style="min-width:0"><p style="margin:0;font-size:11.5px;font-weight:800;letter-spacing:.06em;color:#6B7580;text-transform:uppercase">GRUPO C</p><h2 style="margin:3px 0 0;font-size:17px;font-weight:800">Económico</h2><p style="margin:2px 0 0;font-size:13px;color:#6B7580">Seat Ibiza <em style="font-style:normal;font-weight:700;color:#10161C">{{ t.orSimilar }}</em></p></div>
+</div>
+<dl style="margin:0;padding:15px 18px;border-bottom:1px solid #EEF1F3;display:grid;grid-template-columns:auto 1fr;gap:9px 12px;font-size:13.5px">
+<dt style="color:#6B7580;font-weight:600">{{ t.sPickup }}</dt><dd style="margin:0;font-weight:700;text-align:right">11 jul · 10:00</dd>
+<dt style="color:#6B7580;font-weight:600">{{ t.sDropoff }}</dt><dd style="margin:0;font-weight:700;text-align:right">18 jul · 10:00</dd>
+<dt style="color:#6B7580;font-weight:600">{{ t.sPlace }}</dt><dd style="margin:0;font-weight:700;text-align:right">Aeropuerto PMI</dd>
+<dt style="color:#6B7580;font-weight:600">{{ t.sDuration }}</dt><dd style="margin:0;font-weight:700;text-align:right">{{ t.days7 }}</dd>
+</dl>
+<dl style="margin:0;padding:15px 18px;display:grid;grid-template-columns:1fr auto;gap:10px 12px;font-size:14px">
+<dt style="color:#4A5560;font-weight:600">{{ t.sBase }}</dt><dd style="margin:0;font-weight:700;text-align:right">217 €</dd>
+<dt style="color:#4A5560;font-weight:600">{{ packLineLabel }}</dt><dd style="margin:0;font-weight:700;text-align:right">{{ packLineValue }}</dd>
+<dt style="color:#4A5560;font-weight:600">{{ t.sExtras }}</dt><dd style="margin:0;font-weight:700;text-align:right;color:#6B7580">{{ t.sPending }}</dd>
+</dl>
+<div style="padding:0 18px 16px">
+<div style="border-top:1px solid #EEF1F3;padding-top:14px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+<div><p style="margin:0;font-size:12.5px;font-weight:700;color:#6B7580;text-transform:uppercase;letter-spacing:.04em">{{ t.sTotal }}</p><p style="margin:2px 0 0;font-size:13px;color:#6B7580">{{ t.taxesIncl }}</p></div>
+<p style="margin:0;font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1">{{ total }}</p>
+</div>
+<button type="button" onClick="{{ goExtras }}" style="margin-top:14px;width:100%;border:0;border-radius:11px;background:#009FE3;color:#fff;font-size:16.5px;font-weight:700;padding:15px 18px;cursor:pointer;min-height:50px;box-shadow:0 2px 0 #0079B0" style-hover="background:#0093D2" style-active="box-shadow:none;transform:translateY(1px)">{{ t.continue }}</button>
+<p style="margin:12px 0 0;font-size:12.5px;line-height:1.5;color:#6B7580">{{ t.summaryNote }}</p>
+</div>
+</aside>
+
+</main>
+
+<sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;left:0;right:0;bottom:0;z-index:70;background:#fff;border-top:1px solid #E4E8EC;box-shadow:0 -6px 22px rgba(16,22,28,.12);padding:11px 16px 13px;display:flex;align-items:center;gap:14px">
+<div style="min-width:0;flex:1">
+<p style="margin:0;font-size:12px;font-weight:700;color:#6B7580;text-transform:uppercase;letter-spacing:.04em">{{ packLineLabel }} · {{ t.sTotal }}</p>
+<p style="margin:2px 0 0;font-size:24px;font-weight:800;letter-spacing:-.025em;line-height:1.05">{{ total }}</p>
+</div>
+<button type="button" onClick="{{ goExtras }}" style="flex:none;border:0;border-radius:11px;background:#009FE3;color:#fff;font-size:15.5px;font-weight:700;padding:14px 18px;cursor:pointer;min-height:48px;box-shadow:0 2px 0 #0079B0">{{ t.continueShort }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:80;max-width:min(560px,calc(100vw - 32px));background:#10161C;color:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 14px 40px rgba(16,22,28,.3);display:flex;gap:14px;align-items:flex-start">
+<span style="flex:none;width:8px;height:8px;border-radius:50%;background:#0B983A;margin-top:7px"></span>
+<p style="margin:0;font-size:14.5px;line-height:1.45">{{ toast }}</p>
+<button type="button" onClick="{{ closeToast }}" style="flex:none;border:0;background:transparent;color:#fff;font-size:18px;line-height:1;cursor:pointer;padding:2px 4px" aria-label="Cerrar">×</button>
+</div>
+</sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:960},&quot;showRecommended&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comercial&quot;}}">
+const DICT = {
+  es:{helpPhone:"Ayuda +34 971 000 000",
+    step1:"Vehículo",step2:"Cobertura",step3:"Extras",step4:"Datos",step5:"Pago",
+    title:"Elige tu cobertura",
+    intro:"Dos opciones con lenguaje claro. Puedes cambiar de pack ahora o más adelante en la reserva: el total se actualiza al instante.",
+    greenSub:"Cobertura básica con franquicia",redSub:"Sin franquicia y sin depósito",
+    included:"Incluido",includedShort:"Incluido",inPrice:"en el precio mostrado",perDay:"por día",forStay:"en tus 7 días",
+    franchise:"Franquicia por daño",deposit:"Depósito",onCard:"en tarjeta",secondDriver:"Segundo conductor",
+    noDeposit:"Sin depósito",
+    g1:"Responsabilidad civil obligatoria",g2:"Asistencia en carretera 24 h",g3:"Cancelación gratuita hasta 48 h antes",
+    g4:"Daños y robo con franquicia de 900 €",g5:"Lunas y neumáticos no incluidos",
+    r1:"Todo lo del Pack Green",r2:"Daños y robo sin franquicia",r3:"Lunas, neumáticos y bajos incluidos",
+    r4:"Segundo conductor incluido",r5:"Sin bloqueo de depósito en la tarjeta",
+    recommended:"Opción recomendada",
+    diffTitle:"Diferencias en detalle",diffIntro:"Lo mismo de arriba, concepto por concepto.",
+    concept:"Concepto",rowDamage:"Daños al vehículo",rowGlass:"Lunas y neumáticos",rowTheft:"Robo",
+    rowDeposit:"Depósito en tarjeta",rowAssist:"Asistencia 24 h",rowCancel:"Cancelación",
+    withFranchise:"Con franquicia 900 €",noFranchise:"Sin franquicia",notIncluded:"No incluido",free48:"Gratis hasta 48 h antes",
+    exclTitle:"¿Qué no cubre ninguno de los dos packs?",
+    excl1:"Daños por conducción bajo los efectos del alcohol o de drogas.",
+    excl2:"Uso del vehículo fuera de carreteras asfaltadas o en circuito.",
+    excl3:"Pérdida de llaves, error de combustible y daños internos por negligencia.",
+    excl4:"Sanciones de tráfico y gastos de gestión asociados.",
+    depTitle:"Cómo funciona el depósito",
+    depBody:"Con el Pack Green bloqueamos 900 € en la tarjeta de crédito del conductor principal al recoger el coche y los liberamos tras la devolución; el banco puede tardar unos días en reflejarlo. Con el Pack Red no bloqueamos importe, aunque seguimos necesitando una tarjeta a nombre del conductor como identificación.",
+    orSimilar:"o similar",
+    sPickup:"Recogida",sDropoff:"Devolución",sPlace:"Oficina",sDuration:"Duración",days7:"7 días",
+    sBase:"Alquiler 7 días",sExtras:"Extras",sPending:"Siguiente paso",sTotal:"Total",taxesIncl:"Impuestos incluidos",
+    packGreen:"Pack Green",packRed:"Pack Red",
+    selected:"Seleccionado",select:"Elegir este pack",
+    continue:"Continuar con extras",continueShort:"Continuar",
+    summaryNote:"Todavía no se cobra nada. El pago se realiza en el último paso."},
+  en:{helpPhone:"Help +34 971 000 000",
+    step1:"Car",step2:"Cover",step3:"Extras",step4:"Details",step5:"Payment",
+    title:"Choose your cover",
+    intro:"Two options in plain language. You can change pack now or later in the booking: the total updates instantly.",
+    greenSub:"Basic cover with excess",redSub:"Zero excess, no deposit",
+    included:"Included",includedShort:"Included",inPrice:"in the price shown",perDay:"per day",forStay:"for your 7 days",
+    franchise:"Damage excess",deposit:"Deposit",onCard:"on card",secondDriver:"Second driver",
+    noDeposit:"No deposit",
+    g1:"Compulsory third-party liability",g2:"24 h roadside assistance",g3:"Free cancellation up to 48 h before",
+    g4:"Damage and theft with a 900 € excess",g5:"Glass and tyres not included",
+    r1:"Everything in Pack Green",r2:"Damage and theft with zero excess",r3:"Glass, tyres and underbody included",
+    r4:"Second driver included",r5:"No deposit blocked on your card",
+    recommended:"Recommended option",
+    diffTitle:"Differences in detail",diffIntro:"The same information, item by item.",
+    concept:"Item",rowDamage:"Damage to the car",rowGlass:"Glass and tyres",rowTheft:"Theft",
+    rowDeposit:"Card deposit",rowAssist:"24 h assistance",rowCancel:"Cancellation",
+    withFranchise:"900 € excess",noFranchise:"Zero excess",notIncluded:"Not included",free48:"Free up to 48 h before",
+    exclTitle:"What neither pack covers",
+    excl1:"Damage caused while driving under the influence of alcohol or drugs.",
+    excl2:"Use of the car off paved roads or on a racetrack.",
+    excl3:"Lost keys, wrong fuel and interior damage through negligence.",
+    excl4:"Traffic fines and the related handling fees.",
+    depTitle:"How the deposit works",
+    depBody:"With Pack Green we block 900 € on the main driver's credit card at pick-up and release it after the return; your bank may take a few days to show it. With Pack Red we block nothing, although we still need a card in the driver's name as identification.",
+    orSimilar:"or similar",
+    sPickup:"Pick-up",sDropoff:"Drop-off",sPlace:"Office",sDuration:"Duration",days7:"7 days",
+    sBase:"7-day rental",sExtras:"Extras",sPending:"Next step",sTotal:"Total",taxesIncl:"Taxes included",
+    packGreen:"Pack Green",packRed:"Pack Red",
+    selected:"Selected",select:"Choose this pack",
+    continue:"Continue to extras",continueShort:"Continue",
+    summaryNote:"Nothing is charged yet. Payment happens in the last step."},
+  de:{helpPhone:"Hilfe +34 971 000 000",
+    step1:"Fahrzeug",step2:"Versicherung",step3:"Extras",step4:"Daten",step5:"Zahlung",
+    title:"Wählen Sie Ihren Versicherungsschutz",
+    intro:"Zwei Optionen in klarer Sprache. Sie können das Paket jetzt oder später ändern: die Gesamtsumme wird sofort aktualisiert.",
+    greenSub:"Basisschutz mit Selbstbeteiligung",redSub:"Ohne Selbstbeteiligung, ohne Kaution",
+    included:"Inklusive",includedShort:"Inklusive",inPrice:"im angezeigten Preis",perDay:"pro Tag",forStay:"für Ihre 7 Tage",
+    franchise:"Selbstbeteiligung",deposit:"Kaution",onCard:"auf der Karte",secondDriver:"Zweiter Fahrer",
+    noDeposit:"Keine Kaution",
+    g1:"Gesetzliche Haftpflichtversicherung",g2:"Pannenhilfe rund um die Uhr",g3:"Kostenlose Stornierung bis 48 Std. vorher",
+    g4:"Schaden und Diebstahl mit 900 € Selbstbeteiligung",g5:"Glas und Reifen nicht inklusive",
+    r1:"Alles aus dem Pack Green",r2:"Schaden und Diebstahl ohne Selbstbeteiligung",r3:"Glas, Reifen und Unterboden inklusive",
+    r4:"Zweiter Fahrer inklusive",r5:"Keine Kautionssperre auf der Karte",
+    recommended:"Empfohlene Option",
+    diffTitle:"Unterschiede im Detail",diffIntro:"Dieselben Informationen, Punkt für Punkt.",
+    concept:"Leistung",rowDamage:"Fahrzeugschäden",rowGlass:"Glas und Reifen",rowTheft:"Diebstahl",
+    rowDeposit:"Kaution auf Karte",rowAssist:"Pannenhilfe 24 Std.",rowCancel:"Stornierung",
+    withFranchise:"Mit 900 € Selbstbeteiligung",noFranchise:"Ohne Selbstbeteiligung",notIncluded:"Nicht inklusive",free48:"Kostenlos bis 48 Std. vorher",
+    exclTitle:"Was keines der beiden Pakete abdeckt",
+    excl1:"Schäden durch Fahren unter Alkohol- oder Drogeneinfluss.",
+    excl2:"Nutzung abseits asphaltierter Straßen oder auf Rennstrecken.",
+    excl3:"Schlüsselverlust, Fehlbetankung und Innenschäden durch Fahrlässigkeit.",
+    excl4:"Verkehrsstrafen und die damit verbundenen Bearbeitungskosten.",
+    depTitle:"So funktioniert die Kaution",
+    depBody:"Beim Pack Green sperren wir bei der Abholung 900 € auf der Kreditkarte des Hauptfahrers und geben den Betrag nach der Rückgabe frei; Ihre Bank kann dafür einige Tage brauchen. Beim Pack Red sperren wir keinen Betrag, benötigen aber weiterhin eine Karte auf den Namen des Fahrers als Identifikation.",
+    orSimilar:"oder ähnlich",
+    sPickup:"Abholung",sDropoff:"Rückgabe",sPlace:"Station",sDuration:"Dauer",days7:"7 Tage",
+    sBase:"Miete 7 Tage",sExtras:"Extras",sPending:"Nächster Schritt",sTotal:"Gesamt",taxesIncl:"inkl. Steuern",
+    packGreen:"Pack Green",packRed:"Pack Red",
+    selected:"Ausgewählt",select:"Dieses Paket wählen",
+    continue:"Weiter zu den Extras",continueShort:"Weiter",
+    summaryNote:"Es wird noch nichts abgebucht. Die Zahlung erfolgt im letzten Schritt."},
+  fr:{helpPhone:"Aide +34 971 000 000",
+    step1:"Véhicule",step2:"Couverture",step3:"Options",step4:"Coordonnées",step5:"Paiement",
+    title:"Choisissez votre couverture",
+    intro:"Deux options en langage clair. Vous pouvez changer de pack maintenant ou plus tard : le total se met à jour immédiatement.",
+    greenSub:"Couverture de base avec franchise",redSub:"Sans franchise ni caution",
+    included:"Inclus",includedShort:"Inclus",inPrice:"dans le prix affiché",perDay:"par jour",forStay:"pour vos 7 jours",
+    franchise:"Franchise dommages",deposit:"Caution",onCard:"sur la carte",secondDriver:"Second conducteur",
+    noDeposit:"Sans caution",
+    g1:"Responsabilité civile obligatoire",g2:"Assistance routière 24 h",g3:"Annulation gratuite jusqu'à 48 h avant",
+    g4:"Dommages et vol avec franchise de 900 €",g5:"Vitres et pneus non inclus",
+    r1:"Tout le Pack Green",r2:"Dommages et vol sans franchise",r3:"Vitres, pneus et bas de caisse inclus",
+    r4:"Second conducteur inclus",r5:"Aucune caution bloquée sur la carte",
+    recommended:"Option recommandée",
+    diffTitle:"Différences en détail",diffIntro:"Les mêmes informations, poste par poste.",
+    concept:"Poste",rowDamage:"Dommages au véhicule",rowGlass:"Vitres et pneus",rowTheft:"Vol",
+    rowDeposit:"Caution sur carte",rowAssist:"Assistance 24 h",rowCancel:"Annulation",
+    withFranchise:"Franchise 900 €",noFranchise:"Sans franchise",notIncluded:"Non inclus",free48:"Gratuit jusqu'à 48 h avant",
+    exclTitle:"Ce que ne couvrent pas les deux packs",
+    excl1:"Dommages causés en conduisant sous l'emprise de l'alcool ou de drogues.",
+    excl2:"Utilisation hors routes goudronnées ou sur circuit.",
+    excl3:"Perte des clés, erreur de carburant et dommages intérieurs par négligence.",
+    excl4:"Amendes de circulation et frais de gestion associés.",
+    depTitle:"Comment fonctionne la caution",
+    depBody:"Avec le Pack Green, nous bloquons 900 € sur la carte de crédit du conducteur principal lors de la prise en charge et les libérons après la restitution ; votre banque peut mettre quelques jours à l'afficher. Avec le Pack Red, nous ne bloquons aucun montant, mais une carte au nom du conducteur reste nécessaire comme pièce d'identité.",
+    orSimilar:"ou similaire",
+    sPickup:"Prise en charge",sDropoff:"Restitution",sPlace:"Agence",sDuration:"Durée",days7:"7 jours",
+    sBase:"Location 7 jours",sExtras:"Options",sPending:"Étape suivante",sTotal:"Total",taxesIncl:"Taxes incluses",
+    packGreen:"Pack Green",packRed:"Pack Red",
+    selected:"Sélectionné",select:"Choisir ce pack",
+    continue:"Continuer vers les options",continueShort:"Continuer",
+    summaryNote:"Rien n'est débité pour le moment. Le paiement a lieu à la dernière étape."}
+};
+
+const BASE = 217, RED_TOTAL = 98;
+
+class Component extends DCLogic {
+  state = {lang:"es", pack:"green", toast:null, narrow:false};
+
+  componentDidMount(){
+    this._onResize = () => {
+      const n = window.innerWidth < 860;
+      if (n !== this.state.narrow) this.setState({narrow:n});
+    };
+    this._onResize();
+    window.addEventListener("resize", this._onResize);
+  }
+  componentWillUnmount(){ window.removeEventListener("resize", this._onResize); clearTimeout(this._tm); }
+
+  toast(msg){ this.setState({toast:msg}); clearTimeout(this._tm); this._tm=setTimeout(()=>this.setState({toast:null}),6000); }
+
+  langBtn(code){
+    const on = this.state.lang===code;
+    return "border:0;border-radius:6px;padding:6px 9px;font-size:12.5px;font-weight:700;cursor:pointer;min-width:34px;" +
+      (on?"background:#fff;color:#10161C;box-shadow:0 1px 2px rgba(16,22,28,.16)":"background:transparent;color:#4A5560");
+  }
+  card(active, color){
+    return "flex:1 1 300px;min-width:0;background:#fff;border-radius:16px;padding:22px;display:flex;flex-direction:column;" +
+      (active
+        ? "border:2px solid " + color + ";box-shadow:0 10px 28px rgba(16,22,28,.10)"
+        : "border:1px solid #E4E8EC");
+  }
+  btn(active, color){
+    return "margin-top:20px;width:100%;border-radius:11px;font-size:15.5px;font-weight:700;padding:14px 16px;min-height:48px;cursor:pointer;" +
+      (active
+        ? "border:0;background:" + color + ";color:#fff"
+        : "border:1px solid #CDD5DB;background:#fff;color:#10161C");
+  }
+
+  renderVals(){
+    const t = DICT[this.state.lang];
+    const red = this.state.pack === "red";
+    return {
+      t,
+      showRecommended: this.props.showRecommended ?? false,
+      total: (BASE + (red ? RED_TOTAL : 0)) + " €",
+      packLineLabel: red ? t.packRed : t.packGreen,
+      packLineValue: red ? "+98 €" : t.included,
+      cardGreen: this.card(!red, "#0B983A"),
+      cardRed: this.card(red, "#E30613"),
+      btnGreen: this.btn(!red, "#0B983A"),
+      btnRed: this.btn(red, "#E30613"),
+      greenBtnLabel: red ? t.select : t.selected,
+      redBtnLabel: red ? t.selected : t.select,
+      toast: this.state.toast,
+      narrow: this.state.narrow,
+      langEs:this.langBtn("es"),langEn:this.langBtn("en"),langDe:this.langBtn("de"),langFr:this.langBtn("fr"),
+      setEs:()=>this.setState({lang:"es"}),setEn:()=>this.setState({lang:"en"}),
+      setDe:()=>this.setState({lang:"de"}),setFr:()=>this.setState({lang:"fr"}),
+      pickGreen:()=>this.setState({pack:"green"}),
+      pickRed:()=>this.setState({pack:"red"}),
+      goExtras:()=>this.toast("Siguiente pantalla: W05 Selección de extras. Aún no prototipada."),
+      closeToast:()=>this.setState({toast:null})
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F7F9;font-family:Figtree,"Helvetica Neue",Helvetica,sans-serif;color:#10161C;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+*{box-sizing:border-box}
+a{color:#0079B0;text-decoration:none}
+a:hover{color:#005D87;text-decoration:underline}
+input,select,button,textarea{font-family:inherit}
+input::placeholder{color:#9AA4AE}
+@keyframes moovspin{to{transform:rotate(360deg)}}
+</style>
+</helmet>
+
+<div style="width:100%;max-width:100%;overflow-x:hidden;min-height:100vh">
+
+<header style="background:#fff;border-bottom:1px solid #E4E8EC">
+<div style="max-width:1200px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+<a href="Moov Web - W01 Inicio.dc.html" style="flex:none;display:flex;align-items:center"><img src="moov-logo.png" alt="Moov rent a car" style="height:30px;width:auto;display:block"></a>
+<span style="flex:1"></span>
+<div style="display:flex;align-items:center;gap:14px;flex:none">
+<div role="group" aria-label="Idioma" style="display:flex;gap:2px;padding:2px;background:#F0F3F5;border-radius:8px">
+<button type="button" onClick="{{ setEs }}" style="{{ langEs }}">ES</button>
+<button type="button" onClick="{{ setEn }}" style="{{ langEn }}">EN</button>
+<button type="button" onClick="{{ setDe }}" style="{{ langDe }}">DE</button>
+<button type="button" onClick="{{ setFr }}" style="{{ langFr }}">FR</button>
+</div>
+<span style="font-size:13.5px;font-weight:600;color:#4A5560">{{ t.helpPhone }}</span>
+</div>
+</div>
+</header>
+
+<div style="background:#fff;border-bottom:1px solid #E4E8EC">
+<div style="max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;gap:10px 22px;flex-wrap:wrap;align-items:center">
+<a href="Moov Web - W02 Resultados.dc.html" style="font-size:13.5px;font-weight:600;color:#0079B0">{{ t.step1 }}</a>
+<span aria-hidden="true" style="flex:none;width:18px;height:1px;background:#CDD5DB"></span>
+<a href="Moov Web - W04 Seleccion de pack.dc.html" style="font-size:13.5px;font-weight:600;color:#0079B0">{{ t.step2 }}</a>
+<span aria-hidden="true" style="flex:none;width:18px;height:1px;background:#CDD5DB"></span>
+<a href="Moov Web - W05 Extras.dc.html" style="font-size:13.5px;font-weight:600;color:#0079B0">{{ t.step3 }}</a>
+<span aria-hidden="true" style="flex:none;width:18px;height:1px;background:#CDD5DB"></span>
+<a href="Moov Web - W06 Datos de reserva.dc.html" style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#0079B0"><span style="font-size:15px">←</span>{{ t.step4 }}</a>
+<span aria-hidden="true" style="flex:none;width:18px;height:1px;background:#CDD5DB"></span>
+<span style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:800;color:#10161C"><span style="flex:none;width:22px;height:22px;border-radius:50%;background:#009FE3;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">5</span>{{ t.step5 }}</span>
+</div>
+</div>
+
+<main style="max-width:1200px;margin:0 auto;padding:24px 20px 140px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+
+<form style="flex:3 1 520px;min-width:0;display:flex;flex-direction:column;gap:18px" onSubmit="{{ onSubmit }}">
+
+<div>
+<h1 style="margin:0;font-size:clamp(23px,3vw,31px);font-weight:800;letter-spacing:-.018em">{{ t.title }}</h1>
+<p style="margin:10px 0 0;font-size:15.5px;line-height:1.55;color:#4A5560;max-width:62ch">{{ t.intro }}</p>
+</div>
+
+<sc-if value="{{ declined }}" hint-placeholder-val="{{ false }}">
+<div role="alert" style="background:#FDE8E9;border:1px solid #F3BFC3;border-left:4px solid #E30613;border-radius:12px;padding:16px 18px">
+<p style="margin:0;font-size:15px;font-weight:800;color:#A3060F">{{ t.declinedTitle }}</p>
+<p style="margin:6px 0 0;font-size:14.5px;line-height:1.55;color:#7D1319;max-width:64ch">{{ t.declinedBody }}</p>
+<p style="margin:10px 0 0;font-size:13px;font-weight:700;color:#7D1319">{{ t.declinedCode }}</p>
+</div>
+</sc-if>
+
+<sc-if value="{{ showErrorSummary }}" hint-placeholder-val="{{ false }}">
+<div role="alert" style="background:#FDE8E9;border:1px solid #F3BFC3;border-left:4px solid #E30613;border-radius:12px;padding:15px 18px">
+<p style="margin:0;font-size:15px;font-weight:800;color:#A3060F">{{ t.errTitle }}</p>
+<p style="margin:6px 0 0;font-size:14.5px;line-height:1.5;color:#7D1319">{{ errorSummary }}</p>
+</div>
+</sc-if>
+
+<section style="background:#fff;border:1px solid #E4E8EC;border-radius:14px;padding:20px">
+<h2 style="margin:0 0 4px;font-size:18px;font-weight:800">{{ t.whenTitle }}</h2>
+<p style="margin:0 0 16px;font-size:14px;color:#4A5560;max-width:66ch">{{ t.whenNote }}</p>
+<div role="radiogroup" aria-label="{{ t.whenTitle }}" style="display:flex;flex-direction:column;gap:12px">
+<label style="{{ sWhenNow }}">
+<input type="radio" name="when" checked="{{ whenNow }}" onChange="{{ pickNow }}" style="flex:none;width:19px;height:19px;margin-top:2px;accent-color:#009FE3;cursor:pointer">
+<span style="min-width:0;display:flex;flex-direction:column;gap:4px">
+<span style="display:flex;gap:10px;flex-wrap:wrap;align-items:baseline"><strong style="font-size:15.5px;font-weight:800">{{ t.nowTitle }}</strong><span style="font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#0B6B2E;background:#E4F5E9;border:1px solid #BFE6CB;border-radius:999px;padding:3px 9px">{{ t.nowBadge }}</span></span>
+<span style="font-size:14px;line-height:1.5;color:#4A5560">{{ t.nowBody }}</span>
+<span style="font-size:14.5px;font-weight:800">{{ t.nowAmount }}</span>
+</span>
+</label>
+<label style="{{ sWhenDesk }}">
+<input type="radio" name="when" checked="{{ whenDesk }}" onChange="{{ pickDesk }}" style="flex:none;width:19px;height:19px;margin-top:2px;accent-color:#009FE3;cursor:pointer">
+<span style="min-width:0;display:flex;flex-direction:column;gap:4px">
+<strong style="font-size:15.5px;font-weight:800">{{ t.deskTitle }}</strong>
+<span style="font-size:14px;line-height:1.5;color:#4A5560">{{ t.deskBody }}</span>
+<span style="font-size:14.5px;font-weight:800">{{ t.deskAmount }}</span>
+</span>
+</label>
+</div>
+</section>
+
+<section style="background:#fff;border:1px solid #E4E8EC;border-radius:14px;padding:20px">
+<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:baseline;justify-content:space-between;margin-bottom:4px">
+<h2 style="margin:0;font-size:18px;font-weight:800">{{ t.cardTitle }}</h2>
+<span style="display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:#0B6B2E"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#0B983A"></span>{{ t.secure }}</span>
+</div>
+<p style="margin:0 0 18px;font-size:14px;color:#4A5560;max-width:66ch">{{ t.cardNote }}</p>
+
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px">
+<button type="button" onClick="{{ pickCard }}" style="{{ sMethCard }}">{{ t.methCard }}</button>
+<button type="button" onClick="{{ pickWallet }}" style="{{ sMethWallet }}">{{ t.methWallet }}</button>
+</div>
+
+<sc-if value="{{ isWallet }}" hint-placeholder-val="{{ false }}">
+<div style="border:1px dashed #CDD5DB;border-radius:12px;padding:18px;background:#FAFBFC">
+<p style="margin:0;font-size:14.5px;line-height:1.55;color:#4A5560;max-width:60ch">{{ t.walletNote }}</p>
+<button type="button" onClick="{{ pickCard }}" style="margin-top:14px;border:1px solid #CDD5DB;background:#fff;border-radius:10px;padding:11px 16px;font-size:14.5px;font-weight:700;cursor:pointer;min-height:44px;color:#10161C">{{ t.walletBack }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCard }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px">
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0;grid-column:1/-1">
+<span style="font-size:13px;font-weight:700;color:#4A5560">{{ t.fNumber }} *</span>
+<input type="text" inputmode="numeric" value="{{ number }}" onChange="{{ onNumber }}" onBlur="{{ blurNumber }}" placeholder="4111 1111 1111 1111" style="{{ sNumber }}">
+<sc-if value="{{ eNumber }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:600;color:#A3060F">{{ eNumber }}</span></sc-if>
+<sc-if value="{{ noNumberError }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px;color:#6B7580">{{ t.hNumber }}</span></sc-if>
+</label>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0">
+<span style="font-size:13px;font-weight:700;color:#4A5560">{{ t.fExpiry }} *</span>
+<input type="text" inputmode="numeric" value="{{ expiry }}" onChange="{{ onExpiry }}" onBlur="{{ blurExpiry }}" placeholder="MM/AA" style="{{ sExpiry }}">
+<sc-if value="{{ eExpiry }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:600;color:#A3060F">{{ eExpiry }}</span></sc-if>
+</label>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0">
+<span style="font-size:13px;font-weight:700;color:#4A5560">{{ t.fCvv }} *</span>
+<input type="text" inputmode="numeric" value="{{ cvv }}" onChange="{{ onCvv }}" onBlur="{{ blurCvv }}" placeholder="123" style="{{ sCvv }}">
+<sc-if value="{{ eCvv }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:600;color:#A3060F">{{ eCvv }}</span></sc-if>
+<sc-if value="{{ noCvvError }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px;color:#6B7580">{{ t.hCvv }}</span></sc-if>
+</label>
+<label style="display:flex;flex-direction:column;gap:6px;min-width:0;grid-column:1/-1">
+<span style="font-size:13px;font-weight:700;color:#4A5560">{{ t.fHolder }} *</span>
+<input type="text" value="{{ holder }}" onChange="{{ onHolder }}" onBlur="{{ blurHolder }}" placeholder="MARTA GARCIA FERRER" style="{{ sHolder }}">
+<sc-if value="{{ eHolder }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:600;color:#A3060F">{{ eHolder }}</span></sc-if>
+<sc-if value="{{ noHolderError }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px;color:#6B7580">{{ t.hHolder }}</span></sc-if>
+</label>
+</div>
+</sc-if>
+</section>
+
+<section style="background:#fff;border:1px solid #E4E8EC;border-radius:14px;padding:20px">
+<h2 style="margin:0 0 4px;font-size:18px;font-weight:800">{{ t.depositTitle }}</h2>
+<p style="margin:0 0 16px;font-size:14px;color:#4A5560;max-width:66ch">{{ t.depositNote }}</p>
+<div style="display:flex;flex-direction:column;gap:11px;border:1px solid #E4E8EC;border-radius:12px;padding:15px 16px;background:#FAFBFC">
+<div style="display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap"><span style="font-size:14px;font-weight:600;color:#4A5560">{{ t.depAmount }}</span><strong style="font-size:14.5px;font-weight:800">{{ t.depAmountValue }}</strong></div>
+<div style="display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap"><span style="font-size:14px;font-weight:600;color:#4A5560">{{ t.depType }}</span><strong style="font-size:14.5px;font-weight:800">{{ t.depTypeValue }}</strong></div>
+<div style="display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap"><span style="font-size:14px;font-weight:600;color:#4A5560">{{ t.depRelease }}</span><strong style="font-size:14.5px;font-weight:800">{{ t.depReleaseValue }}</strong></div>
+</div>
+<p style="margin:14px 0 0;font-size:13.5px;line-height:1.55;color:#6B7580;max-width:66ch">{{ t.depositWarn }}</p>
+</section>
+
+<section style="background:#fff;border:1px solid #E4E8EC;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px">
+<h2 style="margin:0;font-size:18px;font-weight:800">{{ t.termsTitle }}</h2>
+<label style="{{ sTerms }}">
+<input type="checkbox" checked="{{ terms }}" onChange="{{ onTerms }}" style="flex:none;width:19px;height:19px;margin-top:2px;accent-color:#009FE3;cursor:pointer">
+<span style="font-size:14.5px;line-height:1.5"><strong style="font-weight:700">{{ t.required }}</strong> · {{ t.terms1 }} <a href="#condiciones">{{ t.termsLink }}</a>{{ t.terms2 }} <a href="#cancelacion">{{ t.cancelLink }}</a>.</span>
+</label>
+<sc-if value="{{ eTerms }}" hint-placeholder-val="{{ false }}"><p style="margin:-6px 0 0 30px;font-size:13px;font-weight:600;color:#A3060F">{{ eTerms }}</p></sc-if>
+<p style="margin:0;font-size:13.5px;line-height:1.55;color:#6B7580;max-width:66ch">{{ t.termsNote }}</p>
+</section>
+
+<div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">
+<button type="submit" disabled="{{ processing }}" style="{{ sPay }}">{{ payLabel }}</button>
+<a href="Moov Web - W06 Datos de reserva.dc.html" style="font-size:15px;font-weight:700">{{ t.back }}</a>
+<sc-if value="{{ processing }}" hint-placeholder-val="{{ false }}">
+<span style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;color:#4A5560"><span aria-hidden="true" style="flex:none;width:16px;height:16px;border-radius:50%;border:2px solid #CDD5DB;border-top-color:#009FE3;animation:moovspin .8s linear infinite"></span>{{ t.processing }}</span>
+</sc-if>
+</div>
+
+</form>
+
+<aside style="flex:1 1 300px;min-width:0;position:sticky;top:18px;background:#fff;border:1px solid #E4E8EC;border-radius:16px;overflow:hidden">
+<div style="padding:16px 18px;border-bottom:1px solid #EEF1F3;display:flex;gap:14px;align-items:center">
+<div style="flex:none;width:76px;height:54px;border-radius:8px;background:repeating-linear-gradient(135deg,#DFE6EA 0 8px,#E9EEF1 8px 16px)"></div>
+<div style="min-width:0"><p style="margin:0;font-size:11.5px;font-weight:800;letter-spacing:.06em;color:#6B7580;text-transform:uppercase">GRUPO C</p><h2 style="margin:3px 0 0;font-size:17px;font-weight:800">Económico</h2><p style="margin:2px 0 0;font-size:13px;color:#6B7580">Seat Ibiza <em style="font-style:normal;font-weight:700;color:#10161C">{{ t.orSimilar }}</em></p></div>
+</div>
+<dl style="margin:0;padding:15px 18px;border-bottom:1px solid #EEF1F3;display:grid;grid-template-columns:auto 1fr;gap:9px 12px;font-size:13.5px">
+<dt style="color:#6B7580;font-weight:600">{{ t.sPickup }}</dt><dd style="margin:0;font-weight:700;text-align:right">11 jul · 10:00</dd>
+<dt style="color:#6B7580;font-weight:600">{{ t.sDropoff }}</dt><dd style="margin:0;font-weight:700;text-align:right">18 jul · 10:00</dd>
+<dt style="color:#6B7580;font-weight:600">{{ t.sPlace }}</dt><dd style="margin:0;font-weight:700;text-align:right">Aeropuerto PMI</dd>
+<dt style="color:#6B7580;font-weight:600">{{ t.sDriver }}</dt><dd style="margin:0;font-weight:700;text-align:right">Marta García</dd>
+</dl>
+<div style="padding:15px 18px;display:flex;flex-direction:column;gap:10px;font-size:14px;border-bottom:1px solid #EEF1F3">
+<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A5560;font-weight:600">{{ t.sBase }}</span><strong style="font-weight:700">217 €</strong></div>
+<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A5560;font-weight:600">Pack Green</span><strong style="font-weight:700">{{ t.included }}</strong></div>
+<div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#4A5560;font-weight:600">1 × {{ t.childSeat }}</span><strong style="font-weight:700">42 €</strong></div>
+<div style="display:flex;justify-content:space-between;gap:12px;padding-top:4px"><span style="color:#4A5560;font-weight:600">{{ t.sTotal }} · {{ t.taxesIncl }}</span><strong style="font-weight:800">259 €</strong></div>
+</div>
+<div style="padding:15px 18px 16px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+<div><p style="margin:0;font-size:12.5px;font-weight:800;color:#6B7580;text-transform:uppercase;letter-spacing:.04em">{{ t.payNowLabel }}</p><p style="margin:2px 0 0;font-size:13px;color:#6B7580">{{ payNowSub }}</p></div>
+<p style="margin:0;font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1">{{ payNowValue }}</p>
+</div>
+<p style="margin:0;font-size:12.5px;line-height:1.5;color:#6B7580">{{ t.summaryNote }}</p>
+</div>
+</aside>
+
+</main>
+
+<sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;left:0;right:0;bottom:0;z-index:70;background:#fff;border-top:1px solid #E4E8EC;box-shadow:0 -6px 22px rgba(16,22,28,.12);padding:11px 16px 13px;display:flex;align-items:center;gap:14px">
+<div style="min-width:0;flex:1">
+<p style="margin:0;font-size:12px;font-weight:700;color:#6B7580;text-transform:uppercase;letter-spacing:.04em">{{ t.payNowLabel }}</p>
+<p style="margin:2px 0 0;font-size:24px;font-weight:800;letter-spacing:-.025em;line-height:1.05">{{ payNowValue }}</p>
+</div>
+<button type="button" onClick="{{ onSubmitMobile }}" disabled="{{ processing }}" style="{{ sPayMobile }}">{{ payLabelShort }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ threeDs }}" hint-placeholder-val="{{ false }}">
+<div role="dialog" aria-modal="true" aria-label="{{ t.dsTitle }}" style="position:fixed;inset:0;z-index:90;background:rgba(16,22,28,.55);display:flex;align-items:center;justify-content:center;padding:20px">
+<div style="width:100%;max-width:420px;background:#fff;border-radius:16px;padding:24px;box-shadow:0 26px 70px rgba(16,22,28,.35)">
+<p style="margin:0;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#6B7580">{{ t.dsBank }}</p>
+<h2 style="margin:8px 0 0;font-size:20px;font-weight:800">{{ t.dsTitle }}</h2>
+<p style="margin:10px 0 0;font-size:14.5px;line-height:1.55;color:#4A5560">{{ t.dsBody }}</p>
+<label style="display:flex;flex-direction:column;gap:6px;margin-top:18px">
+<span style="font-size:13px;font-weight:700;color:#4A5560">{{ t.dsCode }}</span>
+<input type="text" inputmode="numeric" value="{{ otp }}" onChange="{{ onOtp }}" placeholder="000000" style="width:100%;border:1px solid #CDD5DB;border-radius:10px;padding:12px 13px;font-size:18px;font-weight:700;letter-spacing:.18em;background:#fff;min-height:48px;color:#10161C">
+</label>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+<button type="button" onClick="{{ dsConfirm }}" style="flex:1 1 150px;border:0;border-radius:11px;background:#009FE3;color:#fff;font-size:15.5px;font-weight:700;padding:14px 18px;cursor:pointer;min-height:48px;box-shadow:0 2px 0 #0079B0">{{ t.dsConfirm }}</button>
+<button type="button" onClick="{{ dsCancel }}" style="flex:none;border:1px solid #CDD5DB;background:#fff;border-radius:11px;padding:14px 16px;font-size:15px;font-weight:700;cursor:pointer;min-height:48px;color:#10161C">{{ t.dsCancel }}</button>
+</div>
+<p style="margin:14px 0 0;font-size:12.5px;line-height:1.5;color:#6B7580">{{ t.dsHint }}</p>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:100;max-width:min(560px,calc(100vw - 32px));background:#10161C;color:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 14px 40px rgba(16,22,28,.3);display:flex;gap:14px;align-items:flex-start">
+<span style="flex:none;width:8px;height:8px;border-radius:50%;background:#0B983A;margin-top:7px"></span>
+<p style="margin:0;font-size:14.5px;line-height:1.45">{{ toast }}</p>
+<button type="button" onClick="{{ closeToast }}" style="flex:none;border:0;background:transparent;color:#fff;font-size:18px;line-height:1;cursor:pointer;padding:2px 4px" aria-label="Cerrar">×</button>
+</div>
+</sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:1040}}">
+const DICT = {
+  es:{helpPhone:"Ayuda +34 971 000 000",
+    step1:"Vehículo",step2:"Cobertura",step3:"Extras",step4:"Datos",step5:"Pago",
+    title:"Pago de la reserva",
+    intro:"Último paso. Elige cuándo pagar, confirma la tarjeta y te enviamos el localizador al instante.",
+    errTitle:"Revisa los campos marcados",
+    errOne:"Falta 1 campo por completar o corregir.",errMany:"campos por completar o corregir.",
+    whenTitle:"¿Cuándo quieres pagar?",
+    whenNote:"Puedes pagar ahora y llegar con todo resuelto, o reservar sin cargo y pagar en la oficina al recoger el coche.",
+    nowTitle:"Pagar ahora online",nowBadge:"Precio más bajo",
+    nowBody:"Cobro inmediato de la reserva completa. Cancelación gratuita hasta 48 h antes de la recogida.",
+    nowAmount:"A pagar hoy: 259 €",
+    deskTitle:"Pagar en la oficina al recoger",
+    deskBody:"Reservas hoy sin cargo. El importe se cobra en el mostrador; la tarifa es 12 € superior y la disponibilidad se garantiza solo hasta 1 h después de la hora de recogida.",
+    deskAmount:"A pagar hoy: 0 € · en oficina: 271 €",
+    cardTitle:"Tarjeta",secure:"Conexión segura",
+    cardNote:"La tarjeta debe estar a nombre del conductor principal y presentarse físicamente en la oficina.",
+    methCard:"Tarjeta de crédito o débito",methWallet:"Apple Pay / Google Pay",
+    walletNote:"La pasarela abrirá la hoja de pago del dispositivo. En este prototipo no está simulada: vuelve a tarjeta para continuar el flujo.",
+    walletBack:"Pagar con tarjeta",
+    fNumber:"Número de tarjeta",fExpiry:"Caducidad",fCvv:"CVV",fHolder:"Titular",
+    hNumber:"Aceptamos Visa, Mastercard y American Express.",
+    hCvv:"3 cifras al dorso, 4 en American Express.",
+    hHolder:"Tal como aparece en la tarjeta.",
+    depositTitle:"Fianza en la recogida",
+    depositNote:"No es un cobro. Se bloquea temporalmente en la tarjeta del conductor y se libera al devolver el coche.",
+    depAmount:"Importe bloqueado",depAmountValue:"150 €",
+    depType:"Tarjeta admitida",depTypeValue:"Crédito a nombre del conductor",
+    depRelease:"Liberación",depReleaseValue:"Hasta 7 días tras la devolución",
+    depositWarn:"Con Pack Green la franquicia es 0 € y la fianza baja de 950 € a 150 €. No se aceptan tarjetas de débito, prepago ni efectivo para la fianza.",
+    termsTitle:"Condiciones",
+    required:"Obligatorio",
+    terms1:"He leído y acepto las",termsLink:"condiciones de alquiler",terms2:" y la",cancelLink:"política de cancelación",
+    termsNote:"Al confirmar autorizas el cargo indicado y el bloqueo de la fianza en la recogida. Recibirás la factura por email.",
+    payNow:"Pagar 259 € y confirmar",payNowShort:"Pagar 259 €",
+    payDesk:"Confirmar reserva sin pago",payDeskShort:"Confirmar",
+    processing:"Contactando con el banco…",
+    back:"Volver a datos",
+    declinedTitle:"El banco ha rechazado el pago",
+    declinedBody:"No se ha realizado ningún cargo y tu reserva sigue guardada. Prueba con otra tarjeta o contacta con tu banco para autorizar la operación.",
+    declinedCode:"Motivo: autenticación no completada (código 3DS-51)",
+    dsBank:"Tu banco",dsTitle:"Verificación 3D Secure",
+    dsBody:"Hemos enviado un código de 6 cifras al +34 ··· ··· 000. Introdúcelo para autorizar el pago de 259 €.",
+    dsCode:"Código de verificación",dsConfirm:"Autorizar pago",dsCancel:"Cancelar",
+    dsHint:"Prototipo: cualquier código de 6 cifras autoriza el pago. Deja el campo vacío para ver el estado de pago rechazado.",
+    orSimilar:"o similar",childSeat:"Silla infantil",
+    sPickup:"Recogida",sDropoff:"Devolución",sPlace:"Oficina",sDriver:"Conductor",
+    sBase:"Alquiler 7 días",included:"Incluido",sTotal:"Total reserva",taxesIncl:"impuestos incluidos",
+    payNowLabel:"A pagar hoy",payNowSubNow:"Cargo inmediato",payNowSubDesk:"Se paga en la oficina",
+    summaryNote:"Cancelación gratuita hasta 48 h antes de la recogida.",
+    eReq:"Este campo es obligatorio",eNumber:"El número de tarjeta no es válido",
+    eExpiry:"Usa el formato MM/AA",eExpired:"La tarjeta está caducada",
+    eCvv:"El CVV tiene 3 o 4 cifras",eTerms:"Debes aceptar las condiciones para confirmar la reserva",
+    okDesk:"Reserva confirmada sin pago. Siguiente pantalla: W08 Confirmación. Aún no prototipada.",
+    okNow:"Pago autorizado. Siguiente pantalla: W08 Confirmación. Aún no prototipada."},
+  en:{helpPhone:"Help +34 971 000 000",
+    step1:"Car",step2:"Cover",step3:"Extras",step4:"Details",step5:"Payment",
+    title:"Booking payment",
+    intro:"Last step. Choose when to pay, confirm your card and we send your booking reference straight away.",
+    errTitle:"Please review the highlighted fields",
+    errOne:"1 field still needs to be completed or corrected.",errMany:"fields need to be completed or corrected.",
+    whenTitle:"When would you like to pay?",
+    whenNote:"Pay now and arrive with everything settled, or book with no charge and pay at the desk when you collect the car.",
+    nowTitle:"Pay now online",nowBadge:"Lowest price",
+    nowBody:"Immediate charge for the full booking. Free cancellation up to 48 h before pick-up.",
+    nowAmount:"Due today: €259",
+    deskTitle:"Pay at the desk on pick-up",
+    deskBody:"Book today at no charge. The amount is taken at the desk; the rate is €12 higher and availability is only guaranteed until 1 h after the pick-up time.",
+    deskAmount:"Due today: €0 · at the desk: €271",
+    cardTitle:"Card",secure:"Secure connection",
+    cardNote:"The card must be in the main driver's name and presented physically at the desk.",
+    methCard:"Credit or debit card",methWallet:"Apple Pay / Google Pay",
+    walletNote:"The gateway opens the device payment sheet. It is not simulated in this prototype: switch back to card to continue the flow.",
+    walletBack:"Pay by card",
+    fNumber:"Card number",fExpiry:"Expiry",fCvv:"CVV",fHolder:"Cardholder",
+    hNumber:"We accept Visa, Mastercard and American Express.",
+    hCvv:"3 digits on the back, 4 on American Express.",
+    hHolder:"Exactly as printed on the card.",
+    depositTitle:"Deposit at pick-up",
+    depositNote:"This is not a charge. It is temporarily held on the driver's card and released when the car comes back.",
+    depAmount:"Amount held",depAmountValue:"€150",
+    depType:"Accepted card",depTypeValue:"Credit, in the driver's name",
+    depRelease:"Release",depReleaseValue:"Up to 7 days after return",
+    depositWarn:"With Pack Green the excess is €0 and the deposit drops from €950 to €150. Debit, prepaid cards and cash are not accepted for the deposit.",
+    termsTitle:"Terms",
+    required:"Required",
+    terms1:"I have read and accept the",termsLink:"rental terms",terms2:" and the",cancelLink:"cancellation policy",
+    termsNote:"By confirming you authorise the amount shown and the deposit hold at pick-up. The invoice arrives by email.",
+    payNow:"Pay €259 and confirm",payNowShort:"Pay €259",
+    payDesk:"Confirm booking without payment",payDeskShort:"Confirm",
+    processing:"Contacting your bank…",
+    back:"Back to details",
+    declinedTitle:"Your bank declined the payment",
+    declinedBody:"Nothing has been charged and your booking is still saved. Try another card or contact your bank to authorise the transaction.",
+    declinedCode:"Reason: authentication not completed (code 3DS-51)",
+    dsBank:"Your bank",dsTitle:"3D Secure verification",
+    dsBody:"We sent a 6-digit code to +34 ··· ··· 000. Enter it to authorise the €259 payment.",
+    dsCode:"Verification code",dsConfirm:"Authorise payment",dsCancel:"Cancel",
+    dsHint:"Prototype: any 6-digit code authorises the payment. Leave it empty to see the declined state.",
+    orSimilar:"or similar",childSeat:"Child seat",
+    sPickup:"Pick-up",sDropoff:"Drop-off",sPlace:"Office",sDriver:"Driver",
+    sBase:"7-day rental",included:"Included",sTotal:"Booking total",taxesIncl:"taxes included",
+    payNowLabel:"Due today",payNowSubNow:"Charged immediately",payNowSubDesk:"Paid at the desk",
+    summaryNote:"Free cancellation up to 48 h before pick-up.",
+    eReq:"This field is required",eNumber:"That card number is not valid",
+    eExpiry:"Use the MM/YY format",eExpired:"The card has expired",
+    eCvv:"The CVV has 3 or 4 digits",eTerms:"You must accept the terms to confirm the booking",
+    okDesk:"Booking confirmed without payment. Next screen: W08 Confirmation. Not prototyped yet.",
+    okNow:"Payment authorised. Next screen: W08 Confirmation. Not prototyped yet."},
+  de:{helpPhone:"Hilfe +34 971 000 000",
+    step1:"Fahrzeug",step2:"Versicherung",step3:"Extras",step4:"Daten",step5:"Zahlung",
+    title:"Zahlung der Buchung",
+    intro:"Letzter Schritt. Wählen Sie den Zahlungszeitpunkt, bestätigen Sie die Karte und Sie erhalten die Buchungsnummer sofort.",
+    errTitle:"Bitte prüfen Sie die markierten Felder",
+    errOne:"1 Feld muss noch ausgefüllt oder korrigiert werden.",errMany:"Felder müssen noch ausgefüllt oder korrigiert werden.",
+    whenTitle:"Wann möchten Sie zahlen?",
+    whenNote:"Jetzt zahlen und entspannt ankommen – oder kostenfrei buchen und bei der Abholung an der Station zahlen.",
+    nowTitle:"Jetzt online zahlen",nowBadge:"Bester Preis",
+    nowBody:"Sofortige Abbuchung der gesamten Buchung. Kostenlose Stornierung bis 48 h vor Abholung.",
+    nowAmount:"Heute fällig: 259 €",
+    deskTitle:"Bei Abholung an der Station zahlen",
+    deskBody:"Heute kostenfrei buchen. Der Betrag wird am Schalter abgerechnet; der Tarif ist 12 € höher und die Verfügbarkeit ist nur bis 1 h nach der Abholzeit garantiert.",
+    deskAmount:"Heute fällig: 0 € · an der Station: 271 €",
+    cardTitle:"Karte",secure:"Sichere Verbindung",
+    cardNote:"Die Karte muss auf den Hauptfahrer lauten und an der Station vorgelegt werden.",
+    methCard:"Kredit- oder Debitkarte",methWallet:"Apple Pay / Google Pay",
+    walletNote:"Das Zahlungsfenster des Geräts wird geöffnet. In diesem Prototyp nicht simuliert: zurück zur Karte, um weiterzugehen.",
+    walletBack:"Mit Karte zahlen",
+    fNumber:"Kartennummer",fExpiry:"Gültig bis",fCvv:"CVV",fHolder:"Karteninhaber",
+    hNumber:"Wir akzeptieren Visa, Mastercard und American Express.",
+    hCvv:"3 Ziffern auf der Rückseite, 4 bei American Express.",
+    hHolder:"Genau wie auf der Karte angegeben.",
+    depositTitle:"Kaution bei Abholung",
+    depositNote:"Keine Abbuchung. Der Betrag wird auf der Fahrerkarte vorgemerkt und bei Rückgabe freigegeben.",
+    depAmount:"Vorgemerkter Betrag",depAmountValue:"150 €",
+    depType:"Akzeptierte Karte",depTypeValue:"Kreditkarte des Fahrers",
+    depRelease:"Freigabe",depReleaseValue:"Bis zu 7 Tage nach Rückgabe",
+    depositWarn:"Mit Pack Green beträgt die Selbstbeteiligung 0 € und die Kaution sinkt von 950 € auf 150 €. Debit-, Prepaid-Karten und Bargeld werden für die Kaution nicht akzeptiert.",
+    termsTitle:"Bedingungen",
+    required:"Pflichtfeld",
+    terms1:"Ich habe die",termsLink:"Mietbedingungen",terms2:" und die",cancelLink:"Stornierungsbedingungen",
+    termsNote:"Mit der Bestätigung autorisieren Sie den angezeigten Betrag und die Kautionsvormerkung bei Abholung. Die Rechnung kommt per E-Mail.",
+    payNow:"259 € zahlen und bestätigen",payNowShort:"259 € zahlen",
+    payDesk:"Buchung ohne Zahlung bestätigen",payDeskShort:"Bestätigen",
+    processing:"Verbindung zur Bank…",
+    back:"Zurück zu den Daten",
+    declinedTitle:"Die Bank hat die Zahlung abgelehnt",
+    declinedBody:"Es wurde nichts abgebucht und Ihre Buchung ist weiter gespeichert. Versuchen Sie eine andere Karte oder wenden Sie sich an Ihre Bank.",
+    declinedCode:"Grund: Authentifizierung nicht abgeschlossen (Code 3DS-51)",
+    dsBank:"Ihre Bank",dsTitle:"3D-Secure-Verifizierung",
+    dsBody:"Wir haben einen 6-stelligen Code an +34 ··· ··· 000 gesendet. Geben Sie ihn ein, um 259 € zu autorisieren.",
+    dsCode:"Verifizierungscode",dsConfirm:"Zahlung autorisieren",dsCancel:"Abbrechen",
+    dsHint:"Prototyp: jeder 6-stellige Code autorisiert die Zahlung. Feld leer lassen, um den abgelehnten Status zu sehen.",
+    orSimilar:"oder ähnlich",childSeat:"Kindersitz",
+    sPickup:"Abholung",sDropoff:"Rückgabe",sPlace:"Station",sDriver:"Fahrer",
+    sBase:"Miete 7 Tage",included:"Inklusive",sTotal:"Buchungssumme",taxesIncl:"inkl. Steuern",
+    payNowLabel:"Heute fällig",payNowSubNow:"Sofortige Abbuchung",payNowSubDesk:"Zahlung an der Station",
+    summaryNote:"Kostenlose Stornierung bis 48 h vor Abholung.",
+    eReq:"Dieses Feld ist erforderlich",eNumber:"Diese Kartennummer ist nicht gültig",
+    eExpiry:"Format MM/JJ verwenden",eExpired:"Die Karte ist abgelaufen",
+    eCvv:"Der CVV hat 3 oder 4 Ziffern",eTerms:"Sie müssen die Bedingungen akzeptieren, um zu bestätigen",
+    okDesk:"Buchung ohne Zahlung bestätigt. Nächster Screen: W08 Bestätigung. Noch nicht prototypisiert.",
+    okNow:"Zahlung autorisiert. Nächster Screen: W08 Bestätigung. Noch nicht prototypisiert."},
+  fr:{helpPhone:"Aide +34 971 000 000",
+    step1:"Véhicule",step2:"Couverture",step3:"Options",step4:"Coordonnées",step5:"Paiement",
+    title:"Paiement de la réservation",
+    intro:"Dernière étape. Choisissez quand payer, confirmez la carte et nous vous envoyons la référence immédiatement.",
+    errTitle:"Veuillez vérifier les champs signalés",
+    errOne:"1 champ reste à compléter ou corriger.",errMany:"champs restent à compléter ou corriger.",
+    whenTitle:"Quand souhaitez-vous payer ?",
+    whenNote:"Payez maintenant et arrivez sans rien à régler, ou réservez sans frais et payez à l'agence lors de la prise en charge.",
+    nowTitle:"Payer maintenant en ligne",nowBadge:"Meilleur prix",
+    nowBody:"Débit immédiat de la réservation complète. Annulation gratuite jusqu'à 48 h avant la prise en charge.",
+    nowAmount:"À payer aujourd'hui : 259 €",
+    deskTitle:"Payer à l'agence à la prise en charge",
+    deskBody:"Réservez aujourd'hui sans frais. Le montant est encaissé au comptoir ; le tarif est supérieur de 12 € et la disponibilité n'est garantie que jusqu'à 1 h après l'heure de prise en charge.",
+    deskAmount:"À payer aujourd'hui : 0 € · à l'agence : 271 €",
+    cardTitle:"Carte",secure:"Connexion sécurisée",
+    cardNote:"La carte doit être au nom du conducteur principal et présentée physiquement à l'agence.",
+    methCard:"Carte de crédit ou de débit",methWallet:"Apple Pay / Google Pay",
+    walletNote:"La passerelle ouvre la feuille de paiement de l'appareil. Non simulé dans ce prototype : revenez à la carte pour continuer.",
+    walletBack:"Payer par carte",
+    fNumber:"Numéro de carte",fExpiry:"Expiration",fCvv:"CVV",fHolder:"Titulaire",
+    hNumber:"Nous acceptons Visa, Mastercard et American Express.",
+    hCvv:"3 chiffres au dos, 4 sur American Express.",
+    hHolder:"Tel qu'il apparaît sur la carte.",
+    depositTitle:"Caution à la prise en charge",
+    depositNote:"Ce n'est pas un débit. Le montant est préautorisé sur la carte du conducteur et libéré au retour du véhicule.",
+    depAmount:"Montant bloqué",depAmountValue:"150 €",
+    depType:"Carte acceptée",depTypeValue:"Crédit, au nom du conducteur",
+    depRelease:"Libération",depReleaseValue:"Jusqu'à 7 jours après le retour",
+    depositWarn:"Avec le Pack Green la franchise est de 0 € et la caution passe de 950 € à 150 €. Les cartes de débit, prépayées et les espèces ne sont pas acceptées pour la caution.",
+    termsTitle:"Conditions",
+    required:"Obligatoire",
+    terms1:"J'ai lu et j'accepte les",termsLink:"conditions de location",terms2:" et la",cancelLink:"politique d'annulation",
+    termsNote:"En confirmant, vous autorisez le montant indiqué et la préautorisation de la caution. La facture arrive par e-mail.",
+    payNow:"Payer 259 € et confirmer",payNowShort:"Payer 259 €",
+    payDesk:"Confirmer sans paiement",payDeskShort:"Confirmer",
+    processing:"Connexion à votre banque…",
+    back:"Retour aux coordonnées",
+    declinedTitle:"Votre banque a refusé le paiement",
+    declinedBody:"Aucun montant n'a été débité et votre réservation est conservée. Essayez une autre carte ou contactez votre banque pour autoriser l'opération.",
+    declinedCode:"Motif : authentification non aboutie (code 3DS-51)",
+    dsBank:"Votre banque",dsTitle:"Vérification 3D Secure",
+    dsBody:"Nous avons envoyé un code à 6 chiffres au +34 ··· ··· 000. Saisissez-le pour autoriser le paiement de 259 €.",
+    dsCode:"Code de vérification",dsConfirm:"Autoriser le paiement",dsCancel:"Annuler",
+    dsHint:"Prototype : tout code à 6 chiffres autorise le paiement. Laissez vide pour voir l'état refusé.",
+    orSimilar:"ou similaire",childSeat:"Siège enfant",
+    sPickup:"Prise en charge",sDropoff:"Restitution",sPlace:"Agence",sDriver:"Conducteur",
+    sBase:"Location 7 jours",included:"Inclus",sTotal:"Total réservation",taxesIncl:"taxes incluses",
+    payNowLabel:"À payer aujourd'hui",payNowSubNow:"Débit immédiat",payNowSubDesk:"Paiement à l'agence",
+    summaryNote:"Annulation gratuite jusqu'à 48 h avant la prise en charge.",
+    eReq:"Ce champ est obligatoire",eNumber:"Ce numéro de carte n'est pas valide",
+    eExpiry:"Utilisez le format MM/AA",eExpired:"La carte est expirée",
+    eCvv:"Le CVV comporte 3 ou 4 chiffres",eTerms:"Vous devez accepter les conditions pour confirmer",
+    okDesk:"Réservation confirmée sans paiement. Écran suivant : W08 Confirmation. Pas encore prototypé.",
+    okNow:"Paiement autorisé. Écran suivant : W08 Confirmation. Pas encore prototypé."}
+};
+
+function luhn(num){
+  let sum = 0, dbl = false;
+  for (let i = num.length - 1; i >= 0; i--){
+    let d = num.charCodeAt(i) - 48;
+    if (dbl){ d *= 2; if (d > 9) d -= 9; }
+    sum += d; dbl = !dbl;
+  }
+  return sum % 10 === 0;
+}
+
+class Component extends DCLogic {
+  state = {lang:"es", narrow:false, submitted:false, touched:{}, toast:null,
+    when:"now", method:"card",
+    number:"", expiry:"", cvv:"", holder:"",
+    terms:false, processing:false, threeDs:false, otp:"", declined:false};
+
+  componentDidMount(){
+    this._onResize = () => {
+      const n = window.innerWidth < 860;
+      if (n !== this.state.narrow) this.setState({narrow:n});
+    };
+    this._onResize();
+    window.addEventListener("resize", this._onResize);
+  }
+  componentWillUnmount(){ window.removeEventListener("resize", this._onResize); clearTimeout(this._tm); clearTimeout(this._pm); }
+
+  toast(msg){ this.setState({toast:msg}); clearTimeout(this._tm); this._tm=setTimeout(()=>this.setState({toast:null}),7000); }
+
+  langBtn(code){
+    const on = this.state.lang===code;
+    return "border:0;border-radius:6px;padding:6px 9px;font-size:12.5px;font-weight:700;cursor:pointer;min-width:34px;" +
+      (on?"background:#fff;color:#10161C;box-shadow:0 1px 2px rgba(16,22,28,.16)":"background:transparent;color:#4A5560");
+  }
+  field(err){
+    return "width:100%;min-width:0;border-radius:10px;padding:12px 13px;font-size:15px;font-weight:600;background:#fff;min-height:48px;color:#10161C;" +
+      (err ? "border:1px solid #E30613;box-shadow:0 0 0 3px rgba(227,6,19,.10)" : "border:1px solid #CDD5DB");
+  }
+  optionBox(on){
+    return "display:flex;gap:12px;align-items:flex-start;padding:15px 16px;border-radius:12px;cursor:pointer;" +
+      (on ? "border:1.5px solid #009FE3;background:#F1FAFE;box-shadow:0 0 0 3px rgba(0,159,227,.10)" : "border:1px solid #E4E8EC;background:#fff");
+  }
+  methodBtn(on){
+    return "border-radius:10px;padding:12px 16px;font-size:14.5px;font-weight:700;cursor:pointer;min-height:46px;" +
+      (on ? "border:1.5px solid #009FE3;background:#F1FAFE;color:#0060A0" : "border:1px solid #CDD5DB;background:#fff;color:#10161C");
+  }
+  touch(k){ this.setState({touched:Object.assign({}, this.state.touched, {[k]:true})}); }
+
+  errors(){
+    const s = this.state, t = DICT[s.lang], e = {};
+    if (s.when === "now" && s.method === "card"){
+      const digits = s.number.replace(/\D/g,"");
+      if (!digits) e.number = t.eReq;
+      else if (digits.length < 13 || digits.length > 19 || !luhn(digits)) e.number = t.eNumber;
+      const m = s.expiry.trim().match(/^(\d{2})\s*\/\s*(\d{2})$/);
+      if (!s.expiry.trim()) e.expiry = t.eReq;
+      else if (!m || +m[1] < 1 || +m[1] > 12) e.expiry = t.eExpiry;
+      else {
+        const end = new Date(2000 + +m[2], +m[1], 1);
+        if (end <= new Date(2026, 8, 15)) e.expiry = t.eExpired;
+      }
+      const c = s.cvv.replace(/\D/g,"");
+      if (!s.cvv.trim()) e.cvv = t.eReq;
+      else if (c.length < 3 || c.length > 4) e.cvv = t.eCvv;
+      if (!s.holder.trim()) e.holder = t.eReq;
+    }
+    if (!s.terms) e.terms = t.eTerms;
+    return e;
+  }
+
+  submit(){
+    const s = this.state, t = DICT[s.lang];
+    if (s.processing) return;
+    const e = this.errors();
+    this.setState({submitted:true, declined:false});
+    if (Object.keys(e).length > 0){ window.scrollTo({top:0, behavior:"smooth"}); return; }
+    if (s.when === "desk"){ this.toast(t.okDesk); return; }
+    if (s.method === "wallet"){ return; }
+    this.setState({processing:true});
+    clearTimeout(this._pm);
+    this._pm = setTimeout(()=>this.setState({processing:false, threeDs:true, otp:""}), 1400);
+  }
+
+  dsConfirm(){
+    const t = DICT[this.state.lang];
+    const ok = /^\d{6}$/.test(this.state.otp.trim());
+    this.setState({threeDs:false, processing:ok});
+    if (!ok){ this.setState({declined:true, processing:false}); window.scrollTo({top:0, behavior:"smooth"}); return; }
+    clearTimeout(this._pm);
+    this._pm = setTimeout(()=>{ this.setState({processing:false}); this.toast(t.okNow); }, 1200);
+  }
+
+  renderVals(){
+    const s = this.state, t = DICT[s.lang], errs = this.errors();
+    const show = k => (s.submitted || s.touched[k]) ? errs[k] : null;
+    const fieldErrs = Object.keys(errs).filter(k => k !== "terms").length + (errs.terms ? 1 : 0);
+    const isNow = s.when === "now";
+    const payBase = "border:0;border-radius:11px;background:#009FE3;color:#fff;font-size:16.5px;font-weight:700;padding:15px 24px;min-height:50px;box-shadow:0 2px 0 #0079B0;";
+
+    return {
+      t,
+      narrow: s.narrow, toast: s.toast, processing: s.processing, threeDs: s.threeDs,
+      declined: s.declined, otp: s.otp,
+      whenNow: isNow, whenDesk: !isNow,
+      sWhenNow: this.optionBox(isNow), sWhenDesk: this.optionBox(!isNow),
+      isCard: isNow && s.method === "card", isWallet: isNow && s.method === "wallet",
+      sMethCard: this.methodBtn(s.method === "card"), sMethWallet: this.methodBtn(s.method === "wallet"),
+      number:s.number, expiry:s.expiry, cvv:s.cvv, holder:s.holder, terms:s.terms,
+      eNumber:show("number"), eExpiry:show("expiry"), eCvv:show("cvv"), eHolder:show("holder"), eTerms:show("terms"),
+      noNumberError: !show("number"), noCvvError: !show("cvv"), noHolderError: !show("holder"),
+      sNumber:this.field(show("number")), sExpiry:this.field(show("expiry")),
+      sCvv:this.field(show("cvv")), sHolder:this.field(show("holder")),
+      sTerms: "display:flex;gap:11px;align-items:flex-start;padding:13px 14px;border-radius:11px;cursor:pointer;" +
+        (show("terms") ? "border:1px solid #E30613;background:#FEF6F6" : "border:1px solid #E4E8EC"),
+      showErrorSummary: s.submitted && fieldErrs > 0 && !s.declined,
+      errorSummary: fieldErrs === 1 ? t.errOne : fieldErrs + " " + t.errMany,
+      payLabel: s.processing ? t.processing : (isNow ? t.payNow : t.payDesk),
+      payLabelShort: isNow ? t.payNowShort : t.payDeskShort,
+      sPay: payBase + (s.processing ? "cursor:progress;opacity:.6" : "cursor:pointer"),
+      sPayMobile: "flex:none;border:0;border-radius:11px;background:#009FE3;color:#fff;font-size:15.5px;font-weight:700;padding:14px 18px;min-height:48px;box-shadow:0 2px 0 #0079B0;" + (s.processing ? "cursor:progress;opacity:.6" : "cursor:pointer"),
+      payNowValue: isNow ? "259 €" : "0 €",
+      payNowSub: isNow ? t.payNowSubNow : t.payNowSubDesk,
+      langEs:this.langBtn("es"),langEn:this.langBtn("en"),langDe:this.langBtn("de"),langFr:this.langBtn("fr"),
+      setEs:()=>this.setState({lang:"es"}),setEn:()=>this.setState({lang:"en"}),
+      setDe:()=>this.setState({lang:"de"}),setFr:()=>this.setState({lang:"fr"}),
+      pickNow:()=>this.setState({when:"now", declined:false}),
+      pickDesk:()=>this.setState({when:"desk", declined:false}),
+      pickCard:()=>this.setState({method:"card"}),
+      pickWallet:()=>this.setState({method:"wallet"}),
+      onNumber:e=>this.setState({number:e.target.value}), blurNumber:()=>this.touch("number"),
+      onExpiry:e=>this.setState({expiry:e.target.value}), blurExpiry:()=>this.touch("expiry"),
+      onCvv:e=>this.setState({cvv:e.target.value}), blurCvv:()=>this.touch("cvv"),
+      onHolder:e=>this.setState({holder:e.target.value}), blurHolder:()=>this.touch("holder"),
+      onTerms:e=>this.setState({terms:e.target.checked}),
+      onOtp:e=>this.setState({otp:e.target.value}),
+      dsConfirm:()=>this.dsConfirm(),
+      dsCancel:()=>{ this.setState({threeDs:false, declined:true, processing:false}); window.scrollTo({top:0, behavior:"smooth"}); },
+      onSubmit:e=>{ e.preventDefault(); this.submit(); },
+      onSubmitMobile:()=>this.submit(),
+      closeToast:()=>this.setState({toast:null})
+    };
+  }
+}
+
+</script>
+</body>
+</html>
